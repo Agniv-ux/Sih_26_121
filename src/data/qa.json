@@ -1,0 +1,58 @@
+{
+  "suggested": ["tipam-losses", "barail-stuck", "cement-9625"],
+  "entries": [
+    {
+      "id": "tipam-losses",
+      "question": "How were losses controlled in Tipam sand?",
+      "keywords": ["loss", "losses", "lost", "circulation", "lcm", "tipam", "sand", "mud weight", "cure", "control"],
+      "answer": "Three of the six offset wells that penetrated Tipam reported mud losses within 20–55 m of the formation top. In OW-02 and OW-05, partial losses of 8–15 bbl/hr were cured within 6 hours by spotting a 40 ppb LCM pill and reducing mud weight to 1.18 SG. In OW-03, hi-vis pills alone did not work and losses went total at 1.26 SG, costing 38 hours before a cement plug restored circulation.",
+      "sources": ["OW-02 DDR 14-Mar-2019 p.3", "OW-05 WCR p.41", "OW-03 WCR p.27"]
+    },
+    {
+      "id": "barail-stuck",
+      "question": "Which wells had stuck pipe in Barail?",
+      "keywords": ["stuck", "pipe", "barail", "sticking", "differential", "pack-off", "packoff", "jar", "freed"],
+      "answer": "OW-01 and OW-04 both had stuck pipe in the Barail. OW-01 was differentially stuck at 3,478 m after a 25-minute static connection and was freed by jarring and a spotting pill (16 h lost). OW-04 packed off at 3,585 m while tripping out of the deviated section (11 h lost). Both wells reached TD without recurrence after switching to controlled ROP, frequent wiper trips and keeping the pipe moving on connections.",
+      "sources": ["OW-01 DDR 22-Aug-2011 p.2", "OW-04 DDR 06-Jun-2014 p.4"]
+    },
+    {
+      "id": "cement-9625",
+      "question": "What cementing issues were seen on 9⅝\" casing?",
+      "keywords": ["cement", "cementing", "casing", "9⅝", "9 5/8", "9-5/8", "shoe", "cbl", "bond", "squeeze", "toc"],
+      "answer": "OW-06 lost returns during the 9⅝\" primary cement job at 3,405 m; top of cement ended about 350 m below plan and the CBL showed poor bond. A remedial squeeze restored isolation, with 26 hours lost. The report recommends curing losses before cementing, a lightweight lead slurry and a lower displacement rate.",
+      "sources": ["OW-06 Cementing report 03-Oct-2006 p.5", "OW-06 WCR p.33"]
+    },
+    {
+      "id": "barail-kick",
+      "question": "Was any kick seen in the Barail?",
+      "keywords": ["kick", "influx", "gas", "well control", "pit gain", "shut in", "kill", "pressure"],
+      "answer": "One kick was recorded: OW-04 took an 8 bbl gas influx at 3,905 m in the lower Barail sand while drilling with 1.32 SG mud. The well was shut in (SIDPP 180 psi), weighted up to 1.40 SG and circulated out using the driller's method, with 21 hours lost and no losses induced.",
+      "sources": ["OW-04 DDR 19-Jun-2014 p.2"]
+    },
+    {
+      "id": "why-tipam",
+      "question": "Why is Tipam sand flagged as high risk?",
+      "keywords": [],
+      "answer": "Tipam is flagged high because 3 of 6 offset wells within 10 km lost mud there, and losses began 17–35 m below the formation top — about 2,865–2,890 m in this well. Wells that entered Tipam at 1.23–1.26 SG lost circulation; the two that reduced mud weight to 1.18 SG and had an LCM pill ready (OW-02, OW-05) cured losses within 6 hours, while OW-03 lost 38 hours.",
+      "sources": ["OW-02 DDR 14-Mar-2019 p.3", "OW-05 WCR p.41", "OW-03 WCR p.27"]
+    },
+    {
+      "id": "why-barail",
+      "question": "Why is Barail flagged for stuck pipe?",
+      "keywords": [],
+      "answer": "Two of the five offset wells that reached Barail got stuck there: OW-01 by differential sticking during a static connection, and OW-04 by pack-off from poor hole cleaning. Together they lost 27 hours. In both wells, controlled ROP, wiper trips every 150–200 m and keeping the string moving prevented any repeat.",
+      "sources": ["OW-01 DDR 22-Aug-2011 p.2", "OW-04 DDR 06-Jun-2014 p.4"]
+    },
+    {
+      "id": "why-cement",
+      "question": "Why is there a note on the 9⅝\" cement job?",
+      "keywords": [],
+      "answer": "The planned 9⅝\" shoe (3,390 m) sits in lower Tipam, the same loss-prone sand. In OW-06 the 9⅝\" cement job lost returns and top of cement was ~350 m low, needing a 26-hour remedial squeeze. The note is informational: cure any losses before cementing and plan a lightweight lead slurry.",
+      "sources": ["OW-06 Cementing report 03-Oct-2006 p.5"]
+    }
+  ],
+  "fallback": {
+    "answer": "No passage in the selected well reports matches that question closely. Try asking about mud losses, stuck pipe, kicks or cementing in a named formation.",
+    "sources": []
+  }
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "tipam-losses",
+    "severity": "HIGH",
+    "formation": "Tipam",
+    "eventType": "Mud Loss",
+    "targetDepth": 2850,
+    "targetLabel": "Tipam top",
+    "headline": "Approaching Tipam sand in ~{d} m.",
+    "finding": "Partial mud losses in {n} of {m} offset wells at this formation.",
+    "whatWorked": "LCM pill + reducing mud weight to 1.18 SG",
+    "whatWorkedWells": ["OW-02", "OW-05"],
+    "whyQaId": "why-tipam"
+  },
+  {
+    "id": "barail-stuck",
+    "severity": "MEDIUM",
+    "formation": "Barail",
+    "eventType": "Stuck Pipe",
+    "targetDepth": 3420,
+    "targetLabel": "Barail top",
+    "headline": "Stuck pipe risk in Barail, top ~{d} m ahead.",
+    "finding": "Stuck pipe in {n} of {m} offset wells that reached Barail.",
+    "whatWorked": "Controlled ROP (≤12 m/hr), wiper trips every 150–200 m, keep pipe moving on connections",
+    "whatWorkedWells": ["OW-01", "OW-04"],
+    "whyQaId": "why-barail"
+  },
+  {
+    "id": "cement-9625",
+    "severity": "LOW",
+    "formation": "Tipam",
+    "eventType": "Cementing Issue",
+    "targetDepth": 3390,
+    "targetLabel": "9⅝\" shoe (planned)",
+    "headline": "9⅝\" casing point in ~{d} m — cement job note.",
+    "finding": "Losses during the 9⅝\" cement job in {n} offset well; top of cement below plan.",
+    "whatWorked": "Cure losses before cementing, lightweight lead slurry, displace at ≤5 bbl/min",
+    "whatWorkedWells": ["OW-06"],
+    "whyQaId": "why-cement"
+  }
+]
