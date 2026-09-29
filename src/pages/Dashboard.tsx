@@ -24,7 +24,7 @@ export default function Dashboard() {
   const count = (f: (typeof FILTERS)[number]) => (f === 'All' ? wellsInRadius.length : wellsInRadius.filter((w) => w.mainIssue === f).length);
 
   return (
-    <div className="flex h-full min-h-[760px] flex-col p-4">
+    <div className="flex h-full min-h-[700px] flex-col p-4">
       <div className="mb-3 flex items-baseline justify-between">
         <h1 className="text-[1.35rem] font-semibold">Dashboard – Nearby Wells Map</h1>
         <span className="text-[0.85rem] text-muted">Offset wells within {radiusKm} km of the active well · sample data</span>

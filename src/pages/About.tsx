@@ -86,7 +86,7 @@ function Architecture() {
 export default function About() {
   useShotReady();
   return (
-    <div className="max-w-[1400px] p-4">
+    <div className="p-4">
       <PageHeader title="About NWIS" subtitle="Team ALTITUDE · Smart India Hackathon 2026 · Problem statement SIH26121 (Oil India Limited)" />
       <div className="mb-3 grid grid-cols-2 gap-3">
         <section className="card">
