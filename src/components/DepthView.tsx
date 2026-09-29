@@ -1,484 +1,259 @@
-import { useEffect, useMemo } from 'react';
-import ReactEChartsCore from 'echarts-for-react/esm/core';
-import * as echarts from 'echarts/core';
-import { CustomChart, ScatterChart } from 'echarts/charts';
-import { DataZoomComponent, GridComponent, MarkLineComponent, TooltipComponent } from 'echarts/components';
-import { CanvasRenderer } from 'echarts/renderers';
-import type { ActiveWell, Casing, EventType, FormationTop, OffsetWell, WellEvent } from '../types';
-import { FORMATION_COLORS, ISSUE_COLORS, ISSUE_SHORT } from '../lib/constants';
-import { fmtHrs, fmtKm, fmtM } from '../lib/format';
+import ReactECharts from 'echarts-for-react';
+import type { CustomSeriesRenderItemAPI, CustomSeriesRenderItemParams } from 'echarts';
+import type { Casing, EventType, FormationTop } from '../types';
+import { ACTIVE } from '../data';
+import { C, FORMATION_COLORS, FORMATION_EDGE, ISSUE_COLORS } from '../lib/constants';
+import { fmtM, sourceLabel } from '../lib/format';
+import { SHOT } from '../lib/shot';
+import { tvd } from '../lib/wells';
+import type { OffsetWell, WellEvent } from '../types';
 
-echarts.use([CustomChart, ScatterChart, GridComponent, TooltipComponent, MarkLineComponent, DataZoomComponent, CanvasRenderer]);
+export type DepthMode = 'MD' | 'TVD';
 
-interface Props {
-  active: ActiveWell;
-  wells: OffsetWell[];
-  bitDepth: number;
-  radiusKm: number;
-  focusWell: string | null;
-  onClose: () => void;
-  onReady?: () => void;
-}
-
+/** A column prepared for plotting: depths already converted (MD/TVD) and shifted for alignment. */
 interface Column {
   name: string;
-  sub: string;
-  td: number;
+  active: boolean;
   tops: FormationTop[];
+  td: number;
   casing: Casing[];
-  events: WellEvent[];
-  isActive: boolean;
+  events: (WellEvent & { y: number })[];
+  shift: number;
 }
 
-interface Band {
-  x: number;
-  well: string;
-  formation: string;
-  top: number;
-  base: number;
-  planned: boolean;
-  label: boolean;
-}
+const SYMBOL: Record<EventType, string> = {
+  'Mud Loss': 'circle',
+  'Stuck Pipe': 'rect',
+  Kick: 'triangle',
+  'Cementing Issue': 'diamond',
+  'Torque Spike': 'pin',
+};
+const COL_FRAC = 0.34;
 
-const BW = 0.34; // column width as a share of the category width
-const Y_MAX = 4300;
-const EVENT_TYPES: EventType[] = ['Mud Loss', 'Stuck Pipe', 'Kick', 'Cementing Issue', 'Torque Spike'];
-
-function bandsFor(col: Column, x: number, bitDepth: number): Band[] {
-  const out: Band[] = [];
-  col.tops.forEach((t, i) => {
-    const base = Math.min(col.tops[i + 1]?.top ?? col.td, col.td);
-    if (base <= t.top) return;
-    if (col.isActive && bitDepth > t.top && bitDepth < base) {
-      out.push({ x, well: col.name, formation: t.name, top: t.top, base: bitDepth, planned: false, label: false });
-      out.push({ x, well: col.name, formation: t.name, top: bitDepth, base, planned: true, label: false });
-    } else {
-      out.push({ x, well: col.name, formation: t.name, top: t.top, base, planned: col.isActive && t.top >= bitDepth, label: false });
-    }
-  });
-  return out;
-}
-
-function buildOption(cols: Column[], bitDepth: number) {
-  const bands = cols.flatMap((c, x) => bandsFor(c, x, bitDepth));
-
-  // Formation labels (active column, centred in the whole formation interval).
-  const labels = cols[0].tops
-    .map((t, i) => ({ name: t.name, top: t.top, base: Math.min(cols[0].tops[i + 1]?.top ?? cols[0].td, cols[0].td) }))
-    .filter((l) => l.base > l.top);
-
-  // Correlation fills between adjacent columns.
-  const links: { x: number; tl: number; bl: number; tr: number; br: number; f: string }[] = [];
-  for (let x = 0; x < cols.length - 1; x++) {
-    const a = cols[x];
-    const b = cols[x + 1];
-    a.tops.forEach((t, i) => {
-      const j = b.tops.findIndex((u) => u.name === t.name);
-      if (j < 0) return;
-      const bl = Math.min(a.tops[i + 1]?.top ?? a.td, a.td);
-      const br = Math.min(b.tops[j + 1]?.top ?? b.td, b.td);
-      if (bl > t.top && br > b.tops[j].top) links.push({ x, tl: t.top, bl, tr: b.tops[j].top, br, f: t.name });
+export function buildColumns(wells: OffsetWell[], mode: DepthMode, alignTo: string | null): Column[] {
+  const conv = (w: OffsetWell | undefined, md: number) => (mode === 'TVD' ? tvd(w, md) : md);
+  const activeTop = alignTo ? ACTIVE.formationTops.find((t) => t.name === alignTo)?.top : undefined;
+  const cols: Column[] = [
+    { name: ACTIVE.name, active: true, tops: ACTIVE.formationTops, td: ACTIVE.plannedTd, casing: ACTIVE.casing, events: [], shift: 0 },
+  ];
+  for (const w of wells) {
+    const tops = w.formationTops.map((t) => ({ ...t, top: conv(w, t.top) }));
+    const own = alignTo ? tops.find((t) => t.name === alignTo)?.top : undefined;
+    const shift = activeTop !== undefined && own !== undefined ? activeTop - own : 0;
+    cols.push({
+      name: w.name,
+      active: false,
+      tops: tops.map((t) => ({ ...t, top: t.top + shift })),
+      td: conv(w, w.td) + shift,
+      casing: w.casing.map((c) => ({ ...c, shoe: conv(w, c.shoe) + shift })),
+      events: w.events.map((e) => ({ ...e, y: (mode === 'TVD' ? e.tvd : e.md) + shift })),
+      shift,
     });
   }
+  return cols;
+}
 
-  const casing = cols.flatMap((c, x) => c.casing.map((cs, k) => ({ x, ...cs, rank: c.casing.length - 1 - k, planned: cs.status === 'planned', well: c.name })));
+interface Props {
+  columns: Column[];
+  bitDepth: number;
+  mode: DepthMode;
+  height: number;
+  /** Top of the plotted depth range (0 = from surface). */
+  fromDepth: number;
+}
 
-  const eventSeries = EVENT_TYPES.map((type) => ({
-    name: type,
-    type: 'scatter' as const,
-    z: 5,
-    symbol: type === 'Torque Spike' ? 'diamond' : 'circle',
-    symbolSize: type === 'Torque Spike' ? 10 : 15,
-    // Torque spikes sit beside the column centre so they never hide a major event.
-    symbolOffset: type === 'Torque Spike' ? [22, 0] : [0, 0],
-    itemStyle: { color: ISSUE_COLORS[type], borderColor: '#0F172A', borderWidth: 2, opacity: 1 },
-    label: {
-      show: type !== 'Torque Spike',
-      position: 'right' as const,
-      distance: 8,
-      color: '#E5E7EB',
-      fontSize: 12,
-      fontWeight: 600,
-      backgroundColor: 'rgba(15,23,42,0.88)',
-      borderColor: '#334155',
-      borderWidth: 1,
-      borderRadius: 3,
-      padding: [3, 6],
-      formatter: (p: { data: { ev: WellEvent } }) => `${ISSUE_SHORT[p.data.ev.type]} · ${fmtHrs(p.data.ev.timeLost)} h`,
-    },
-    labelLayout: { moveOverlap: 'shiftY' as const },
-    data: cols.flatMap((c, x) =>
-      c.events
-        .filter((e) => e.type === type)
-        .map((e) => ({
-          value: [x, e.depth],
-          ev: e,
-          well: c.name,
-          // Keep labels readable: drop a minor event's label when a bigger one in the same well is within 150 m.
-          label: {
-            show:
-              type !== 'Torque Spike' &&
-              !c.events.some((o) => o !== e && o.type !== 'Torque Spike' && Math.abs(o.depth - e.depth) < 150 && o.timeLost > e.timeLost),
-          },
-        })),
-    ),
-    tooltip: {
-      formatter: (p: { data: { ev: WellEvent; well: string } }) => {
-        const e = p.data.ev;
-        return `<div style="font-weight:700;font-size:13px;margin-bottom:4px"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${ISSUE_COLORS[e.type]};margin-right:6px"></span>${p.data.well} · ${e.type}</div>
-          <div style="color:#94A3B8">${fmtM(e.depth)} m · ${e.formation} · ${fmtHrs(e.timeLost)} h lost</div>
-          <div style="margin-top:6px">${e.description}</div>
-          <div style="margin-top:4px"><span style="color:#94A3B8">Action:</span> ${e.action}</div>
-          <div style="margin-top:4px"><span style="color:#94A3B8">Result:</span> ${e.result}</div>
-          <div style="margin-top:6px;color:#94A3B8;font-size:11px">Source: ${e.source}</div>`;
+export default function DepthView({ columns, bitDepth, mode, height, fromDepth }: Props) {
+  const maxDepth = Math.ceil((Math.max(...columns.map((c) => c.td)) + 100) / 250) * 250;
+  const minDepth = fromDepth;
+
+  // Formation band items: [colIndex, top, base, formation]
+  const bands = columns.flatMap((c, i) => c.tops.map((t, k) => ({ value: [i, t.top, c.tops[k + 1]?.top ?? c.td], name: t.name, col: c })));
+  // Correlation polygons between neighbouring columns
+  const links: { value: number[]; name: string }[] = [];
+  columns.slice(0, -1).forEach((a, i) => {
+    const b = columns[i + 1];
+    for (let k = 0; k < a.tops.length; k++) {
+      const f = a.tops[k].name;
+      const kb = b.tops.findIndex((t) => t.name === f);
+      if (kb < 0) continue;
+      links.push({ value: [i, a.tops[k].top, a.tops[k + 1]?.top ?? a.td, b.tops[kb].top, b.tops[kb + 1]?.top ?? b.td], name: f });
+    }
+  });
+
+  const halfW = (api: CustomSeriesRenderItemAPI) => ((api.size!([1, 0]) as number[])[0] * COL_FRAC) / 2;
+
+  const renderBand = (params: CustomSeriesRenderItemParams, api: CustomSeriesRenderItemAPI) => {
+    const b = bands[params.dataIndex];
+    const [x, y0] = api.coord([api.value(0), api.value(1)]);
+    const [, y1] = api.coord([api.value(0), api.value(2)]);
+    const w = halfW(api);
+    const col = b.col;
+    const planned = col.active && (api.value(2) as number) > bitDepth;
+    const children: object[] = [];
+    const drawn = (top: number, bottom: number, faded: boolean) => {
+      const [, ya] = api.coord([0, top]);
+      const [, yb] = api.coord([0, bottom]);
+      children.push({
+        type: 'rect',
+        shape: { x: x - w, y: ya, width: w * 2, height: Math.max(0, yb - ya) },
+        style: { fill: FORMATION_COLORS[b.name], stroke: FORMATION_EDGE[b.name], lineWidth: 1, opacity: faded ? 0.45 : 1 },
+      });
+    };
+    const top = api.value(1) as number;
+    const base = api.value(2) as number;
+    if (planned && top < bitDepth) {
+      drawn(top, bitDepth, false);
+      drawn(bitDepth, base, true);
+    } else drawn(top, base, planned);
+    const [, yMin] = api.coord([0, minDepth]);
+    const ly = Math.max(y0, yMin) + 4;
+    if (y1 - ly > 16)
+      children.push({
+        type: 'text',
+        style: { text: b.name, x: x - w + 5, y: ly, align: 'left', verticalAlign: 'top', fill: '#374151', font: '600 12px "Noto Sans", sans-serif' },
+      });
+    return { type: 'group', children, clipPath: { type: 'rect', shape: clipRect(params) } };
+  };
+
+  const clipRect = (params: CustomSeriesRenderItemParams) => {
+    const c = params.coordSys as unknown as { x: number; y: number; width: number; height: number };
+    return { x: c.x - 200, y: c.y, width: c.width + 400, height: c.height };
+  };
+
+  const renderLink = (params: CustomSeriesRenderItemParams, api: CustomSeriesRenderItemAPI) => {
+    const l = links[params.dataIndex];
+    const i = api.value(0) as number;
+    const w = halfW(api);
+    const [xa, a0] = api.coord([i, api.value(1)]);
+    const [, a1] = api.coord([i, api.value(2)]);
+    const [xb, b0] = api.coord([i + 1, api.value(3)]);
+    const [, b1] = api.coord([i + 1, api.value(4)]);
+    return {
+      type: 'group',
+      children: [
+        {
+          type: 'polygon',
+          shape: { points: [[xa + w, a0], [xb - w, b0], [xb - w, b1], [xa + w, a1]] },
+          style: { fill: FORMATION_COLORS[l.name], opacity: 0.45 },
+        },
+        { type: 'line', shape: { x1: xa + w, y1: a0, x2: xb - w, y2: b0 }, style: { stroke: FORMATION_EDGE[l.name], lineWidth: 1, lineDash: [4, 3] } },
+      ],
+      clipPath: { type: 'rect', shape: clipRect(params) },
+    };
+  };
+
+  const shoes = columns.flatMap((c, i) => c.casing.map((s) => ({ value: [i, s.shoe], size: s.size, col: c, planned: s.status === 'planned' })));
+  const renderShoe = (params: CustomSeriesRenderItemParams, api: CustomSeriesRenderItemAPI) => {
+    const s = shoes[params.dataIndex];
+    if ((api.value(1) as number) < minDepth) return { type: 'group', children: [] };
+    const [x, y] = api.coord([api.value(0), api.value(1)]);
+    const w = halfW(api);
+    const color = s.planned ? '#9CA3AF' : '#111827';
+    return {
+      type: 'group',
+      children: [
+        { type: 'polygon', shape: { points: [[x + w, y], [x + w + 9, y], [x + w, y - 9]] }, style: { fill: color } },
+        { type: 'polygon', shape: { points: [[x - w, y], [x - w - 9, y], [x - w, y - 9]] }, style: { fill: color } },
+        { type: 'text', style: { text: s.size + (s.planned ? ' (plan)' : ''), x: x + w + 11, y: y - 4, verticalAlign: 'middle', fill: '#4B5563', font: '11px "Noto Sans", sans-serif' } },
+      ],
+    };
+  };
+
+  const eventTypes = [...new Set(columns.flatMap((c) => c.events.map((e) => e.type)))];
+  const eventSeries = (['Mud Loss', 'Stuck Pipe', 'Kick', 'Cementing Issue', 'Torque Spike'] as EventType[])
+    .filter((t) => eventTypes.includes(t))
+    .map((t) => ({
+      name: t,
+      type: 'scatter',
+      z: 5,
+      symbol: SYMBOL[t],
+      symbolSize: t === 'Torque Spike' ? 20 : 16,
+      // Markers sit right of centre (labels are top-left); torque spikes further right so they never hide a major event.
+      symbolOffset: [t === 'Torque Spike' ? 32 : 12, 0],
+      itemStyle: { color: ISSUE_COLORS[t], borderColor: '#fff', borderWidth: 1.5 },
+      data: columns.flatMap((c, i) =>
+        c.events.filter((e) => e.type === t).map((e) => ({ value: [i, e.y], event: e, well: c.name })),
+      ),
+      tooltip: {
+        formatter: (p: { data: { event: WellEvent; well: string } }) => {
+          const e = p.data.event;
+          return `<div style="max-width:320px;white-space:normal"><b>${p.data.well} – ${e.type}</b><br/>${fmtM(e.md)} m MD / ${fmtM(e.tvd)} m TVD · ${e.formation}<br/>${e.description}<br/><span style="color:#1E8449">Action:</span> ${e.action}<br/>${e.timeLost} h lost · <i>${sourceLabel(e.source)}</i></div>`;
+        },
       },
-    },
-  }));
+    }));
 
-  return {
-    // No animation: the live bit depth re-renders the chart every few seconds.
-    animation: false,
-    backgroundColor: 'transparent',
-    textStyle: { fontFamily: 'Inter Variable, Inter, system-ui, sans-serif' },
-    grid: { left: 78, right: 36, top: 64, bottom: 44 },
-    tooltip: {
-      trigger: 'item',
-      confine: true,
-      backgroundColor: '#1E293B',
-      borderColor: '#334155',
-      textStyle: { color: '#E5E7EB', fontSize: 12 },
-      extraCssText: 'box-shadow:0 8px 24px rgba(0,0,0,.4);max-width:340px;white-space:normal;border-radius:8px;',
+  const option = {
+    animation: !SHOT,
+    grid: { left: 70, right: 70, top: 30, bottom: 36 },
+    legend: {
+      bottom: 4,
+      left: 'center',
+      itemWidth: 14,
+      itemHeight: 12,
+      textStyle: { fontSize: 12.5, color: C.ink },
+      data: [...eventSeries.map((s) => s.name), 'Bit depth'],
     },
+    tooltip: { trigger: 'item', confine: true, textStyle: { fontSize: 12.5 } },
     xAxis: {
       type: 'category',
       position: 'top',
-      data: cols.map((c) => c.name),
-      axisLine: { show: false },
+      data: columns.map((c) => c.name),
+      axisLabel: { show: true, fontSize: 13, fontWeight: 700, color: (v: string) => (v === ACTIVE.name ? '#a84f0c' : C.ink) },
       axisTick: { show: false },
-      splitLine: { show: false },
-      axisLabel: {
-        interval: 0,
-        margin: 14,
-        formatter: (_: string, i: number) => `{n|${cols[i].name}}\n{s|${cols[i].sub}}`,
-        rich: {
-          n: { color: '#E5E7EB', fontSize: 14, fontWeight: 700, lineHeight: 20 },
-          s: { color: '#94A3B8', fontSize: 12, lineHeight: 16 },
-        },
-      },
+      axisLine: { show: false },
     },
     yAxis: {
       type: 'value',
       inverse: true,
-      min: 0,
-      max: Y_MAX,
-      interval: 500,
-      name: 'Depth TVD (m)',
+      min: minDepth,
+      max: maxDepth,
+      interval: 250,
+      name: `${mode === 'MD' ? 'Measured depth' : 'TVD'} (m)`,
       nameLocation: 'middle',
-      nameGap: 58,
-      nameTextStyle: { color: '#94A3B8', fontSize: 12 },
-      axisLine: { show: false },
-      axisLabel: { color: '#94A3B8', fontSize: 12, showMaxLabel: false, formatter: (v: number) => fmtM(v) },
-      splitLine: { lineStyle: { color: '#334155', type: 'dashed', opacity: 0.6 } },
+      nameGap: 52,
+      nameTextStyle: { color: C.muted, fontSize: 12.5 },
+      axisLabel: { color: C.muted, formatter: (v: number) => fmtM(v) },
+      splitLine: { lineStyle: { color: '#EEF1F5' } },
     },
-    dataZoom: [{ type: 'inside', yAxisIndex: 0, filterMode: 'none', minValueSpan: 400 }],
+    dataZoom: [{ type: 'inside', yAxisIndex: 0, filterMode: 'none' }],
     series: [
+      { type: 'custom', name: 'correlation', silent: true, z: 1, renderItem: renderLink, data: links, encode: { x: 0, y: [1, 2, 3, 4] } },
       {
-        name: 'links',
         type: 'custom',
-        silent: true,
-        z: 1,
-        clip: true,
-        data: links.map((_, i) => i),
-        renderItem: (params: { dataIndex: number }, api: any) => {
-          const l = links[params.dataIndex];
-          const w = api.size([1, 0])[0] * BW;
-          const [xa, ya1] = api.coord([l.x, l.tl]);
-          const [, ya2] = api.coord([l.x, l.bl]);
-          const [xb, yb1] = api.coord([l.x + 1, l.tr]);
-          const [, yb2] = api.coord([l.x + 1, l.br]);
-          return {
-            type: 'polygon',
-            shape: {
-              points: [
-                [xa + w / 2, ya1],
-                [xb - w / 2, yb1],
-                [xb - w / 2, yb2],
-                [xa + w / 2, ya2],
-              ],
-            },
-            style: { fill: FORMATION_COLORS[l.f], opacity: 0.22 },
-          };
-        },
-      },
-      {
         name: 'formations',
-        type: 'custom',
         z: 2,
-        clip: true,
-        data: bands.map((_, i) => i),
+        renderItem: renderBand,
+        data: bands,
+        encode: { x: 0, y: [1, 2] },
         tooltip: {
           formatter: (p: { dataIndex: number }) => {
             const b = bands[p.dataIndex];
-            return `<b>${b.well}</b> · ${b.formation}<br/><span style="color:#94A3B8">${fmtM(b.top)}–${fmtM(b.base)} m TVD${b.planned ? ' (planned)' : ''}</span>`;
+            const [, top, base] = b.value;
+            return `<b>${b.col.name}</b><br/>${b.name}: ${fmtM(top - b.col.shift)}–${fmtM(base - b.col.shift)} m ${mode}${b.col.shift ? `<br/><span style="color:#6B7280">shifted ${b.col.shift > 0 ? '+' : ''}${b.col.shift} m for alignment</span>` : ''}`;
           },
         },
-        renderItem: (params: { dataIndex: number }, api: any) => {
-          const b = bands[params.dataIndex];
-          const w = api.size([1, 0])[0] * BW;
-          const [cx, y1] = api.coord([b.x, b.top]);
-          const [, y2] = api.coord([b.x, b.base]);
-          return {
-            type: 'rect',
-            shape: { x: cx - w / 2, y: y1, width: w, height: y2 - y1 },
-            style: {
-              fill: FORMATION_COLORS[b.formation],
-              opacity: b.planned ? 0.4 : 0.95,
-              stroke: '#0F172A',
-              lineWidth: 1,
-            },
-          };
-        },
+      },
+      { type: 'custom', name: 'casing', z: 3, renderItem: renderShoe, data: shoes, encode: { x: 0, y: 1 }, tooltip: { formatter: (p: { dataIndex: number }) => `${shoes[p.dataIndex].col.name}: ${shoes[p.dataIndex].size} casing shoe at ${fmtM(shoes[p.dataIndex].value[1])} m${shoes[p.dataIndex].planned ? ' (planned)' : ''}` } },
+      ...eventSeries,
+      {
+        name: 'Bit depth',
+        type: 'line',
+        data: [],
+        symbol: 'none',
+        lineStyle: { color: C.accent, type: 'dashed', width: 2 },
+        itemStyle: { color: C.accent },
         markLine: {
           silent: true,
           symbol: 'none',
-          lineStyle: { color: '#F59E0B', type: 'dashed', width: 2 },
-          label: {
-            formatter: `Bit depth ${fmtM(bitDepth)} m MD`,
-            position: 'insideStartTop',
-            color: '#0F172A',
-            backgroundColor: '#F59E0B',
-            padding: [3, 7],
-            borderRadius: 3,
-            fontWeight: 700,
-            fontSize: 12,
-          },
+          lineStyle: { color: C.accent, type: 'dashed', width: 2 },
+          label: { formatter: `Bit ${fmtM(bitDepth)} m`, position: 'insideStartTop', color: '#a84f0c', fontWeight: 600, fontSize: 12 },
           data: [{ yAxis: bitDepth }],
         },
       },
-      {
-        name: 'formation-labels',
-        type: 'custom',
-        silent: true,
-        z: 3,
-        clip: true,
-        data: labels.map((_, i) => i),
-        renderItem: (params: { dataIndex: number }, api: any) => {
-          const l = labels[params.dataIndex];
-          const [cx, y1] = api.coord([0, l.top]);
-          const [, y2] = api.coord([0, l.base]);
-          if (y2 - y1 < 16) return null;
-          return {
-            type: 'text',
-            style: {
-              x: cx,
-              y: (y1 + y2) / 2,
-              text: l.name,
-              fill: '#F8FAFC',
-              font: '600 13px Inter Variable, Inter, sans-serif',
-              align: 'center',
-              verticalAlign: 'middle',
-            },
-          };
-        },
-      },
-      {
-        name: 'casing',
-        type: 'custom',
-        z: 4,
-        clip: true,
-        data: casing.map((_, i) => i),
-        tooltip: {
-          formatter: (p: { dataIndex: number }) => {
-            const c = casing[p.dataIndex];
-            return `<b>${c.well}</b> · ${c.size} casing<br/><span style="color:#94A3B8">Shoe ${fmtM(c.shoe)} m${c.planned ? ' (planned)' : ''}</span>`;
-          },
-        },
-        renderItem: (params: { dataIndex: number }, api: any) => {
-          const c = casing[params.dataIndex];
-          const w = api.size([1, 0])[0] * BW;
-          const [cx, y0] = api.coord([c.x, 0]);
-          const [, ys] = api.coord([c.x, c.shoe]);
-          const xl = cx - w / 2 - 3 - c.rank * 4;
-          const color = '#CBD5E1';
-          return {
-            type: 'group',
-            children: [
-              {
-                type: 'line',
-                shape: { x1: xl, y1: y0, x2: xl, y2: ys },
-                style: { stroke: color, lineWidth: 1, lineDash: c.planned ? [4, 3] : undefined, opacity: 0.45 },
-              },
-              {
-                type: 'polygon',
-                shape: {
-                  points: [
-                    [xl, ys],
-                    [xl - 7, ys],
-                    [xl, ys - 8],
-                  ],
-                },
-                style: { fill: color, opacity: c.planned ? 0.6 : 1 },
-              },
-              {
-                type: 'text',
-                style: {
-                  x: xl - 10,
-                  y: ys - 3,
-                  text: c.size,
-                  fill: '#94A3B8',
-                  font: '500 11px Inter Variable, Inter, sans-serif',
-                  align: 'right',
-                  verticalAlign: 'middle',
-                },
-              },
-            ],
-          };
-        },
-      },
-      {
-        name: 'td',
-        type: 'custom',
-        silent: true,
-        z: 4,
-        clip: true,
-        data: cols.map((_, i) => i),
-        renderItem: (params: { dataIndex: number }, api: any) => {
-          const c = cols[params.dataIndex];
-          const w = api.size([1, 0])[0] * BW;
-          const [cx, y] = api.coord([params.dataIndex, c.td]);
-          return {
-            type: 'group',
-            children: [
-              { type: 'line', shape: { x1: cx - w / 2, y1: y, x2: cx + w / 2, y2: y }, style: { stroke: '#E5E7EB', lineWidth: 2 } },
-              {
-                type: 'text',
-                style: {
-                  x: cx,
-                  y: y + 12,
-                  text: `${c.isActive ? 'Planned TD' : 'TD'} ${fmtM(c.td)} m`,
-                  fill: '#94A3B8',
-                  font: '500 12px Inter Variable, Inter, sans-serif',
-                  align: 'center',
-                  verticalAlign: 'middle',
-                },
-              },
-            ],
-          };
-        },
-      },
-      ...eventSeries,
     ],
   };
+
+  return <ReactECharts option={option} style={{ height, width: '100%' }} notMerge />;
 }
 
-export default function DepthView({ active, wells, bitDepth, radiusKm, focusWell, onClose, onReady }: Props) {
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [onClose]);
 
-  const cols: Column[] = useMemo(
-    () => [
-      {
-        name: active.name,
-        sub: 'Active · drilling',
-        td: active.plannedTd,
-        tops: active.formationTops,
-        casing: active.casing,
-        events: [],
-        isActive: true,
-      },
-      ...wells.map((w) => ({
-        name: w.name,
-        sub: `${fmtKm(w.distanceKm)} km · ${w.year}${w.type === 'deviated' ? ' · dev.' : ''}`,
-        td: w.td,
-        tops: w.formationTops,
-        casing: w.casing,
-        events: w.events,
-        isActive: false,
-      })),
-    ],
-    [active, wells],
-  );
-
-  const option = useMemo(() => buildOption(cols, bitDepth), [cols, bitDepth]);
-  const formations = active.formationTops.map((t) => t.name);
-
-  return (
-    <div className="fixed inset-0 z-[2000] flex items-center justify-center bg-[#020617]/80 p-6" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-label="Depth comparison"
-        className="flex h-[min(960px,92vh)] w-[min(1720px,96vw)] flex-col rounded-xl border border-line bg-panel"
-      >
-        <div className="flex items-start justify-between border-b border-line px-6 py-4">
-          <div>
-            <h2 className="text-[1.3rem] font-semibold text-ink">Depth comparison</h2>
-            <p className="text-[0.9rem] text-muted">
-              {active.name} against {wells.length} nearby offset wells — nearest well for each past problem{focusWell ? `, incl. ${focusWell}` : ''} · search
-              radius {radiusKm} km · formation tops correlated across wells
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close depth comparison"
-            className="grid h-9 w-9 place-items-center rounded-md border border-line text-muted hover:text-ink"
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" stroke="currentColor" strokeWidth="2">
-              <path d="M2 2l10 10M12 2L2 12" />
-            </svg>
-          </button>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-line px-6 py-3 text-[0.85rem] text-ink">
-          <div className="flex items-center gap-3">
-            <span className="text-[0.72rem] uppercase tracking-wider text-muted">Formations</span>
-            {formations.map((f) => (
-              <span key={f} className="flex items-center gap-1.5">
-                <span className="h-3 w-4 rounded-sm" style={{ background: FORMATION_COLORS[f] }} />
-                {f}
-              </span>
-            ))}
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-[0.72rem] uppercase tracking-wider text-muted">Events</span>
-            {EVENT_TYPES.map((t) => (
-              <span key={t} className="flex items-center gap-1.5">
-                <span className={t === 'Torque Spike' ? 'h-2 w-2 rotate-45' : 'h-3 w-3 rounded-full'} style={{ background: ISSUE_COLORS[t] }} />
-                {ISSUE_SHORT[t]}
-              </span>
-            ))}
-          </div>
-          <div className="flex items-center gap-4 text-muted">
-            <span className="flex items-center gap-1.5">
-              <span className="inline-block w-6 border-t-2 border-dashed border-accent" /> Bit depth
-            </span>
-            <span className="flex items-center gap-1.5">
-              <svg width="10" height="12" viewBox="0 0 10 12">
-                <path d="M8 0v12M8 12H1L8 4z" stroke="#CBD5E1" fill="#CBD5E1" strokeWidth="1.5" />
-              </svg>
-              Casing shoe
-            </span>
-          </div>
-        </div>
-
-        <div className="min-h-0 flex-1 px-3 pt-2">
-          <ReactEChartsCore
-            echarts={echarts}
-            option={option}
-            notMerge
-            style={{ height: '100%', width: '100%' }}
-            opts={{ renderer: 'canvas' }}
-            onChartReady={() => onReady?.()}
-          />
-        </div>
-        <div className="border-t border-line px-6 py-2.5 text-[0.78rem] text-muted">
-          Hover an event marker for details and source. Scroll on the chart to zoom depth. Depths shown as TVD; sample data for demonstration only.
-        </div>
-      </div>
-    </div>
-  );
-}

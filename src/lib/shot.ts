@@ -1,8 +1,13 @@
-import type { ShotMode } from '../types';
+/** Screenshot mode (?shot=1): frozen simulation, fixed bit depth, no animations. Read once at load. */
+const params = new URLSearchParams(window.location.search);
+export const SHOT = params.get('shot') === '1';
+export const shotParam = (key: string) => (SHOT ? params.get(key) : null);
 
-const MODES = ['dashboard', 'popup', 'depth', 'ask'] as const;
+if (SHOT) document.documentElement.classList.add('shot');
 
-export function readShotMode(): ShotMode {
-  const v = new URLSearchParams(window.location.search).get('shot');
-  return (MODES as readonly string[]).includes(v ?? '') ? (v as ShotMode) : null;
+declare global {
+  interface Window {
+    __nwisReady?: boolean;
+    __nwisTiles?: { loading: boolean; loadedOnce: boolean; tilesLoaded: number; errors: number };
+  }
 }

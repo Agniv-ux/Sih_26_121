@@ -4,6 +4,6 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  // ECharts is split into its own lazily loaded chunk (~600 kB).
-  build: { chunkSizeWarningLimit: 700 },
+  // ECharts lives in its own lazily loaded chunk (~1 MB before gzip).
+  build: { chunkSizeWarningLimit: 1200 },
 });

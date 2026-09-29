@@ -1,86 +1,125 @@
 # NWIS – Nearby Wells Intelligence System
 
 **Team ALTITUDE** · Smart India Hackathon 2026
-**Problem statement:** SIH26121 – _Nearby Wells Intelligence System (NWIS)_, for Oil India Limited
+**Problem statement:** SIH26121 – _Nearby Wells Intelligence System (NWIS)_, for Oil India Limited (OIL)
 
-> Prototype: frontend only, sample data only, no backend and no real AI calls.
+> **Prototype.** Frontend only, sample data only. There is no backend and there are no real AI calls: every "AI" output is pre-written sample data. This is not an official Oil India Limited or Government of India website, and it uses no official logos.
 
 ## What it is
 
-NWIS is a decision-support dashboard that runs alongside OIL's real-time drilling monitor (eRTMAC). It:
+NWIS is a decision-support system that runs alongside OIL's real-time drilling monitor (eRTMAC). It:
 
-- shows nearby (offset) wells on a map around the well being drilled,
-- warns drilling engineers **before** the bit reaches a depth or formation where nearby wells had problems,
-- shows **what worked before** in those wells, and
-- lets engineers **ask questions of old well reports**, with sources cited.
+- reads old well reports (WCRs, DDRs, mud logs, casing records) with OCR and NLP,
+- shows nearby (offset) wells on a map,
+- compares wells by depth and formation,
+- predicts drilling risks from offset-well history,
+- warns engineers **before** the bit reaches a risky zone, and shows what worked before,
+- lets engineers ask questions of old reports (RAG assistant), with the sources cited.
 
-## Features
+## Pages and features
 
-- **Offset-well map** (React-Leaflet, CARTO Dark Matter): active well with pulse marker, search-radius circle (1–20 km slider, live update), wells coloured by main past problem, well labels, trajectory lines for deviated wells, legend, filter chips by main past problem (All / Mud Loss / Stuck Pipe / Kick / Cementing / No issue — counts always add up to the wells in radius), and a popup card per well with a “View depth comparison” button.
-- **Alerts tab**: a _Risk ahead_ strip covering the next 300 m below the bit in 25 m intervals (low / medium / high), plus alert cards sorted by urgency. Each card shows the formation, distance ahead of the bit, the offset wells involved, _what worked_, and a **Why?** button that opens the reasoning in the Ask tab.
-- **Nearby Wells tab**: sortable table (distance, main issue, NPT, events). Click a row to fly to the well and open its popup.
-- **Ask the Reports tab**: chat-style Q&A answered only from the reports of the wells selected on the map. Answers are pre-written and end with source chips (e.g. `OW-02 DDR 14-Mar-2019 p.3`). Free-typed questions are matched by keyword to the closest answer.
-- **Depth comparison** (Apache ECharts): the active well next to 5 nearby offset wells. Formation tops are drawn as coloured bands correlated across wells, with casing shoes, event markers (tooltips give details and source), and a dashed line at the current bit depth.
-- **Live simulation**: the bit advances every 3 s, and the header, risk strip and “distance ahead” values update. Pause/play button in the header.
-- **Screenshot mode** for pixel-identical slide images (see below).
+| # | Page | Route | What it shows |
+|---|------|-------|---------------|
+| 1 | Dashboard – Nearby Wells Map | `/` | Summary cards, Leaflet map with the active well, a radius slider (1–20 km), wells coloured by main past problem, deviated-well paths, filter chips with counts, a legend, well popups, the top 3 alerts and a nearby-wells table (click a row to fly to that well) |
+| 2 | Live Alerts | `/alerts` | Simulated eRTMAC readings with 30-min sparklines, a "risk ahead" strip (next 300 m in 25 m intervals), and look-ahead / pattern-match alert cards with "What worked" and **Why?** |
+| 3 | Depth Correlation | `/depth` | ECharts correlation panel: formation bands correlated across wells, casing shoes, events at depth, a bit-depth line, MD/TVD toggle, align by formation top, and a formation summary table |
+| 4 | Risk Prediction | `/risk` | Risk heatmap (5 problem types × 25 m intervals to TD), a "Why this risk?" panel with SHAP-style factors, a Model / Rule-based badge per interval, and a model info card (sample figures) |
+| 5 | Ask the Reports | `/ask` | Scoped Q&A (wells, formation, depth), cited answers with a source excerpt modal, feedback buttons, and a "no relevant information" reply when nothing matches |
+| 6 | Knowledge Search | `/search` | Search and filter events and lessons learned; the details panel shows similar incidents from other wells |
+| 7 | Document Processing | `/documents` | Simulated drag-and-drop upload, the pipeline view, a documents table, and a side-by-side mock report page vs. extracted fields with confidence |
+| 8 | Engineer Review | `/review` | Review queue, highlighted source sentence, editable fields, Approve / Correct & Approve / Reject, and counters |
+| 9 | About NWIS | `/about` | Problem and solution, SVG architecture diagram, and the planned tech stack |
 
-Risk is worked out from the data. Each offset-well event is mapped onto the active well by its offset below the same formation top. An interval is **high** risk when two or more wells had a problem near that depth, and **medium** when one well did or when at least 30 % of the wells that drilled that formation had problems in it.
+Other features:
+
+- **Roles.** The header switches between *Field Engineer* (summary cards hidden, larger alerts) and *Office Engineer*.
+- **Live simulation.** Every 3 s the bit moves 0.5 m deeper (accelerated), and the header strip, alert distances, readings and risk strip update. The status strip has a pause/play button.
+- **Consistent sample data.** Every page reads the same wells, events and documents. Counts in map chips, the radius card, tables, alerts and the RAG scope are all computed from wells inside the current radius. At the default 10 km:
+
+| Wells in radius | With incidents | Total NPT | Alerts | Mud Loss | Stuck Pipe | Kick | Cementing | No Issue |
+|---|---|---|---|---|---|---|---|---|
+| 7 | 6 | 106 h | 5 (1 high) | 2 | 2 | 1 | 1 | 1 |
+
+## Screenshot mode
+
+Adding `?shot=1` to any URL pauses the simulation and fixes the bit depth at 2,765 m. It also turns off animations, hides the cursor and scrollbars, and uses the Office Engineer role with a 10 km radius.
+
+| File | URL |
+|------|-----|
+| `01_dashboard.png` | `/?shot=1` |
+| `02_dashboard_popup.png` | `/?shot=1&popup=OW-02` |
+| `03_alerts.png` | `/alerts?shot=1` |
+| `04_depth.png` | `/depth?shot=1` |
+| `05_risk.png` | `/risk?shot=1&interval=2850` |
+| `06_ask.png` | `/ask?shot=1&q=tipam` |
+| `07_documents.png` | `/documents?shot=1&doc=1` |
+| `08_review.png` | `/review?shot=1` |
+
+To capture them at 1920×1080 with deviceScaleFactor 2 into `screenshots/`:
+
+```bash
+npm run build
+npm run preview          # terminal 1 – http://localhost:4173
+npm run screenshots      # terminal 2 – uses the pre-installed Chromium (no "playwright install")
+```
+
+The script waits for network idle, fonts, the Leaflet tile `load` event and a further 1.5 s. If map tiles fail to load, it refuses to save the map screenshots and exits with an error.
 
 ## Tech stack
 
-React 19 · Vite · TypeScript · Tailwind CSS v4 · React-Leaflet + CARTO Dark Matter tiles · Apache ECharts (`echarts-for-react`) · Inter font · Playwright (screenshots). All data lives in local JSON under `src/data/`.
+| Layer | Planned full system | This prototype |
+|-------|--------------------|----------------|
+| Document processing | PaddleOCR, OpenCV, pdfplumber, Camelot | Mock report pages + pre-extracted fields |
+| NLP | spaCy + rules | Pre-extracted sample events |
+| Database | PostgreSQL + PostGIS, TimescaleDB, pgvector | Local JSON in `src/data/` |
+| Prediction | XGBoost + SHAP | Transparent scoring from offset-well events (`src/lib/risk.ts`) |
+| RAG | bge-m3, pgvector, Llama / Qwen via Ollama (on-premise) | Pre-written answers matched by keywords |
+| Live data | WITSML, Kafka, FastAPI, WebSockets | Timer-based simulation |
+| Frontend | React, Leaflet, ECharts | React 19 + Vite + TypeScript, Tailwind CSS v4, React Router, React-Leaflet (CARTO Positron tiles), Apache ECharts (`echarts-for-react`), Noto Sans |
+| Security | Keycloak, Docker, on-premise | – |
+
+Planned validation: Equinor's public Volve dataset, with recorded real-time data replayed as eRTMAC.
+
+## Project structure
 
 ```
 src/
-  components/  Header, Footer, MapView, WellPopup, SidePanel, AlertCard, RiskStrip,
-               WellsTable, AskPanel, DepthView, IssueTag
-  data/        wells.json (active + 10 offset wells), alerts.json, qa.json, index.ts
-  lib/         risk.ts (risk strip + alerts), wells.ts, qa.ts (keyword matching), geo.ts, shot.ts
+  App.tsx, main.tsx          routes + layout shell
+  state/AppState.tsx         role, radius, filter, simulation, derived wells-in-radius + alerts
+  pages/                     one file per page (9)
+  components/                Header, Footer, MapView, WellPopup, SidePanel, WellsTable,
+                             AlertCard, RiskStrip, DepthView, AskPanel, IssueTag
+    layout/                  StatusStrip, Sidebar
+    alerts/                  LiveReadings (sparklines)
+    docs/                    ReportPage (mock scanned page), ExtractedFields
+    ui/                      PageHeader, Modal
+  lib/                       risk.ts (risk profile, alerts), wells.ts (TVD, formation mapping),
+                             qa.ts (keyword matching, scope), geo.ts, format.ts, constants.ts, shot.ts
+  data/                      wells.json, documents.json, review.json, live.json (generated),
+                             qa.json, alerts.json (hand-written), index.ts
+scripts/
+  build-sample-data.mjs      regenerates the generated JSON so all pages stay consistent
+  screenshots.mjs            Playwright capture of the 8 presets
 ```
 
 ## Run locally
 
 ```bash
 npm install
-npm run dev          # http://localhost:5173
+npm run dev              # http://localhost:5173
 ```
 
-Production build:
-
-```bash
-npm run build
-npm run preview      # http://localhost:4173
-```
-
-## Screenshot mode
-
-Add a URL parameter to get a clean, fixed view. The live simulation is paused, the bit depth is fixed at 2,765 m, animations are turned off, and cursors, scrollbars and zoom controls are hidden.
-
-| URL                | View                                                                                                           |
-| ------------------ | -------------------------------------------------------------------------------------------------------------- |
-| `/?shot=dashboard` | Alerts tab, 10 km radius, all filters, map fitted to the full radius circle                                    |
-| `/?shot=popup`     | Same as dashboard, with OW-02's popup open beside the marker, clear of the radius card, legend and other wells |
-| `/?shot=depth`     | Depth comparison modal open                                                                                    |
-| `/?shot=ask`       | Ask the Reports tab with the Tipam losses question answered, with source chips                                 |
-
-To capture all four at 1920×1080 with deviceScaleFactor 2 into `screenshots/`:
-
-```bash
-npm run build && npm run preview    # terminal 1
-npm run screenshots                 # terminal 2
-```
-
-The script waits for network idle, the Leaflet tile `load` event and `document.fonts.ready`, plus 1.5 s. **It exits with an error instead of saving an image if the map tiles cannot load** (for example, with no internet). Options: `--url=http://host:port`, `--only=dashboard,ask`. If Playwright's bundled Chromium is not installed, run `npx playwright install chromium` or set `PW_CHROMIUM` to a Chrome/Chromium path.
+To change the sample wells or events, edit `scripts/build-sample-data.mjs` and run `node scripts/build-sample-data.mjs`.
 
 ## Deploy on Vercel
 
 1. Push this repository to GitHub.
 2. In Vercel, choose **Add New → Project** and import the repository.
-3. Framework preset: **Vite** (auto-detected). Build command `npm run build`, output directory `dist` (already set in `vercel.json`).
-4. Click **Deploy**. The site is fully static; screenshot URLs work on the deployed domain too, e.g. `https://<your-app>.vercel.app/?shot=dashboard`.
+3. Vercel detects Vite: build command `npm run build`, output directory `dist` (already set in `vercel.json`).
+4. Click **Deploy**. `vercel.json` rewrites every route to `index.html`, so deep links such as `/risk?shot=1&interval=2850` work.
 
-CLI alternative: `npm i -g vercel && vercel --prod`.
+Or deploy from the command line: `npx vercel --prod`.
 
 ---
 
-Team ALTITUDE · SIH 2026 · SIH26121 · Prototype – sample data for demonstration only
+Team ALTITUDE · Smart India Hackathon 2026 · SIH26121 · Prototype – sample data for demonstration only. Map data © OpenStreetMap contributors, © CARTO.

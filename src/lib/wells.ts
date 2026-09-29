@@ -1,4 +1,12 @@
 import type { FormationTop, OffsetWell } from '../types';
+import { ACTIVE } from '../data';
+
+/** TVD from MD: vertical to kick-off point, then a constant-inclination tangent (same as the data generator). */
+export function tvd(well: Pick<OffsetWell, 'trajectory'> | undefined, md: number): number {
+  const t = well?.trajectory;
+  if (!t || md <= t.kop) return md;
+  return Math.round(t.kop + (md - t.kop) * Math.cos((t.inc * Math.PI) / 180));
+}
 
 export function formationAt(tops: FormationTop[], depth: number): string {
   let name = tops[0].name;
@@ -6,29 +14,30 @@ export function formationAt(tops: FormationTop[], depth: number): string {
   return name;
 }
 
-export function formationTop(tops: FormationTop[], name: string): number | undefined {
-  return tops.find((t) => t.name === name)?.top;
-}
+export const topOf = (tops: FormationTop[], formation: string) => tops.find((t) => t.name === formation)?.top;
 
-/** Base of a formation in a well: next top, or TD if it is the last one penetrated. */
-export function formationBase(tops: FormationTop[], name: string, td: number): number | undefined {
-  const i = tops.findIndex((t) => t.name === name);
+/** Base of a formation in a well = next top, or TD. */
+export function baseOf(tops: FormationTop[], formation: string, td: number) {
+  const i = tops.findIndex((t) => t.name === formation);
   if (i < 0) return undefined;
-  return Math.min(tops[i + 1]?.top ?? td, td);
+  return tops[i + 1]?.top ?? td;
 }
 
-export function penetrates(w: OffsetWell, formation: string): boolean {
-  const top = formationTop(w.formationTops, formation);
-  return top !== undefined && w.td > top;
+export const penetrates = (w: OffsetWell, formation: string) => w.formationTops.some((t) => t.name === formation);
+
+/** Map an offset-well depth onto the active well by its offset below the same formation top. */
+export function toActiveDepth(w: OffsetWell, md: number, formation: string) {
+  const own = topOf(w.formationTops, formation);
+  const act = topOf(ACTIVE.formationTops, formation);
+  if (own === undefined || act === undefined) return undefined;
+  return act + (md - own);
 }
 
-/**
- * Map an offset-well depth onto the active well by keeping the same
- * offset below the formation top (simple formation-based correlation).
- */
-export function toActiveDepth(w: OffsetWell, depth: number, formation: string, activeTops: FormationTop[]): number | undefined {
-  const offTop = formationTop(w.formationTops, formation);
-  const actTop = formationTop(activeTops, formation);
-  if (offTop === undefined || actTop === undefined) return undefined;
-  return actTop + (depth - offTop);
+/** Deepest active-well depth covered by an offset well (its TD mapped by the last formation it reached). */
+export function reachOnActive(w: OffsetWell) {
+  const last = w.formationTops[w.formationTops.length - 1];
+  return toActiveDepth(w, w.td, last.name) ?? w.td;
 }
+
+export const eventsOfType = (wells: OffsetWell[], type: string) =>
+  wells.flatMap((w) => w.events.filter((e) => e.type === type).map((e) => ({ well: w, event: e })));

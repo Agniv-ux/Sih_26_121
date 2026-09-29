@@ -1,20 +1,37 @@
 import type { QaEntry } from '../types';
-import { qaEntries, qaFallback } from '../data';
+import { QA, docById } from '../data';
 
-const norm = (s: string) => s.toLowerCase().replace(/[^\p{L}\p{N}⅝/.\s-]/gu, ' ');
+export const NO_ANSWER = "No relevant information found in the selected wells' reports.";
 
-/** Return the pre-written answer whose keywords best match a free-typed question. */
-export function matchQuestion(question: string): Pick<QaEntry, 'answer' | 'sources'> {
-  const q = norm(question);
+/** Match a free-typed question (or a question id) to the closest pre-written answer by keywords. */
+export function matchQuestion(q: string): QaEntry | undefined {
+  const byId = QA.find((e) => e.id === q.trim().toLowerCase());
+  if (byId) return byId;
+  const text = q.toLowerCase();
   let best: QaEntry | undefined;
   let bestScore = 0;
-  for (const e of qaEntries) {
-    if (norm(e.question).trim() === q.trim()) return e;
-    const score = e.keywords.reduce((s, k) => s + (q.includes(k) ? (k.length > 4 ? 2 : 1) : 0), 0);
+  for (const e of QA) {
+    const score = e.keywords.reduce((s, k) => s + (text.includes(k) ? (k.includes(' ') ? 2 : 1) : 0), 0);
     if (score > bestScore) {
       best = e;
       bestScore = score;
     }
   }
-  return best ?? qaFallback;
+  return bestScore >= 1 ? best : undefined;
+}
+
+export const wellsCited = (e: QaEntry) => [...new Set(e.sources.map((s) => docById(s.docId)!.well))];
+
+export interface Scope {
+  wells: string[];
+  formation: string; // 'All' or a formation name
+  depthFrom: number;
+  depthTo: number;
+}
+
+/** An answer is only given when every cited report belongs to a well in scope and it overlaps the filters. */
+export function answerInScope(e: QaEntry, scope: Scope) {
+  if (!wellsCited(e).every((w) => scope.wells.includes(w))) return false;
+  if (scope.formation !== 'All' && scope.formation !== e.formation) return false;
+  return e.depthRange[1] >= scope.depthFrom && e.depthRange[0] <= scope.depthTo;
 }

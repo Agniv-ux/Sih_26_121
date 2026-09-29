@@ -1,63 +1,46 @@
-import type { ReactNode } from 'react';
-import { fmtM } from '../lib/format';
+import { useApp } from '../state/AppState';
+import type { Role } from '../types';
 
-interface Props {
-  wellName: string;
-  bitDepth: number;
-  formation: string;
-  running: boolean;
-  onToggleRunning: () => void;
-}
+const ROLES: { id: Role; label: string }[] = [
+  { id: 'field', label: 'Field Engineer' },
+  { id: 'office', label: 'Office Engineer' },
+];
 
-function Stat({ label, children }: { label: string; children: ReactNode }) {
+export default function Header() {
+  const { role, setRole } = useApp();
   return (
-    <div className="flex flex-col justify-center px-5 border-l border-line first:border-l-0">
-      <span className="text-[0.7rem] uppercase tracking-[0.08em] text-muted">{label}</span>
-      <span className="text-[1.05rem] font-semibold text-ink leading-tight whitespace-nowrap">{children}</span>
-    </div>
-  );
-}
-
-export default function Header({ wellName, bitDepth, formation, running, onToggleRunning }: Props) {
-  return (
-    <header className="h-16 shrink-0 flex items-center justify-between px-5 bg-panel border-b border-line">
-      <div className="flex flex-col justify-center">
-        <div className="flex items-baseline gap-3">
-          <span className="text-[1.6rem] font-bold tracking-tight text-ink leading-none">NWIS</span>
-          <span className="text-[1.05rem] text-ink/90 leading-none">Nearby Wells Intelligence System</span>
+    <header className="flex h-[60px] flex-none items-center justify-between bg-navy px-5 text-white">
+      <div className="flex items-center gap-4">
+        <div>
+          <div className="text-[1.25rem] font-bold leading-tight tracking-[0.01em]">NWIS – Nearby Wells Intelligence System</div>
+          <div className="text-[0.78rem] text-[#c9d6ee]">Team ALTITUDE · SIH 2026 · SIH26121</div>
         </div>
-        <span className="mt-1 text-[0.7rem] uppercase tracking-[0.12em] text-muted">Team ALTITUDE</span>
+        <span className="rounded-[3px] border border-[#f3b77f] px-2 py-0.5 text-[0.72rem] font-semibold uppercase tracking-wide text-[#f8c795]">
+          Prototype · sample data
+        </span>
       </div>
-
-      <div className="flex items-stretch h-11">
-        <Stat label="Active well">{wellName}</Stat>
-        <Stat label="Bit depth">
-          <span data-testid="bit-depth">{fmtM(bitDepth)}</span> <span className="text-muted font-normal">m MD</span>
-        </Stat>
-        <Stat label="Formation">{formation}</Stat>
-        <div className="flex items-center gap-3 pl-5 border-l border-line">
-          <div className="flex items-center gap-2 rounded-md border border-line bg-bg px-3 py-1.5">
-            <span className={`h-2 w-2 rounded-full bg-ok ${running ? 'live-dot' : ''}`} />
-            <span className="text-[0.85rem] font-medium text-ink whitespace-nowrap">eRTMAC · Live</span>
+      <div className="flex items-center gap-5">
+        <div className="flex items-center gap-2 text-[0.85rem]">
+          <span className="text-[#c9d6ee]">Role</span>
+          <div className="flex overflow-hidden rounded-[3px] border border-[#5b7fc0]" role="group" aria-label="Role">
+            {ROLES.map((r) => (
+              <button
+                key={r.id}
+                onClick={() => setRole(r.id)}
+                className={`px-3 py-1 text-[0.85rem] ${role === r.id ? 'bg-white font-semibold text-navy' : 'bg-transparent text-white hover:bg-[#164a9f]'}`}
+                aria-pressed={role === r.id}
+              >
+                {r.label}
+              </button>
+            ))}
           </div>
-          <button
-            type="button"
-            onClick={onToggleRunning}
-            title={running ? 'Pause live simulation' : 'Resume live simulation'}
-            aria-label={running ? 'Pause live simulation' : 'Resume live simulation'}
-            className="h-8 w-8 grid place-items-center rounded-md border border-line text-muted hover:text-ink hover:border-muted"
-          >
-            {running ? (
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-                <rect x="2" y="1.5" width="3" height="9" rx="0.5" />
-                <rect x="7" y="1.5" width="3" height="9" rx="0.5" />
-              </svg>
-            ) : (
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-                <path d="M3 1.5v9l7.5-4.5z" />
-              </svg>
-            )}
-          </button>
+        </div>
+        <div className="flex items-center gap-2 border-l border-[#3f66ad] pl-5 text-[0.88rem]">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" />
+          </svg>
+          Demo User
         </div>
       </div>
     </header>

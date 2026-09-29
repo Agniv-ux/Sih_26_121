@@ -1,0 +1,3419 @@
+[
+  {
+    "id": 1,
+    "file": "DDR – OW-02 – 14-Mar-2019.pdf",
+    "well": "OW-02",
+    "type": "DDR",
+    "date": "14-Mar-2019",
+    "pages": 4,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 3,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-02"
+        ],
+        [
+          "Date",
+          "14-Mar-2019"
+        ],
+        [
+          "Rig",
+          "Rig E-5"
+        ],
+        [
+          "Report no.",
+          "DDR-02-033"
+        ],
+        [
+          "Depth at 06:00",
+          "2,832 m MD"
+        ],
+        [
+          "Formation",
+          "Tipam"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–08:30",
+          "hrs": "2.5",
+          "text": "Drilled 12¼\" hole from 2,832 m to 2,854 m. MW 1.24 SG. Parameters normal."
+        },
+        {
+          "time": "08:30–09:00",
+          "hrs": "0.5",
+          "text": "Connection. Circulated. Surveyed."
+        },
+        {
+          "time": "09:00–11:00",
+          "hrs": "2.0",
+          "text": "Drilled ahead to 2,872 m in Tipam."
+        },
+        {
+          "time": "11:00–13:00",
+          "hrs": "2.0",
+          "text": "Partial losses of 12–15 bbl/hr on entering Tipam sand while drilling with 1.24 SG mud.",
+          "hl": true
+        },
+        {
+          "time": "13:00–17:00",
+          "hrs": "4.0",
+          "text": "Pumped 50 bbl LCM pill (40 ppb CaCO₃ + fibre) and reduced mud weight to 1.18 SG.",
+          "hl": true
+        },
+        {
+          "time": "17:00–20:00",
+          "hrs": "3.0",
+          "text": "Losses cured within 6 h; no further losses to 9⅝\" shoe.",
+          "hl": true
+        },
+        {
+          "time": "20:00–06:00",
+          "hrs": "10.0",
+          "text": "Time lost to mud loss: 6 h (NPT). Continued operations as per programme."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-02",
+        "confidence": 0.99
+      },
+      {
+        "field": "Date",
+        "value": "14-Mar-2019",
+        "confidence": 0.89
+      },
+      {
+        "field": "Depth",
+        "value": "2,872 m MD",
+        "confidence": 0.91
+      },
+      {
+        "field": "Formation",
+        "value": "Tipam",
+        "confidence": 0.88
+      },
+      {
+        "field": "Event",
+        "value": "Mud Loss",
+        "confidence": 0.92
+      },
+      {
+        "field": "Action",
+        "value": "Pumped 50 bbl LCM pill (40 ppb CaCO₃ + fibre) and reduced mud weight to 1.18 SG.",
+        "confidence": 0.87
+      },
+      {
+        "field": "Result",
+        "value": "Losses cured within 6 h; no further losses to 9⅝\" shoe.",
+        "confidence": 0.81
+      },
+      {
+        "field": "Time lost",
+        "value": "6 h",
+        "confidence": 0.88
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "file": "DDR – OW-02 – 02-Apr-2019.pdf",
+    "well": "OW-02",
+    "type": "DDR",
+    "date": "02-Apr-2019",
+    "pages": 4,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 2,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-02"
+        ],
+        [
+          "Date",
+          "02-Apr-2019"
+        ],
+        [
+          "Rig",
+          "Rig E-5"
+        ],
+        [
+          "Report no.",
+          "DDR-02-019"
+        ],
+        [
+          "Depth at 06:00",
+          "3,475 m MD"
+        ],
+        [
+          "Formation",
+          "Barail"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–08:30",
+          "hrs": "2.5",
+          "text": "Drilled 12¼\" hole from 3,475 m to 3,497 m. MW 1.31 SG. Parameters normal."
+        },
+        {
+          "time": "08:30–09:00",
+          "hrs": "0.5",
+          "text": "Connection. Circulated. Surveyed."
+        },
+        {
+          "time": "09:00–11:00",
+          "hrs": "2.0",
+          "text": "Drilled ahead to 3,515 m in Barail."
+        },
+        {
+          "time": "11:00–13:00",
+          "hrs": "2.0",
+          "text": "Torque fluctuations 17–21 kft·lbf while rotating through Barail shale stringers.",
+          "hl": true
+        },
+        {
+          "time": "13:00–17:00",
+          "hrs": "4.0",
+          "text": "Adjusted RPM and WOB; added lubricant 2% v/v.",
+          "hl": true
+        },
+        {
+          "time": "17:00–20:00",
+          "hrs": "3.0",
+          "text": "Drilled ahead normally.",
+          "hl": true
+        },
+        {
+          "time": "20:00–06:00",
+          "hrs": "10.0",
+          "text": "Time lost to torque spike: 1.5 h (NPT). Continued operations as per programme."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-02",
+        "confidence": 0.99
+      },
+      {
+        "field": "Date",
+        "value": "02-Apr-2019",
+        "confidence": 0.9
+      },
+      {
+        "field": "Depth",
+        "value": "3,515 m MD",
+        "confidence": 0.97
+      },
+      {
+        "field": "Formation",
+        "value": "Barail",
+        "confidence": 0.94
+      },
+      {
+        "field": "Event",
+        "value": "Torque Spike",
+        "confidence": 0.92
+      },
+      {
+        "field": "Action",
+        "value": "Adjusted RPM and WOB; added lubricant 2% v/v.",
+        "confidence": 0.92
+      },
+      {
+        "field": "Result",
+        "value": "Drilled ahead normally.",
+        "confidence": 0.86
+      },
+      {
+        "field": "Time lost",
+        "value": "1.5 h",
+        "confidence": 0.92
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "file": "DDR – OW-05 – 19-Jan-2021.pdf",
+    "well": "OW-05",
+    "type": "DDR",
+    "date": "19-Jan-2021",
+    "pages": 4,
+    "method": "Digital text",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 2,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-05"
+        ],
+        [
+          "Date",
+          "19-Jan-2021"
+        ],
+        [
+          "Rig",
+          "Rig E-5"
+        ],
+        [
+          "Report no.",
+          "DDR-05-018"
+        ],
+        [
+          "Depth at 06:00",
+          "2,850 m MD"
+        ],
+        [
+          "Formation",
+          "Tipam"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–08:30",
+          "hrs": "2.5",
+          "text": "Drilled 12¼\" hole from 2,850 m to 2,872 m. MW 1.23 SG. Parameters normal."
+        },
+        {
+          "time": "08:30–09:00",
+          "hrs": "0.5",
+          "text": "Connection. Circulated. Surveyed."
+        },
+        {
+          "time": "09:00–11:00",
+          "hrs": "2.0",
+          "text": "Drilled ahead to 2,890 m in Tipam."
+        },
+        {
+          "time": "11:00–13:00",
+          "hrs": "2.0",
+          "text": "Partial losses of about 20 bbl/hr in Tipam sand at 1.23 SG.",
+          "hl": true
+        },
+        {
+          "time": "13:00–17:00",
+          "hrs": "4.0",
+          "text": "Pumped 40 bbl LCM pill, reduced mud weight to 1.18 SG and lowered flow rate by 10%.",
+          "hl": true
+        },
+        {
+          "time": "17:00–20:00",
+          "hrs": "3.0",
+          "text": "Losses cured in about 5 h; drilled to 9⅝\" shoe without further losses.",
+          "hl": true
+        },
+        {
+          "time": "20:00–06:00",
+          "hrs": "10.0",
+          "text": "Time lost to mud loss: 7 h (NPT). Continued operations as per programme."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-05",
+        "confidence": 0.98
+      },
+      {
+        "field": "Date",
+        "value": "19-Jan-2021",
+        "confidence": 0.99
+      },
+      {
+        "field": "Depth",
+        "value": "2,890 m MD",
+        "confidence": 0.95
+      },
+      {
+        "field": "Formation",
+        "value": "Tipam",
+        "confidence": 0.93
+      },
+      {
+        "field": "Event",
+        "value": "Mud Loss",
+        "confidence": 0.97
+      },
+      {
+        "field": "Action",
+        "value": "Pumped 40 bbl LCM pill, reduced mud weight to 1.18 SG and lowered flow rate by 10%.",
+        "confidence": 0.9
+      },
+      {
+        "field": "Result",
+        "value": "Losses cured in about 5 h; drilled to 9⅝\" shoe without further losses.",
+        "confidence": 0.89
+      },
+      {
+        "field": "Time lost",
+        "value": "7 h",
+        "confidence": 0.94
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "file": "DDR – OW-05 – 26-Jan-2021.pdf",
+    "well": "OW-05",
+    "type": "DDR",
+    "date": "26-Jan-2021",
+    "pages": 4,
+    "method": "Digital text",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 2,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-05"
+        ],
+        [
+          "Date",
+          "26-Jan-2021"
+        ],
+        [
+          "Rig",
+          "Rig E-5"
+        ],
+        [
+          "Report no.",
+          "DDR-05-014"
+        ],
+        [
+          "Depth at 06:00",
+          "3,470 m MD"
+        ],
+        [
+          "Formation",
+          "Barail"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–08:30",
+          "hrs": "2.5",
+          "text": "Drilled 12¼\" hole from 3,470 m to 3,492 m. MW 1.30 SG. Parameters normal."
+        },
+        {
+          "time": "08:30–09:00",
+          "hrs": "0.5",
+          "text": "Connection. Circulated. Surveyed."
+        },
+        {
+          "time": "09:00–11:00",
+          "hrs": "2.0",
+          "text": "Drilled ahead to 3,510 m in Barail."
+        },
+        {
+          "time": "11:00–13:00",
+          "hrs": "2.0",
+          "text": "Short torque spikes up to 20 kft·lbf in Barail shale.",
+          "hl": true
+        },
+        {
+          "time": "13:00–17:00",
+          "hrs": "4.0",
+          "text": "Reduced WOB and RPM; back-reamed one single.",
+          "hl": true
+        },
+        {
+          "time": "17:00–20:00",
+          "hrs": "3.0",
+          "text": "Torque back to normal.",
+          "hl": true
+        },
+        {
+          "time": "20:00–06:00",
+          "hrs": "10.0",
+          "text": "Time lost to torque spike: 1 h (NPT). Continued operations as per programme."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-05",
+        "confidence": 0.99
+      },
+      {
+        "field": "Date",
+        "value": "26-Jan-2021",
+        "confidence": 0.98
+      },
+      {
+        "field": "Depth",
+        "value": "3,510 m MD",
+        "confidence": 0.95
+      },
+      {
+        "field": "Formation",
+        "value": "Barail",
+        "confidence": 0.94
+      },
+      {
+        "field": "Event",
+        "value": "Torque Spike",
+        "confidence": 0.98
+      },
+      {
+        "field": "Action",
+        "value": "Reduced WOB and RPM; back-reamed one single.",
+        "confidence": 0.93
+      },
+      {
+        "field": "Result",
+        "value": "Torque back to normal.",
+        "confidence": 0.94
+      },
+      {
+        "field": "Time lost",
+        "value": "1 h",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "file": "DDR – OW-07 – 03-Sep-2017.pdf",
+    "well": "OW-07",
+    "type": "DDR",
+    "date": "03-Sep-2017",
+    "pages": 4,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 2,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-07"
+        ],
+        [
+          "Date",
+          "03-Sep-2017"
+        ],
+        [
+          "Rig",
+          "Rig E-3"
+        ],
+        [
+          "Report no.",
+          "DDR-07-022"
+        ],
+        [
+          "Depth at 06:00",
+          "2,828 m MD"
+        ],
+        [
+          "Formation",
+          "Tipam"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–08:30",
+          "hrs": "2.5",
+          "text": "Drilled 12¼\" hole from 2,828 m to 2,850 m. MW 1.24 SG. Parameters normal."
+        },
+        {
+          "time": "08:30–09:00",
+          "hrs": "0.5",
+          "text": "Connection. Circulated. Surveyed."
+        },
+        {
+          "time": "09:00–11:00",
+          "hrs": "2.0",
+          "text": "Drilled ahead to 2,868 m in Tipam."
+        },
+        {
+          "time": "11:00–13:00",
+          "hrs": "2.0",
+          "text": "Partial losses of 8–10 bbl/hr in Tipam sand at 1.24 SG.",
+          "hl": true
+        },
+        {
+          "time": "13:00–17:00",
+          "hrs": "4.0",
+          "text": "Pumped LCM pill; losses returned, then cut mud weight from 1.24 to 1.19 SG and pumped a second pill.",
+          "hl": true
+        },
+        {
+          "time": "17:00–20:00",
+          "hrs": "3.0",
+          "text": "Losses controlled after the second pill.",
+          "hl": true
+        },
+        {
+          "time": "20:00–06:00",
+          "hrs": "10.0",
+          "text": "Time lost to mud loss: 4 h (NPT). Continued operations as per programme."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-07",
+        "confidence": 0.99
+      },
+      {
+        "field": "Date",
+        "value": "03-Sep-2017",
+        "confidence": 0.93
+      },
+      {
+        "field": "Depth",
+        "value": "2,868 m MD",
+        "confidence": 0.86
+      },
+      {
+        "field": "Formation",
+        "value": "Tipam",
+        "confidence": 0.92
+      },
+      {
+        "field": "Event",
+        "value": "Mud Loss",
+        "confidence": 0.96
+      },
+      {
+        "field": "Action",
+        "value": "Pumped LCM pill; losses returned, then cut mud weight from 1.24 to 1.19 SG and pumped a second pill.",
+        "confidence": 0.82
+      },
+      {
+        "field": "Result",
+        "value": "Losses controlled after the second pill.",
+        "confidence": 0.87
+      },
+      {
+        "field": "Time lost",
+        "value": "4 h",
+        "confidence": 0.85
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "file": "DDR – OW-07 – 21-Sep-2017.pdf",
+    "well": "OW-07",
+    "type": "DDR",
+    "date": "21-Sep-2017",
+    "pages": 4,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 3,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-07"
+        ],
+        [
+          "Date",
+          "21-Sep-2017"
+        ],
+        [
+          "Rig",
+          "Rig E-3"
+        ],
+        [
+          "Report no.",
+          "DDR-07-026"
+        ],
+        [
+          "Depth at 06:00",
+          "3,345 m MD"
+        ],
+        [
+          "Formation",
+          "Tipam"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–08:30",
+          "hrs": "2.5",
+          "text": "Drilled 12¼\" hole from 3,345 m to 3,367 m. MW 1.24 SG. Parameters normal."
+        },
+        {
+          "time": "08:30–09:00",
+          "hrs": "0.5",
+          "text": "Connection. Circulated. Surveyed."
+        },
+        {
+          "time": "09:00–11:00",
+          "hrs": "2.0",
+          "text": "Drilled ahead to 3,385 m in Tipam."
+        },
+        {
+          "time": "11:00–13:00",
+          "hrs": "2.0",
+          "text": "Losses into Tipam during 9⅝\" cement displacement; top of cement ~350 m low, poor bond on CBL.",
+          "hl": true
+        },
+        {
+          "time": "13:00–17:00",
+          "hrs": "4.0",
+          "text": "Remedial squeeze through perforations at 2,950 m; lighter lead slurry (1.50 SG) recommended for future wells.",
+          "hl": true
+        },
+        {
+          "time": "17:00–20:00",
+          "hrs": "3.0",
+          "text": "Bond acceptable after squeeze.",
+          "hl": true
+        },
+        {
+          "time": "20:00–06:00",
+          "hrs": "10.0",
+          "text": "Time lost to cementing issue: 26 h (NPT). Continued operations as per programme."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-07",
+        "confidence": 0.97
+      },
+      {
+        "field": "Date",
+        "value": "21-Sep-2017",
+        "confidence": 0.97
+      },
+      {
+        "field": "Depth",
+        "value": "3,385 m MD",
+        "confidence": 0.91
+      },
+      {
+        "field": "Formation",
+        "value": "Tipam",
+        "confidence": 0.88
+      },
+      {
+        "field": "Event",
+        "value": "Cementing Issue",
+        "confidence": 0.97
+      },
+      {
+        "field": "Action",
+        "value": "Remedial squeeze through perforations at 2,950 m; lighter lead slurry (1.50 SG) recommended for future wells.",
+        "confidence": 0.85
+      },
+      {
+        "field": "Result",
+        "value": "Bond acceptable after squeeze.",
+        "confidence": 0.82
+      },
+      {
+        "field": "Time lost",
+        "value": "26 h",
+        "confidence": 0.87
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "file": "DDR – OW-01 – 22-Aug-2011.pdf",
+    "well": "OW-01",
+    "type": "DDR",
+    "date": "22-Aug-2011",
+    "pages": 4,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 2,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-01"
+        ],
+        [
+          "Date",
+          "22-Aug-2011"
+        ],
+        [
+          "Rig",
+          "Rig S-2"
+        ],
+        [
+          "Report no.",
+          "DDR-01-021"
+        ],
+        [
+          "Depth at 06:00",
+          "3,438 m MD"
+        ],
+        [
+          "Formation",
+          "Barail"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–08:30",
+          "hrs": "2.5",
+          "text": "Drilled 12¼\" hole from 3,438 m to 3,460 m. MW 1.30 SG. Parameters normal."
+        },
+        {
+          "time": "08:30–09:00",
+          "hrs": "0.5",
+          "text": "Connection. Circulated. Surveyed."
+        },
+        {
+          "time": "09:00–11:00",
+          "hrs": "2.0",
+          "text": "Drilled ahead to 3,478 m in Barail."
+        },
+        {
+          "time": "11:00–13:00",
+          "hrs": "2.0",
+          "text": "Differential sticking on a connection after 25 min static across Barail sand/shale interbeds.",
+          "hl": true
+        },
+        {
+          "time": "13:00–17:00",
+          "hrs": "4.0",
+          "text": "Jarred down, spotted 30 bbl freeing pill; resumed with controlled ROP (≤12 m/hr) and wiper trips every 200 m.",
+          "hl": true
+        },
+        {
+          "time": "17:00–20:00",
+          "hrs": "3.0",
+          "text": "Pipe freed after 14 h; no further sticking to TD.",
+          "hl": true
+        },
+        {
+          "time": "20:00–06:00",
+          "hrs": "10.0",
+          "text": "Time lost to stuck pipe: 16 h (NPT). Continued operations as per programme."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-01",
+        "confidence": 0.97
+      },
+      {
+        "field": "Date",
+        "value": "22-Aug-2011",
+        "confidence": 0.97
+      },
+      {
+        "field": "Depth",
+        "value": "3,478 m MD",
+        "confidence": 0.83
+      },
+      {
+        "field": "Formation",
+        "value": "Barail",
+        "confidence": 0.84
+      },
+      {
+        "field": "Event",
+        "value": "Stuck Pipe",
+        "confidence": 0.88
+      },
+      {
+        "field": "Action",
+        "value": "Jarred down, spotted 30 bbl freeing pill; resumed with controlled ROP (≤12 m/hr) and wiper trips every 200 m.",
+        "confidence": 0.87
+      },
+      {
+        "field": "Result",
+        "value": "Pipe freed after 14 h; no further sticking to TD.",
+        "confidence": 0.83
+      },
+      {
+        "field": "Time lost",
+        "value": "16 h",
+        "confidence": 0.88
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "file": "DDR – OW-01 – 23-Aug-2011.pdf",
+    "well": "OW-01",
+    "type": "DDR",
+    "date": "23-Aug-2011",
+    "pages": 4,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 1,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-01"
+        ],
+        [
+          "Date",
+          "23-Aug-2011"
+        ],
+        [
+          "Rig",
+          "Rig S-2"
+        ],
+        [
+          "Report no.",
+          "DDR-01-014"
+        ],
+        [
+          "Depth at 06:00",
+          "3,490 m MD"
+        ],
+        [
+          "Formation",
+          "Barail"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–08:30",
+          "hrs": "2.5",
+          "text": "Drilled 12¼\" hole from 3,490 m to 3,512 m. MW 1.30 SG. Parameters normal."
+        },
+        {
+          "time": "08:30–09:00",
+          "hrs": "0.5",
+          "text": "Connection. Circulated. Surveyed."
+        },
+        {
+          "time": "09:00–11:00",
+          "hrs": "2.0",
+          "text": "Drilled ahead to 3,530 m in Barail."
+        },
+        {
+          "time": "11:00–13:00",
+          "hrs": "2.0",
+          "text": "Erratic torque 18–24 kft·lbf in interbedded Barail shale.",
+          "hl": true
+        },
+        {
+          "time": "13:00–17:00",
+          "hrs": "4.0",
+          "text": "Reduced WOB, increased flow rate, back-reamed one stand.",
+          "hl": true
+        },
+        {
+          "time": "17:00–20:00",
+          "hrs": "3.0",
+          "text": "Torque normalised; drilled ahead.",
+          "hl": true
+        },
+        {
+          "time": "20:00–06:00",
+          "hrs": "10.0",
+          "text": "Time lost to torque spike: 2.5 h (NPT). Continued operations as per programme."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-01",
+        "confidence": 0.98
+      },
+      {
+        "field": "Date",
+        "value": "23-Aug-2011",
+        "confidence": 0.9
+      },
+      {
+        "field": "Depth",
+        "value": "3,530 m MD",
+        "confidence": 0.83
+      },
+      {
+        "field": "Formation",
+        "value": "Barail",
+        "confidence": 0.85
+      },
+      {
+        "field": "Event",
+        "value": "Torque Spike",
+        "confidence": 0.94
+      },
+      {
+        "field": "Action",
+        "value": "Reduced WOB, increased flow rate, back-reamed one stand.",
+        "confidence": 0.79
+      },
+      {
+        "field": "Result",
+        "value": "Torque normalised; drilled ahead.",
+        "confidence": 0.89
+      },
+      {
+        "field": "Time lost",
+        "value": "2.5 h",
+        "confidence": 0.86
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "file": "DDR – OW-04 – 07-Nov-2016.pdf",
+    "well": "OW-04",
+    "type": "DDR",
+    "date": "07-Nov-2016",
+    "pages": 4,
+    "method": "Digital text",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 2,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-04"
+        ],
+        [
+          "Date",
+          "07-Nov-2016"
+        ],
+        [
+          "Rig",
+          "Rig E-3"
+        ],
+        [
+          "Report no.",
+          "DDR-04-025"
+        ],
+        [
+          "Depth at 06:00",
+          "3,455 m MD"
+        ],
+        [
+          "Formation",
+          "Barail"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–08:30",
+          "hrs": "2.5",
+          "text": "Drilled 12¼\" hole from 3,455 m to 3,477 m. MW 1.32 SG. Parameters normal."
+        },
+        {
+          "time": "08:30–09:00",
+          "hrs": "0.5",
+          "text": "Connection. Circulated. Surveyed."
+        },
+        {
+          "time": "09:00–11:00",
+          "hrs": "2.0",
+          "text": "Drilled ahead to 3,495 m in Barail."
+        },
+        {
+          "time": "11:00–13:00",
+          "hrs": "2.0",
+          "text": "Torque rose from 15 to 21 kft·lbf while ROP fell from 14 to 6 m/hr over about 40 min.",
+          "hl": true
+        },
+        {
+          "time": "13:00–17:00",
+          "hrs": "4.0",
+          "text": "Picked up off bottom and circulated 30 min; resumed drilling.",
+          "hl": true
+        },
+        {
+          "time": "17:00–20:00",
+          "hrs": "3.0",
+          "text": "Torque stayed high; string packed off at 3,520 m (see next report).",
+          "hl": true
+        },
+        {
+          "time": "20:00–06:00",
+          "hrs": "10.0",
+          "text": "Time lost to torque spike: 1 h (NPT). Continued operations as per programme."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-04",
+        "confidence": 0.98
+      },
+      {
+        "field": "Date",
+        "value": "07-Nov-2016",
+        "confidence": 0.98
+      },
+      {
+        "field": "Depth",
+        "value": "3,495 m MD",
+        "confidence": 0.94
+      },
+      {
+        "field": "Formation",
+        "value": "Barail",
+        "confidence": 0.93
+      },
+      {
+        "field": "Event",
+        "value": "Torque Spike",
+        "confidence": 0.97
+      },
+      {
+        "field": "Action",
+        "value": "Picked up off bottom and circulated 30 min; resumed drilling.",
+        "confidence": 0.9
+      },
+      {
+        "field": "Result",
+        "value": "Torque stayed high; string packed off at 3,520 m (see next report).",
+        "confidence": 0.91
+      },
+      {
+        "field": "Time lost",
+        "value": "1 h",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "file": "DDR – OW-04 – 08-Nov-2016.pdf",
+    "well": "OW-04",
+    "type": "DDR",
+    "date": "08-Nov-2016",
+    "pages": 4,
+    "method": "Digital text",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 3,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-04"
+        ],
+        [
+          "Date",
+          "08-Nov-2016"
+        ],
+        [
+          "Rig",
+          "Rig E-3"
+        ],
+        [
+          "Report no.",
+          "DDR-04-031"
+        ],
+        [
+          "Depth at 06:00",
+          "3,480 m MD"
+        ],
+        [
+          "Formation",
+          "Barail"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–08:30",
+          "hrs": "2.5",
+          "text": "Drilled 12¼\" hole from 3,480 m to 3,502 m. MW 1.32 SG. Parameters normal."
+        },
+        {
+          "time": "08:30–09:00",
+          "hrs": "0.5",
+          "text": "Connection. Circulated. Surveyed."
+        },
+        {
+          "time": "09:00–11:00",
+          "hrs": "2.0",
+          "text": "Drilled ahead to 3,520 m in Barail."
+        },
+        {
+          "time": "11:00–13:00",
+          "hrs": "2.0",
+          "text": "String packed off and became stuck while drilling after the rising-torque / falling-ROP trend.",
+          "hl": true
+        },
+        {
+          "time": "13:00–17:00",
+          "hrs": "4.0",
+          "text": "Worked pipe and jarred up, back-reamed; then held ROP at 10–12 m/hr with hi-vis sweeps and wiper trips every 150 m.",
+          "hl": true
+        },
+        {
+          "time": "17:00–20:00",
+          "hrs": "3.0",
+          "text": "Pipe freed after 20 h; no repeat to TD.",
+          "hl": true
+        },
+        {
+          "time": "20:00–06:00",
+          "hrs": "10.0",
+          "text": "Time lost to stuck pipe: 22 h (NPT). Continued operations as per programme."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-04",
+        "confidence": 0.97
+      },
+      {
+        "field": "Date",
+        "value": "08-Nov-2016",
+        "confidence": 0.99
+      },
+      {
+        "field": "Depth",
+        "value": "3,520 m MD",
+        "confidence": 0.96
+      },
+      {
+        "field": "Formation",
+        "value": "Barail",
+        "confidence": 0.95
+      },
+      {
+        "field": "Event",
+        "value": "Stuck Pipe",
+        "confidence": 0.98
+      },
+      {
+        "field": "Action",
+        "value": "Worked pipe and jarred up, back-reamed; then held ROP at 10–12 m/hr with hi-vis sweeps and wiper trips every 150 m.",
+        "confidence": 0.93
+      },
+      {
+        "field": "Result",
+        "value": "Pipe freed after 20 h; no repeat to TD.",
+        "confidence": 0.9
+      },
+      {
+        "field": "Time lost",
+        "value": "22 h",
+        "confidence": 0.93
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "file": "DDR – OW-06 – 11-Jun-2014.pdf",
+    "well": "OW-06",
+    "type": "DDR",
+    "date": "11-Jun-2014",
+    "pages": 4,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 4,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-06"
+        ],
+        [
+          "Date",
+          "11-Jun-2014"
+        ],
+        [
+          "Rig",
+          "Rig S-4"
+        ],
+        [
+          "Report no.",
+          "DDR-06-031"
+        ],
+        [
+          "Depth at 06:00",
+          "3,850 m MD"
+        ],
+        [
+          "Formation",
+          "Barail"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–08:30",
+          "hrs": "2.5",
+          "text": "Drilled 12¼\" hole from 3,850 m to 3,872 m. MW 1.38 SG. Parameters normal."
+        },
+        {
+          "time": "08:30–09:00",
+          "hrs": "0.5",
+          "text": "Connection. Circulated. Surveyed."
+        },
+        {
+          "time": "09:00–11:00",
+          "hrs": "2.0",
+          "text": "Drilled ahead to 3,890 m in Barail."
+        },
+        {
+          "time": "11:00–13:00",
+          "hrs": "2.0",
+          "text": "12 bbl pit gain from an overpressured deep Barail sand while drilling with 1.32 SG mud.",
+          "hl": true
+        },
+        {
+          "time": "13:00–17:00",
+          "hrs": "4.0",
+          "text": "Shut in, killed with the driller's method, raised mud weight to 1.38 SG.",
+          "hl": true
+        },
+        {
+          "time": "17:00–20:00",
+          "hrs": "3.0",
+          "text": "Well killed and drilled ahead to TD.",
+          "hl": true
+        },
+        {
+          "time": "20:00–06:00",
+          "hrs": "10.0",
+          "text": "Time lost to kick: 19 h (NPT). Continued operations as per programme."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-06",
+        "confidence": 0.99
+      },
+      {
+        "field": "Date",
+        "value": "11-Jun-2014",
+        "confidence": 0.89
+      },
+      {
+        "field": "Depth",
+        "value": "3,890 m MD",
+        "confidence": 0.85
+      },
+      {
+        "field": "Formation",
+        "value": "Barail",
+        "confidence": 0.89
+      },
+      {
+        "field": "Event",
+        "value": "Kick",
+        "confidence": 0.97
+      },
+      {
+        "field": "Action",
+        "value": "Shut in, killed with the driller's method, raised mud weight to 1.38 SG.",
+        "confidence": 0.82
+      },
+      {
+        "field": "Result",
+        "value": "Well killed and drilled ahead to TD.",
+        "confidence": 0.88
+      },
+      {
+        "field": "Time lost",
+        "value": "19 h",
+        "confidence": 0.93
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "file": "DDR – OW-08 – 27-Feb-2013.pdf",
+    "well": "OW-08",
+    "type": "DDR",
+    "date": "27-Feb-2013",
+    "pages": 4,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 3,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-08"
+        ],
+        [
+          "Date",
+          "27-Feb-2013"
+        ],
+        [
+          "Rig",
+          "Rig S-2"
+        ],
+        [
+          "Report no.",
+          "DDR-08-028"
+        ],
+        [
+          "Depth at 06:00",
+          "2,840 m MD"
+        ],
+        [
+          "Formation",
+          "Tipam"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–08:30",
+          "hrs": "2.5",
+          "text": "Drilled 12¼\" hole from 2,840 m to 2,862 m. MW 1.25 SG. Parameters normal."
+        },
+        {
+          "time": "08:30–09:00",
+          "hrs": "0.5",
+          "text": "Connection. Circulated. Surveyed."
+        },
+        {
+          "time": "09:00–11:00",
+          "hrs": "2.0",
+          "text": "Drilled ahead to 2,880 m in Tipam."
+        },
+        {
+          "time": "11:00–13:00",
+          "hrs": "2.0",
+          "text": "Severe losses of about 40 bbl/hr in Tipam sand at 1.25 SG.",
+          "hl": true
+        },
+        {
+          "time": "13:00–17:00",
+          "hrs": "4.0",
+          "text": "LCM pills ineffective; set a cement plug, then drilled on with mud weight reduced to 1.19 SG.",
+          "hl": true
+        },
+        {
+          "time": "17:00–20:00",
+          "hrs": "3.0",
+          "text": "Losses cured after 30 h.",
+          "hl": true
+        },
+        {
+          "time": "20:00–06:00",
+          "hrs": "10.0",
+          "text": "Time lost to mud loss: 30 h (NPT). Continued operations as per programme."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-08",
+        "confidence": 0.99
+      },
+      {
+        "field": "Date",
+        "value": "27-Feb-2013",
+        "confidence": 0.89
+      },
+      {
+        "field": "Depth",
+        "value": "2,880 m MD",
+        "confidence": 0.83
+      },
+      {
+        "field": "Formation",
+        "value": "Tipam",
+        "confidence": 0.89
+      },
+      {
+        "field": "Event",
+        "value": "Mud Loss",
+        "confidence": 0.92
+      },
+      {
+        "field": "Action",
+        "value": "LCM pills ineffective; set a cement plug, then drilled on with mud weight reduced to 1.19 SG.",
+        "confidence": 0.84
+      },
+      {
+        "field": "Result",
+        "value": "Losses cured after 30 h.",
+        "confidence": 0.93
+      },
+      {
+        "field": "Time lost",
+        "value": "30 h",
+        "confidence": 0.89
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "file": "Casing record – OW-07 – 9⅝in.pdf",
+    "well": "OW-07",
+    "type": "Casing record",
+    "date": "21-Sep-2017",
+    "pages": 6,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 2,
+    "excerpt": {
+      "title": "CASING & CEMENTING RECORD – 9⅝\" INTERMEDIATE",
+      "meta": [
+        [
+          "Well",
+          "OW-07"
+        ],
+        [
+          "Date",
+          "21-Sep-2017"
+        ],
+        [
+          "Casing",
+          "9⅝\" 47 ppf N-80"
+        ],
+        [
+          "Shoe",
+          "3,385 m MD"
+        ],
+        [
+          "Planned TOC",
+          "2,600 m MD"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "Slurry",
+          "hrs": "",
+          "text": "Lead 1.65 SG (180 bbl), tail 1.90 SG (60 bbl). Spacer 1.30 SG."
+        },
+        {
+          "time": "Job",
+          "hrs": "",
+          "text": "Returns lost during displacement at 70% of plan; job completed on partial returns.",
+          "hl": true
+        },
+        {
+          "time": "CBL",
+          "hrs": "",
+          "text": "Top of cement at ~2,950 m (about 350 m below plan). Poor bond across Tipam sand.",
+          "hl": true
+        },
+        {
+          "time": "Remedial",
+          "hrs": "",
+          "text": "Perforated at 2,950 m; squeezed 40 bbl 1.90 SG slurry. Bond acceptable after squeeze.",
+          "hl": true
+        },
+        {
+          "time": "Lessons",
+          "hrs": "",
+          "text": "Cure Tipam losses before the cement job. Use a lighter lead slurry (1.50 SG) for 9⅝\" casing.",
+          "hl": true
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-07",
+        "confidence": 0.98
+      },
+      {
+        "field": "Date",
+        "value": "21-Sep-2017",
+        "confidence": 0.95
+      },
+      {
+        "field": "Depth",
+        "value": "3,385 m MD",
+        "confidence": 0.84
+      },
+      {
+        "field": "Formation",
+        "value": "Tipam",
+        "confidence": 0.84
+      },
+      {
+        "field": "Event",
+        "value": "Cementing Issue",
+        "confidence": 0.92
+      },
+      {
+        "field": "Action",
+        "value": "Remedial squeeze through perforations at 2,950 m; lighter lead slurry (1.50 SG) recommended for future wells.",
+        "confidence": 0.86
+      },
+      {
+        "field": "Result",
+        "value": "Bond acceptable after squeeze.",
+        "confidence": 0.85
+      },
+      {
+        "field": "Time lost",
+        "value": "26 h",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "file": "WCR – OW-01.pdf",
+    "well": "OW-01",
+    "type": "WCR",
+    "date": "2011",
+    "pages": 48,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 2,
+    "page": 7,
+    "excerpt": {
+      "title": "WELL COMPLETION REPORT – DRILLING SUMMARY",
+      "meta": [
+        [
+          "Well",
+          "OW-01"
+        ],
+        [
+          "Year drilled",
+          "2011"
+        ],
+        [
+          "TD",
+          "3,620 m MD"
+        ],
+        [
+          "Type",
+          "vertical"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "Tops",
+          "hrs": "",
+          "text": "Alluvium 0 m · Namsang 415 m · Girujan 1,170 m · Tipam 2,835 m · Barail 3,400 m"
+        },
+        {
+          "time": "Casing",
+          "hrs": "",
+          "text": "13⅜\" at 1,120 m · 9⅝\" at 3,375 m · 7\" at 3,620 m"
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Alluvium: water-based mud 1.05–1.08 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Namsang: water-based mud 1.08–1.12 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Girujan: water-based mud 1.14–1.18 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Tipam: water-based mud 1.18–1.22 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Barail: water-based mud 1.26–1.30 SG."
+        },
+        {
+          "time": "Problem",
+          "hrs": "",
+          "text": "Stuck Pipe at 3,478 m (Barail): Differential sticking on a connection after 25 min static across Barail sand/shale interbeds. Pipe freed after 14 h; no further sticking to TD.",
+          "hl": true
+        },
+        {
+          "time": "Problem",
+          "hrs": "",
+          "text": "Torque Spike at 3,530 m (Barail): Erratic torque 18–24 kft·lbf in interbedded Barail shale. Torque normalised; drilled ahead.",
+          "hl": true
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-01",
+        "confidence": 0.99
+      },
+      {
+        "field": "Date",
+        "value": "22-Aug-2011",
+        "confidence": 0.89
+      },
+      {
+        "field": "Depth",
+        "value": "3,478 m MD",
+        "confidence": 0.87
+      },
+      {
+        "field": "Formation",
+        "value": "Barail",
+        "confidence": 0.87
+      },
+      {
+        "field": "Event",
+        "value": "Stuck Pipe",
+        "confidence": 0.88
+      },
+      {
+        "field": "Action",
+        "value": "Jarred down, spotted 30 bbl freeing pill; resumed with controlled ROP (≤12 m/hr) and wiper trips every 200 m.",
+        "confidence": 0.86
+      },
+      {
+        "field": "Result",
+        "value": "Pipe freed after 14 h; no further sticking to TD.",
+        "confidence": 0.9
+      },
+      {
+        "field": "Time lost",
+        "value": "16 h",
+        "confidence": 0.93
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "file": "WCR – OW-02.pdf",
+    "well": "OW-02",
+    "type": "WCR",
+    "date": "2019",
+    "pages": 36,
+    "method": "Digital text",
+    "status": "Processed",
+    "eventsExtracted": 2,
+    "page": 7,
+    "excerpt": {
+      "title": "WELL COMPLETION REPORT – DRILLING SUMMARY",
+      "meta": [
+        [
+          "Well",
+          "OW-02"
+        ],
+        [
+          "Year drilled",
+          "2019"
+        ],
+        [
+          "TD",
+          "3,710 m MD"
+        ],
+        [
+          "Type",
+          "deviated"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "Tops",
+          "hrs": "",
+          "text": "Alluvium 0 m · Namsang 440 m · Girujan 1,205 m · Tipam 2,860 m · Barail 3,440 m"
+        },
+        {
+          "time": "Casing",
+          "hrs": "",
+          "text": "13⅜\" at 1,150 m · 9⅝\" at 3,405 m · 7\" at 3,710 m"
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Alluvium: water-based mud 1.05–1.08 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Namsang: water-based mud 1.08–1.12 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Girujan: water-based mud 1.15–1.20 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Tipam: water-based mud 1.18–1.24 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Barail: water-based mud 1.27–1.31 SG."
+        },
+        {
+          "time": "Problem",
+          "hrs": "",
+          "text": "Mud Loss at 2,872 m (Tipam): Partial losses of 12–15 bbl/hr on entering Tipam sand while drilling with 1.24 SG mud. Losses cured within 6 h; no further losses to 9⅝\" shoe.",
+          "hl": true
+        },
+        {
+          "time": "Problem",
+          "hrs": "",
+          "text": "Torque Spike at 3,515 m (Barail): Torque fluctuations 17–21 kft·lbf while rotating through Barail shale stringers. Drilled ahead normally.",
+          "hl": true
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-02",
+        "confidence": 0.98
+      },
+      {
+        "field": "Date",
+        "value": "14-Mar-2019",
+        "confidence": 0.99
+      },
+      {
+        "field": "Depth",
+        "value": "2,872 m MD",
+        "confidence": 0.96
+      },
+      {
+        "field": "Formation",
+        "value": "Tipam",
+        "confidence": 0.94
+      },
+      {
+        "field": "Event",
+        "value": "Mud Loss",
+        "confidence": 0.98
+      },
+      {
+        "field": "Action",
+        "value": "Pumped 50 bbl LCM pill (40 ppb CaCO₃ + fibre) and reduced mud weight to 1.18 SG.",
+        "confidence": 0.92
+      },
+      {
+        "field": "Result",
+        "value": "Losses cured within 6 h; no further losses to 9⅝\" shoe.",
+        "confidence": 0.94
+      },
+      {
+        "field": "Time lost",
+        "value": "6 h",
+        "confidence": 0.94
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "file": "WCR – OW-03.pdf",
+    "well": "OW-03",
+    "type": "WCR",
+    "date": "2008",
+    "pages": 48,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 0,
+    "page": 7,
+    "excerpt": {
+      "title": "WELL COMPLETION REPORT – DRILLING SUMMARY",
+      "meta": [
+        [
+          "Well",
+          "OW-03"
+        ],
+        [
+          "Year drilled",
+          "2008"
+        ],
+        [
+          "TD",
+          "2,600 m MD"
+        ],
+        [
+          "Type",
+          "vertical"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "Tops",
+          "hrs": "",
+          "text": "Alluvium 0 m · Namsang 420 m · Girujan 1,180 m"
+        },
+        {
+          "time": "Casing",
+          "hrs": "",
+          "text": "13⅜\" at 1,130 m · 9⅝\" at 2,590 m"
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Alluvium: water-based mud 1.05–1.08 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Namsang: water-based mud 1.08–1.12 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Girujan: water-based mud 1.14–1.18 SG."
+        },
+        {
+          "time": "Problems",
+          "hrs": "",
+          "text": "Shallow Girujan appraisal well; did not reach Tipam."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-03",
+        "confidence": 0.99
+      },
+      {
+        "field": "Event",
+        "value": "None recorded",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "file": "WCR – OW-04.pdf",
+    "well": "OW-04",
+    "type": "WCR",
+    "date": "2016",
+    "pages": 38,
+    "method": "Digital text",
+    "status": "Processed",
+    "eventsExtracted": 2,
+    "page": 7,
+    "excerpt": {
+      "title": "WELL COMPLETION REPORT – DRILLING SUMMARY",
+      "meta": [
+        [
+          "Well",
+          "OW-04"
+        ],
+        [
+          "Year drilled",
+          "2016"
+        ],
+        [
+          "TD",
+          "3,780 m MD"
+        ],
+        [
+          "Type",
+          "deviated"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "Tops",
+          "hrs": "",
+          "text": "Alluvium 0 m · Namsang 425 m · Girujan 1,185 m · Tipam 2,845 m · Barail 3,415 m"
+        },
+        {
+          "time": "Casing",
+          "hrs": "",
+          "text": "13⅜\" at 1,135 m · 9⅝\" at 3,390 m · 7\" at 3,780 m"
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Alluvium: water-based mud 1.05–1.08 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Namsang: water-based mud 1.08–1.12 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Girujan: water-based mud 1.15–1.19 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Tipam: water-based mud 1.18–1.23 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Barail: water-based mud 1.27–1.32 SG."
+        },
+        {
+          "time": "Problem",
+          "hrs": "",
+          "text": "Torque Spike at 3,495 m (Barail): Torque rose from 15 to 21 kft·lbf while ROP fell from 14 to 6 m/hr over about 40 min. Torque stayed high; string packed off at 3,520 m (see next report).",
+          "hl": true
+        },
+        {
+          "time": "Problem",
+          "hrs": "",
+          "text": "Stuck Pipe at 3,520 m (Barail): String packed off and became stuck while drilling after the rising-torque / falling-ROP trend. Pipe freed after 20 h; no repeat to TD.",
+          "hl": true
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-04",
+        "confidence": 0.99
+      },
+      {
+        "field": "Date",
+        "value": "07-Nov-2016",
+        "confidence": 0.98
+      },
+      {
+        "field": "Depth",
+        "value": "3,495 m MD",
+        "confidence": 0.94
+      },
+      {
+        "field": "Formation",
+        "value": "Barail",
+        "confidence": 0.95
+      },
+      {
+        "field": "Event",
+        "value": "Torque Spike",
+        "confidence": 0.97
+      },
+      {
+        "field": "Action",
+        "value": "Picked up off bottom and circulated 30 min; resumed drilling.",
+        "confidence": 0.91
+      },
+      {
+        "field": "Result",
+        "value": "Torque stayed high; string packed off at 3,520 m (see next report).",
+        "confidence": 0.91
+      },
+      {
+        "field": "Time lost",
+        "value": "1 h",
+        "confidence": 0.94
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "file": "WCR – OW-05.pdf",
+    "well": "OW-05",
+    "type": "WCR",
+    "date": "2021",
+    "pages": 33,
+    "method": "Digital text",
+    "status": "Processed",
+    "eventsExtracted": 2,
+    "page": 7,
+    "excerpt": {
+      "title": "WELL COMPLETION REPORT – DRILLING SUMMARY",
+      "meta": [
+        [
+          "Well",
+          "OW-05"
+        ],
+        [
+          "Year drilled",
+          "2021"
+        ],
+        [
+          "TD",
+          "3,690 m MD"
+        ],
+        [
+          "Type",
+          "vertical"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "Tops",
+          "hrs": "",
+          "text": "Alluvium 0 m · Namsang 435 m · Girujan 1,195 m · Tipam 2,870 m · Barail 3,445 m"
+        },
+        {
+          "time": "Casing",
+          "hrs": "",
+          "text": "13⅜\" at 1,145 m · 9⅝\" at 3,410 m · 7\" at 3,690 m"
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Alluvium: water-based mud 1.05–1.08 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Namsang: water-based mud 1.08–1.12 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Girujan: water-based mud 1.16–1.20 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Tipam: water-based mud 1.18–1.23 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Barail: water-based mud 1.26–1.30 SG."
+        },
+        {
+          "time": "Problem",
+          "hrs": "",
+          "text": "Mud Loss at 2,890 m (Tipam): Partial losses of about 20 bbl/hr in Tipam sand at 1.23 SG. Losses cured in about 5 h; drilled to 9⅝\" shoe without further losses.",
+          "hl": true
+        },
+        {
+          "time": "Problem",
+          "hrs": "",
+          "text": "Torque Spike at 3,510 m (Barail): Short torque spikes up to 20 kft·lbf in Barail shale. Torque back to normal.",
+          "hl": true
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-05",
+        "confidence": 0.97
+      },
+      {
+        "field": "Date",
+        "value": "19-Jan-2021",
+        "confidence": 0.98
+      },
+      {
+        "field": "Depth",
+        "value": "2,890 m MD",
+        "confidence": 0.95
+      },
+      {
+        "field": "Formation",
+        "value": "Tipam",
+        "confidence": 0.94
+      },
+      {
+        "field": "Event",
+        "value": "Mud Loss",
+        "confidence": 0.97
+      },
+      {
+        "field": "Action",
+        "value": "Pumped 40 bbl LCM pill, reduced mud weight to 1.18 SG and lowered flow rate by 10%.",
+        "confidence": 0.89
+      },
+      {
+        "field": "Result",
+        "value": "Losses cured in about 5 h; drilled to 9⅝\" shoe without further losses.",
+        "confidence": 0.91
+      },
+      {
+        "field": "Time lost",
+        "value": "7 h",
+        "confidence": 0.93
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "file": "WCR – OW-06.pdf",
+    "well": "OW-06",
+    "type": "WCR",
+    "date": "2014",
+    "pages": 38,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 14,
+    "excerpt": {
+      "title": "WELL COMPLETION REPORT – DRILLING SUMMARY",
+      "meta": [
+        [
+          "Well",
+          "OW-06"
+        ],
+        [
+          "Year drilled",
+          "2014"
+        ],
+        [
+          "TD",
+          "4,120 m MD"
+        ],
+        [
+          "Type",
+          "deviated"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "Tops",
+          "hrs": "",
+          "text": "Alluvium 0 m · Namsang 430 m · Girujan 1,190 m · Tipam 2,855 m · Barail 3,425 m · Kopili 4,065 m"
+        },
+        {
+          "time": "Casing",
+          "hrs": "",
+          "text": "13⅜\" at 1,140 m · 9⅝\" at 3,395 m · 7\" at 4,120 m"
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Alluvium: water-based mud 1.05–1.08 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Namsang: water-based mud 1.08–1.12 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Girujan: water-based mud 1.15–1.20 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Tipam: water-based mud 1.18–1.22 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Barail: water-based mud 1.28–1.38 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Kopili: water-based mud 1.36–1.38 SG."
+        },
+        {
+          "time": "Problem",
+          "hrs": "",
+          "text": "Kick at 3,890 m (Barail): 12 bbl pit gain from an overpressured deep Barail sand while drilling with 1.32 SG mud. Well killed and drilled ahead to TD.",
+          "hl": true
+        },
+        {
+          "time": "Remarks",
+          "hrs": "",
+          "text": "Pressure ramp seen ~60 m above the kick depth: rising background gas (3% → 7%) and connection gas.",
+          "hl": true
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-06",
+        "confidence": 0.98
+      },
+      {
+        "field": "Date",
+        "value": "11-Jun-2014",
+        "confidence": 0.9
+      },
+      {
+        "field": "Depth",
+        "value": "3,890 m MD",
+        "confidence": 0.96
+      },
+      {
+        "field": "Formation",
+        "value": "Barail",
+        "confidence": 0.95
+      },
+      {
+        "field": "Event",
+        "value": "Kick",
+        "confidence": 0.93
+      },
+      {
+        "field": "Action",
+        "value": "Shut in, killed with the driller's method, raised mud weight to 1.38 SG.",
+        "confidence": 0.91
+      },
+      {
+        "field": "Result",
+        "value": "Well killed and drilled ahead to TD.",
+        "confidence": 0.8
+      },
+      {
+        "field": "Time lost",
+        "value": "19 h",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "file": "WCR – OW-07.pdf",
+    "well": "OW-07",
+    "type": "WCR",
+    "date": "2017",
+    "pages": 44,
+    "method": "Digital text",
+    "status": "Processed",
+    "eventsExtracted": 2,
+    "page": 7,
+    "excerpt": {
+      "title": "WELL COMPLETION REPORT – DRILLING SUMMARY",
+      "meta": [
+        [
+          "Well",
+          "OW-07"
+        ],
+        [
+          "Year drilled",
+          "2017"
+        ],
+        [
+          "TD",
+          "3,650 m MD"
+        ],
+        [
+          "Type",
+          "vertical"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "Tops",
+          "hrs": "",
+          "text": "Alluvium 0 m · Namsang 420 m · Girujan 1,180 m · Tipam 2,842 m · Barail 3,410 m"
+        },
+        {
+          "time": "Casing",
+          "hrs": "",
+          "text": "13⅜\" at 1,130 m · 9⅝\" at 3,385 m · 7\" at 3,650 m"
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Alluvium: water-based mud 1.05–1.08 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Namsang: water-based mud 1.08–1.12 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Girujan: water-based mud 1.15–1.19 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Tipam: water-based mud 1.19–1.24 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Barail: water-based mud 1.26–1.31 SG."
+        },
+        {
+          "time": "Problem",
+          "hrs": "",
+          "text": "Mud Loss at 2,868 m (Tipam): Partial losses of 8–10 bbl/hr in Tipam sand at 1.24 SG. Losses controlled after the second pill.",
+          "hl": true
+        },
+        {
+          "time": "Problem",
+          "hrs": "",
+          "text": "Cementing Issue at 3,385 m (Tipam): Losses into Tipam during 9⅝\" cement displacement; top of cement ~350 m low, poor bond on CBL. Bond acceptable after squeeze.",
+          "hl": true
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-07",
+        "confidence": 0.97
+      },
+      {
+        "field": "Date",
+        "value": "03-Sep-2017",
+        "confidence": 0.98
+      },
+      {
+        "field": "Depth",
+        "value": "2,868 m MD",
+        "confidence": 0.97
+      },
+      {
+        "field": "Formation",
+        "value": "Tipam",
+        "confidence": 0.94
+      },
+      {
+        "field": "Event",
+        "value": "Mud Loss",
+        "confidence": 0.98
+      },
+      {
+        "field": "Action",
+        "value": "Pumped LCM pill; losses returned, then cut mud weight from 1.24 to 1.19 SG and pumped a second pill.",
+        "confidence": 0.89
+      },
+      {
+        "field": "Result",
+        "value": "Losses controlled after the second pill.",
+        "confidence": 0.89
+      },
+      {
+        "field": "Time lost",
+        "value": "4 h",
+        "confidence": 0.96
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "file": "WCR – OW-08.pdf",
+    "well": "OW-08",
+    "type": "WCR",
+    "date": "2013",
+    "pages": 45,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 1,
+    "page": 7,
+    "excerpt": {
+      "title": "WELL COMPLETION REPORT – DRILLING SUMMARY",
+      "meta": [
+        [
+          "Well",
+          "OW-08"
+        ],
+        [
+          "Year drilled",
+          "2013"
+        ],
+        [
+          "TD",
+          "3,600 m MD"
+        ],
+        [
+          "Type",
+          "vertical"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "Tops",
+          "hrs": "",
+          "text": "Alluvium 0 m · Namsang 445 m · Girujan 1,210 m · Tipam 2,865 m · Barail 3,450 m"
+        },
+        {
+          "time": "Casing",
+          "hrs": "",
+          "text": "13⅜\" at 1,155 m · 9⅝\" at 3,420 m · 7\" at 3,600 m"
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Alluvium: water-based mud 1.05–1.08 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Namsang: water-based mud 1.08–1.12 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Girujan: water-based mud 1.16–1.20 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Tipam: water-based mud 1.19–1.25 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Barail: water-based mud 1.26–1.30 SG."
+        },
+        {
+          "time": "Problem",
+          "hrs": "",
+          "text": "Mud Loss at 2,880 m (Tipam): Severe losses of about 40 bbl/hr in Tipam sand at 1.25 SG. Losses cured after 30 h.",
+          "hl": true
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-08",
+        "confidence": 0.97
+      },
+      {
+        "field": "Date",
+        "value": "27-Feb-2013",
+        "confidence": 0.9
+      },
+      {
+        "field": "Depth",
+        "value": "2,880 m MD",
+        "confidence": 0.9
+      },
+      {
+        "field": "Formation",
+        "value": "Tipam",
+        "confidence": 0.94
+      },
+      {
+        "field": "Event",
+        "value": "Mud Loss",
+        "confidence": 0.9
+      },
+      {
+        "field": "Action",
+        "value": "LCM pills ineffective; set a cement plug, then drilled on with mud weight reduced to 1.19 SG.",
+        "confidence": 0.78
+      },
+      {
+        "field": "Result",
+        "value": "Losses cured after 30 h.",
+        "confidence": 0.85
+      },
+      {
+        "field": "Time lost",
+        "value": "30 h",
+        "confidence": 0.91
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "file": "WCR – OW-09.pdf",
+    "well": "OW-09",
+    "type": "WCR",
+    "date": "2020",
+    "pages": 42,
+    "method": "Digital text",
+    "status": "Processed",
+    "eventsExtracted": 0,
+    "page": 7,
+    "excerpt": {
+      "title": "WELL COMPLETION REPORT – DRILLING SUMMARY",
+      "meta": [
+        [
+          "Well",
+          "OW-09"
+        ],
+        [
+          "Year drilled",
+          "2020"
+        ],
+        [
+          "TD",
+          "3,580 m MD"
+        ],
+        [
+          "Type",
+          "vertical"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "Tops",
+          "hrs": "",
+          "text": "Alluvium 0 m · Namsang 410 m · Girujan 1,175 m · Tipam 2,840 m · Barail 3,405 m"
+        },
+        {
+          "time": "Casing",
+          "hrs": "",
+          "text": "13⅜\" at 1,125 m · 9⅝\" at 3,380 m · 7\" at 3,580 m"
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Alluvium: water-based mud 1.05–1.08 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Namsang: water-based mud 1.08–1.12 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Girujan: water-based mud 1.15–1.19 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Tipam: water-based mud 1.17–1.19 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Barail: water-based mud 1.26–1.30 SG."
+        },
+        {
+          "time": "Problems",
+          "hrs": "",
+          "text": "No significant drilling problems recorded."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-09",
+        "confidence": 0.99
+      },
+      {
+        "field": "Event",
+        "value": "None recorded",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "file": "WCR – OW-10.pdf",
+    "well": "OW-10",
+    "type": "WCR",
+    "date": "2010",
+    "pages": 34,
+    "method": "OCR",
+    "status": "Processed",
+    "eventsExtracted": 0,
+    "page": 7,
+    "excerpt": {
+      "title": "WELL COMPLETION REPORT – DRILLING SUMMARY",
+      "meta": [
+        [
+          "Well",
+          "OW-10"
+        ],
+        [
+          "Year drilled",
+          "2010"
+        ],
+        [
+          "TD",
+          "3,640 m MD"
+        ],
+        [
+          "Type",
+          "deviated"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "Tops",
+          "hrs": "",
+          "text": "Alluvium 0 m · Namsang 430 m · Girujan 1,195 m · Tipam 2,860 m · Barail 3,440 m"
+        },
+        {
+          "time": "Casing",
+          "hrs": "",
+          "text": "13⅜\" at 1,140 m · 9⅝\" at 3,410 m · 7\" at 3,640 m"
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Alluvium: water-based mud 1.05–1.08 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Namsang: water-based mud 1.08–1.12 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Girujan: water-based mud 1.15–1.20 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Tipam: water-based mud 1.17–1.20 SG."
+        },
+        {
+          "time": "Mud",
+          "hrs": "",
+          "text": "Barail: water-based mud 1.26–1.30 SG."
+        },
+        {
+          "time": "Problems",
+          "hrs": "",
+          "text": "No significant drilling problems recorded."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-10",
+        "confidence": 0.99
+      },
+      {
+        "field": "Event",
+        "value": "None recorded",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "file": "Mud log – OW-02 – Girujan–Tipam.pdf",
+    "well": "OW-02",
+    "type": "Mud log",
+    "date": "14-Mar-2019",
+    "pages": 12,
+    "method": "Digital text",
+    "status": "Processed",
+    "eventsExtracted": 0,
+    "page": 1,
+    "excerpt": {
+      "title": "MUD LOG – SUMMARY SHEET",
+      "meta": [
+        [
+          "Well",
+          "OW-02"
+        ],
+        [
+          "Interval",
+          "1,205–3,440 m"
+        ],
+        [
+          "Mud system",
+          "Water-based (KCl-polymer)"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "Girujan",
+          "hrs": "",
+          "text": "Clay/claystone. MW 1.15–1.20 SG. No losses, no gas shows.",
+          "hl": true
+        },
+        {
+          "time": "Base Girujan",
+          "hrs": "",
+          "text": "MW raised to 1.20 SG ahead of Tipam as per programme.",
+          "hl": true
+        },
+        {
+          "time": "Tipam",
+          "hrs": "",
+          "text": "Sandstone, friable. MW 1.18–1.24 SG. Losses at top of Tipam (see DDR)."
+        },
+        {
+          "time": "Gas",
+          "hrs": "",
+          "text": "Background gas 0.4–1.2%. No significant peaks."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-02",
+        "confidence": 0.99
+      },
+      {
+        "field": "Formation",
+        "value": "Girujan / Tipam",
+        "confidence": 0.95
+      },
+      {
+        "field": "Mud weight",
+        "value": "1.15–1.20 SG",
+        "confidence": 0.94
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "file": "Mud log – OW-05 – Girujan–Tipam.pdf",
+    "well": "OW-05",
+    "type": "Mud log",
+    "date": "19-Jan-2021",
+    "pages": 12,
+    "method": "Digital text",
+    "status": "Processed",
+    "eventsExtracted": 0,
+    "page": 1,
+    "excerpt": {
+      "title": "MUD LOG – SUMMARY SHEET",
+      "meta": [
+        [
+          "Well",
+          "OW-05"
+        ],
+        [
+          "Interval",
+          "1,195–3,445 m"
+        ],
+        [
+          "Mud system",
+          "Water-based (KCl-polymer)"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "Girujan",
+          "hrs": "",
+          "text": "Clay/claystone. MW 1.16–1.20 SG. No losses, no gas shows.",
+          "hl": true
+        },
+        {
+          "time": "Tipam",
+          "hrs": "",
+          "text": "Sandstone, friable. MW 1.18–1.23 SG. Losses at top of Tipam (see DDR)."
+        },
+        {
+          "time": "Gas",
+          "hrs": "",
+          "text": "Background gas 0.4–1.2%. No significant peaks."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-05",
+        "confidence": 0.99
+      },
+      {
+        "field": "Formation",
+        "value": "Girujan / Tipam",
+        "confidence": 0.95
+      },
+      {
+        "field": "Mud weight",
+        "value": "1.16–1.20 SG",
+        "confidence": 0.94
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "file": "DDR – OW-09 – 12-Oct-2020.pdf",
+    "well": "OW-09",
+    "type": "DDR",
+    "date": "12-Oct-2020",
+    "pages": 4,
+    "method": "OCR",
+    "status": "In review",
+    "eventsExtracted": 1,
+    "page": 2,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-09"
+        ],
+        [
+          "Date",
+          "12-Oct-2020"
+        ],
+        [
+          "Rig",
+          "Rig E-6"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–10:00",
+          "hrs": "4.0",
+          "text": "Drilled / tripped as per programme in Barail. Parameters normal."
+        },
+        {
+          "time": "10:00–12:00",
+          "hrs": "2.0",
+          "text": "Erratic torque 16–20 kft·lbf while reaming tight spot at 3,215 m; back-reamed one stand and increased flow 10%.",
+          "hl": true
+        },
+        {
+          "time": "12:00–18:00",
+          "hrs": "6.0",
+          "text": "Back-reamed one stand; increased flow rate 10%. Torque normal."
+        },
+        {
+          "time": "18:00–06:00",
+          "hrs": "12.0",
+          "text": "Continued operations. No further remarks."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-09",
+        "confidence": 0.99
+      },
+      {
+        "field": "Date",
+        "value": "12-Oct-2020",
+        "confidence": 0.95
+      },
+      {
+        "field": "Depth",
+        "value": "3,215 m MD",
+        "confidence": 0.88
+      },
+      {
+        "field": "Formation",
+        "value": "Barail",
+        "confidence": 0.9
+      },
+      {
+        "field": "Event",
+        "value": "Torque Spike",
+        "confidence": 0.81
+      },
+      {
+        "field": "Action",
+        "value": "Back-reamed one stand; increased flow rate 10%.",
+        "confidence": 0.74
+      },
+      {
+        "field": "Result",
+        "value": "Torque normal.",
+        "confidence": 0.79
+      },
+      {
+        "field": "Time lost",
+        "value": "1.5 h",
+        "confidence": 0.86
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "file": "DDR – OW-10 – 18-Apr-2010.pdf",
+    "well": "OW-10",
+    "type": "DDR",
+    "date": "18-Apr-2010",
+    "pages": 4,
+    "method": "OCR",
+    "status": "In review",
+    "eventsExtracted": 1,
+    "page": 2,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-10"
+        ],
+        [
+          "Date",
+          "18-Apr-2010"
+        ],
+        [
+          "Rig",
+          "Rig S-1"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–10:00",
+          "hrs": "4.0",
+          "text": "Drilled / tripped as per programme in Tipam. Parameters normal."
+        },
+        {
+          "time": "10:00–12:00",
+          "hrs": "2.0",
+          "text": "Seepage losses 2–3 bbl/hr at 2,9O5 m in Tipam sand; added fine CaCO₃ to active system and continued drilling.",
+          "hl": true
+        },
+        {
+          "time": "12:00–18:00",
+          "hrs": "6.0",
+          "text": "Added fine CaCO₃ to active system; continued drilling. Seepage stopped."
+        },
+        {
+          "time": "18:00–06:00",
+          "hrs": "12.0",
+          "text": "Continued operations. No further remarks."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-10",
+        "confidence": 0.99
+      },
+      {
+        "field": "Date",
+        "value": "18-Apr-2010",
+        "confidence": 0.93
+      },
+      {
+        "field": "Depth",
+        "value": "2,9O5 m MD",
+        "confidence": 0.58
+      },
+      {
+        "field": "Formation",
+        "value": "Tipam",
+        "confidence": 0.92
+      },
+      {
+        "field": "Event",
+        "value": "Mud Loss",
+        "confidence": 0.84
+      },
+      {
+        "field": "Action",
+        "value": "Added fine CaCO₃ to active system; continued drilling.",
+        "confidence": 0.77
+      },
+      {
+        "field": "Result",
+        "value": "Seepage stopped.",
+        "confidence": 0.8
+      },
+      {
+        "field": "Time lost",
+        "value": "0 h",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "file": "DDR – OW-03 – 07-Jul-2008.pdf",
+    "well": "OW-03",
+    "type": "DDR",
+    "date": "07-Jul-2008",
+    "pages": 4,
+    "method": "OCR",
+    "status": "In review",
+    "eventsExtracted": 1,
+    "page": 2,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-03"
+        ],
+        [
+          "Date",
+          "07-Jul-2008"
+        ],
+        [
+          "Rig",
+          "Rig S-1"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–10:00",
+          "hrs": "4.0",
+          "text": "Drilled / tripped as per programme in Girujan. Parameters normal."
+        },
+        {
+          "time": "10:00–12:00",
+          "hrs": "2.0",
+          "text": "Overpull 20 klbf at 2,410 m while pulling out; wiped through, hole free.",
+          "hl": true
+        },
+        {
+          "time": "12:00–18:00",
+          "hrs": "6.0",
+          "text": "Wiped through tight spot. Hole free."
+        },
+        {
+          "time": "18:00–06:00",
+          "hrs": "12.0",
+          "text": "Continued operations. No further remarks."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-03",
+        "confidence": 0.98
+      },
+      {
+        "field": "Date",
+        "value": "07-Jul-2008",
+        "confidence": 0.94
+      },
+      {
+        "field": "Depth",
+        "value": "2,410 m MD",
+        "confidence": 0.9
+      },
+      {
+        "field": "Formation",
+        "value": "Girujan",
+        "confidence": 0.88
+      },
+      {
+        "field": "Event",
+        "value": "Stuck Pipe",
+        "confidence": 0.52
+      },
+      {
+        "field": "Action",
+        "value": "Wiped through tight spot.",
+        "confidence": 0.7
+      },
+      {
+        "field": "Result",
+        "value": "Hole free.",
+        "confidence": 0.75
+      },
+      {
+        "field": "Time lost",
+        "value": "0.5 h",
+        "confidence": 0.83
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "file": "WCR – OW-09 – addendum.pdf",
+    "well": "OW-09",
+    "type": "WCR",
+    "date": "2020",
+    "pages": 5,
+    "method": "Digital text",
+    "status": "In review",
+    "eventsExtracted": 1,
+    "page": 2,
+    "excerpt": {
+      "title": "WELL COMPLETION REPORT – ADDENDUM",
+      "meta": [
+        [
+          "Well",
+          "OW-09"
+        ],
+        [
+          "Date",
+          "2020"
+        ],
+        [
+          "Rig",
+          "Rig E-6"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–10:00",
+          "hrs": "4.0",
+          "text": "Drilled / tripped as per programme in Tipam. Parameters normal."
+        },
+        {
+          "time": "10:00–12:00",
+          "hrs": "2.0",
+          "text": "Top of cement on 9⅝\" casing 80 m below plan; accepted without remedial work.",
+          "hl": true
+        },
+        {
+          "time": "12:00–18:00",
+          "hrs": "6.0",
+          "text": "None – accepted. No remedial work needed."
+        },
+        {
+          "time": "18:00–06:00",
+          "hrs": "12.0",
+          "text": "Continued operations. No further remarks."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-09",
+        "confidence": 0.99
+      },
+      {
+        "field": "Date",
+        "value": "2020",
+        "confidence": 0.97
+      },
+      {
+        "field": "Depth",
+        "value": "3,380 m MD",
+        "confidence": 0.93
+      },
+      {
+        "field": "Formation",
+        "value": "Tipam",
+        "confidence": 0.9
+      },
+      {
+        "field": "Event",
+        "value": "Cementing Issue",
+        "confidence": 0.61
+      },
+      {
+        "field": "Action",
+        "value": "None – accepted.",
+        "confidence": 0.82
+      },
+      {
+        "field": "Result",
+        "value": "No remedial work needed.",
+        "confidence": 0.85
+      },
+      {
+        "field": "Time lost",
+        "value": "0 h",
+        "confidence": 0.95
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "file": "DDR – OW-08 – 02-Mar-2013.pdf",
+    "well": "OW-08",
+    "type": "DDR",
+    "date": "02-Mar-2013",
+    "pages": 4,
+    "method": "OCR",
+    "status": "In review",
+    "eventsExtracted": 1,
+    "page": 2,
+    "excerpt": {
+      "title": "DAILY DRILLING REPORT",
+      "meta": [
+        [
+          "Well",
+          "OW-08"
+        ],
+        [
+          "Date",
+          "02-Mar-2013"
+        ],
+        [
+          "Rig",
+          "Rig S-2"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–10:00",
+          "hrs": "4.0",
+          "text": "Drilled / tripped as per programme in Barail. Parameters normal."
+        },
+        {
+          "time": "10:00–12:00",
+          "hrs": "2.0",
+          "text": "Torque spikes to 22 kft·lbf at 3,480 m in Barail shale; reduced WOB and back-reamed.",
+          "hl": true
+        },
+        {
+          "time": "12:00–18:00",
+          "hrs": "6.0",
+          "text": "Reduced WOB; back-reamed. Torque normalised."
+        },
+        {
+          "time": "18:00–06:00",
+          "hrs": "12.0",
+          "text": "Continued operations. No further remarks."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-08",
+        "confidence": 0.99
+      },
+      {
+        "field": "Date",
+        "value": "02-Mar-2013",
+        "confidence": 0.91
+      },
+      {
+        "field": "Depth",
+        "value": "3,480 m MD",
+        "confidence": 0.89
+      },
+      {
+        "field": "Formation",
+        "value": "Barail",
+        "confidence": 0.93
+      },
+      {
+        "field": "Event",
+        "value": "Torque Spike",
+        "confidence": 0.86
+      },
+      {
+        "field": "Action",
+        "value": "Reduced WOB; back-reamed.",
+        "confidence": 0.72
+      },
+      {
+        "field": "Result",
+        "value": "Torque normalised.",
+        "confidence": 0.84
+      },
+      {
+        "field": "Time lost",
+        "value": "1 h",
+        "confidence": 0.88
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "file": "Mud log – OW-10 – 22-Apr-2010.pdf",
+    "well": "OW-10",
+    "type": "Mud log",
+    "date": "22-Apr-2010",
+    "pages": 4,
+    "method": "OCR",
+    "status": "In review",
+    "eventsExtracted": 1,
+    "page": 2,
+    "excerpt": {
+      "title": "MUD LOG – SUMMARY SHEET",
+      "meta": [
+        [
+          "Well",
+          "OW-10"
+        ],
+        [
+          "Date",
+          "22-Apr-2010"
+        ],
+        [
+          "Rig",
+          "Rig S-1"
+        ]
+      ],
+      "rows": [
+        {
+          "time": "06:00–10:00",
+          "hrs": "4.0",
+          "text": "Drilled / tripped as per programme in Tipam. Parameters normal."
+        },
+        {
+          "time": "10:00–12:00",
+          "hrs": "2.0",
+          "text": "Gas peak 11% at 3,390 m after trip (trip gas); no pit gain, MW unchanged.",
+          "hl": true
+        },
+        {
+          "time": "12:00–18:00",
+          "hrs": "6.0",
+          "text": "Circulated bottoms up. Gas dropped to background."
+        },
+        {
+          "time": "18:00–06:00",
+          "hrs": "12.0",
+          "text": "Continued operations. No further remarks."
+        }
+      ]
+    },
+    "extracted": [
+      {
+        "field": "Well",
+        "value": "OW-10",
+        "confidence": 0.98
+      },
+      {
+        "field": "Date",
+        "value": "22-Apr-2010",
+        "confidence": 0.9
+      },
+      {
+        "field": "Depth",
+        "value": "3,390 m MD",
+        "confidence": 0.87
+      },
+      {
+        "field": "Formation",
+        "value": "Tipam",
+        "confidence": 0.85
+      },
+      {
+        "field": "Event",
+        "value": "Kick",
+        "confidence": 0.47
+      },
+      {
+        "field": "Action",
+        "value": "Circulated bottoms up.",
+        "confidence": 0.72
+      },
+      {
+        "field": "Result",
+        "value": "Gas dropped to background.",
+        "confidence": 0.78
+      },
+      {
+        "field": "Time lost",
+        "value": "0 h",
+        "confidence": 0.9
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "file": "DDR – OW-10 – 05-May-2010.pdf",
+    "well": "OW-10",
+    "type": "DDR",
+    "date": "05-May-2010",
+    "pages": 3,
+    "method": "OCR",
+    "status": "Failed",
+    "eventsExtracted": 0,
+    "page": 1,
+    "failReason": "Unreadable scan – page skew > 15° and faded print",
+    "excerpt": null,
+    "extracted": []
+  }
+]
