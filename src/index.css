@@ -269,6 +269,9 @@ button.chip.on {
   right: 6px !important;
   color: #fff !important;
 }
+.nwis-tiles {
+  filter: saturate(0.45) brightness(1.04);
+}
 .leaflet-control-attribution {
   font-size: 10px !important;
 }

@@ -14,8 +14,9 @@ const PAD = 14;
 const SLIDER_H = 78;
 const LEGEND_H = 64;
 
-const TILE_URL = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-const TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+// OpenStreetMap standard tiles (free, no API key). Softened with CSS (.nwis-tiles) to suit the light theme.
+const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+const TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 const activeIcon = L.divIcon({
   className: '',
@@ -94,7 +95,7 @@ export default function MapView() {
         inertia={!SHOT}
         attributionControl
       >
-        <TileLayer url={TILE_URL} attribution={TILE_ATTR} subdomains="abcd" maxZoom={19} eventHandlers={tileEvents} />
+        <TileLayer url={TILE_URL} attribution={TILE_ATTR} className="nwis-tiles" maxZoom={19} eventHandlers={tileEvents} />
         <ZoomControl />
         <MapController markers={markers} />
 
