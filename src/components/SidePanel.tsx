@@ -1,44 +1,37 @@
-import type { ReactNode } from 'react';
-import type { TabId } from '../types';
+import { Link } from 'react-router';
+import { useApp } from '../state/AppState';
+import AlertCard from './AlertCard';
+import WellsTable from './WellsTable';
 
-interface Props {
-  tab: TabId;
-  onTabChange: (t: TabId) => void;
-  alertCount: number;
-  wellCount: number;
-  children: ReactNode;
-}
-
-export default function SidePanel({ tab, onTabChange, alertCount, wellCount, children }: Props) {
-  const tabs: { id: TabId; label: string; badge?: number }[] = [
-    { id: 'alerts', label: 'Alerts', badge: alertCount },
-    { id: 'wells', label: 'Nearby Wells', badge: wellCount },
-    { id: 'ask', label: 'Ask the Reports' },
-  ];
+/** Right-hand dashboard column: top alerts + nearby wells table. */
+export default function SidePanel() {
+  const { alerts, wellsInRadius, focusWell, focus, role, radiusKm } = useApp();
+  const field = role === 'field';
   return (
-    <aside className="flex h-full min-h-0 flex-col border-l border-line bg-bg">
-      <nav className="flex shrink-0 border-b border-line bg-panel px-2" role="tablist">
-        {tabs.map((t) => {
-          const on = t.id === tab;
-          return (
-            <button
-              key={t.id}
-              role="tab"
-              aria-selected={on}
-              type="button"
-              onClick={() => onTabChange(t.id)}
-              className={`relative flex items-center gap-2 px-4 py-3.5 text-[0.95rem] font-medium ${on ? 'text-ink' : 'text-muted hover:text-ink'}`}
-            >
-              {t.label}
-              {t.badge !== undefined && (
-                <span className={`rounded px-1.5 text-[0.75rem] font-semibold ${on ? 'bg-accent text-bg' : 'bg-line text-ink'}`}>{t.badge}</span>
-              )}
-              {on && <span className="absolute inset-x-2 bottom-0 h-0.5 bg-accent" />}
-            </button>
-          );
-        })}
-      </nav>
-      <div className="min-h-0 flex-1 overflow-y-auto p-4">{children}</div>
-    </aside>
+    <div className="flex h-full min-h-0 flex-col gap-3">
+      <section className="card flex-none">
+        <div className="card-h">
+          <span>Alerts ahead of the bit</span>
+          <Link to="/alerts" className="text-[0.85rem] font-normal text-navy underline">
+            All {alerts.length} alerts
+          </Link>
+        </div>
+        <div className="space-y-2 p-2.5">
+          {alerts.slice(0, 3).map((a) => (
+            <AlertCard key={a.id} alert={a} size={field ? 'large' : 'compact'} />
+          ))}
+          {alerts.length === 0 && <div className="p-3 text-muted">No alerts for wells in the current radius.</div>}
+        </div>
+      </section>
+      <section className="card flex min-h-0 flex-1 flex-col">
+        <div className="card-h">
+          <span>Nearby wells</span>
+          <span className="text-[0.82rem] font-normal text-muted">within {radiusKm} km · click a row to show on map</span>
+        </div>
+        <div className="min-h-0 flex-1 overflow-auto">
+          <WellsTable wells={wellsInRadius} selected={focus?.name} onSelect={focusWell} />
+        </div>
+      </section>
+    </div>
   );
 }

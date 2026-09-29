@@ -1,28 +1,34 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-bg: #0f172a;
-  --color-panel: #1e293b;
-  --color-panel-2: #172033;
-  --color-line: #334155;
-  --color-ink: #e5e7eb;
-  --color-muted: #94a3b8;
-  --color-accent: #f59e0b;
-  --color-ok: #22c55e;
-  --color-bad: #ef4444;
-  --font-sans: 'Inter Variable', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --color-navy: #0b3d91;
+  --color-navy-dark: #082d6b;
+  --color-page: #f5f7fa;
+  --color-line: #d9dee5;
+  --color-ink: #1f2937;
+  --color-muted: #6b7280;
+  --color-accent: #e67e22;
+  --color-risk-red: #c0392b;
+  --color-risk-amber: #d68910;
+  --color-risk-purple: #7d3c98;
+  --color-risk-blue: #2471a3;
+  --color-risk-green: #1e8449;
+  --color-risk-grey: #7f8c8d;
+  --color-zebra: #f8f9fb;
+  --color-hover: #eef3fb;
+  --font-sans: 'Noto Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html {
-  font-size: 15px;
+  font-size: 14px;
 }
-@media (min-width: 1700px) {
+@media (min-width: 1600px) {
   html {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 
@@ -34,202 +40,271 @@ body,
 
 body {
   margin: 0;
-  background: var(--color-bg);
+  background: var(--color-page);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-feature-settings:
-    'tnum' 1,
-    'cv11' 1;
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Thin, calm scrollbars */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #334155 transparent;
+h1,
+h2,
+h3 {
+  margin: 0;
 }
 
-/* ---------- Range slider ---------- */
-input[type='range'].radius {
-  -webkit-appearance: none;
-  appearance: none;
-  height: 4px;
-  border-radius: 2px;
-  background: linear-gradient(to right, #f59e0b var(--fill), #334155 var(--fill));
-  outline: none;
+@layer components {
+/* ---------- basic building blocks ---------- */
+.card {
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
 }
-input[type='range'].radius::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #0f172a;
-  border: 3px solid #f59e0b;
-  cursor: pointer;
-}
-input[type='range'].radius::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #0f172a;
-  border: 3px solid #f59e0b;
-  cursor: pointer;
-}
-
-/* ---------- Leaflet overrides ---------- */
-.leaflet-container {
-  background: #0b1120;
-  font-family: var(--font-sans);
-}
-.leaflet-control-attribution {
-  background: rgba(15, 23, 42, 0.8) !important;
-  color: #64748b !important;
-  font-size: 10px !important;
-}
-.leaflet-control-attribution a {
-  color: #94a3b8 !important;
-}
-.leaflet-control-zoom a {
-  background: #1e293b !important;
-  color: #e5e7eb !important;
-  border-color: #334155 !important;
-}
-.leaflet-control-zoom {
-  border: 1px solid #334155 !important;
-}
-
-.leaflet-tooltip.well-label {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  color: #e5e7eb;
+.card-h {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--color-line);
   font-weight: 600;
-  font-size: 13px;
-  padding: 0 2px;
-  text-shadow:
-    0 0 3px #0f172a,
-    0 0 3px #0f172a,
-    0 0 2px #0f172a;
+  font-size: 1rem;
 }
-.leaflet-tooltip.well-label::before {
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--color-line);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--color-ink);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn:hover {
+  background: var(--color-hover);
+  border-color: #b7c3d4;
+}
+.btn-primary {
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--color-navy-dark);
+  border-color: var(--color-navy-dark);
+}
+.btn-sm {
+  padding: 0.2rem 0.55rem;
+  font-size: 0.82rem;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.input {
+  border: 1px solid var(--color-line);
+  border-radius: 3px;
+  padding: 0.35rem 0.55rem;
+  font: inherit;
+  font-size: 0.92rem;
+  background: #fff;
+  color: var(--color-ink);
+}
+.input:focus,
+.btn:focus-visible {
+  outline: 2px solid #9db7e3;
+  outline-offset: 0;
+}
+.label {
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- tables ---------- */
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.tbl th {
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  background: #eef1f5;
+  border-bottom: 1px solid var(--color-line);
+  padding: 0.45rem 0.6rem;
+  white-space: nowrap;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.tbl td {
+  padding: 0.42rem 0.6rem;
+  border-bottom: 1px solid #e8ecf1;
+  vertical-align: top;
+}
+.tbl tbody tr:nth-child(even) {
+  background: var(--color-zebra);
+}
+.tbl tbody tr.clickable {
+  cursor: pointer;
+}
+.tbl tbody tr.clickable:hover {
+  background: var(--color-hover);
+}
+.tbl tbody tr.selected {
+  background: #fdf1e6 !important;
+  box-shadow: inset 3px 0 0 var(--color-accent);
+}
+.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- chips ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--color-line);
+  border-radius: 3px;
+  padding: 0.12rem 0.5rem;
+  font-size: 0.82rem;
+  background: #fff;
+  white-space: nowrap;
+}
+button.chip {
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.6rem;
+}
+button.chip:hover {
+  background: var(--color-hover);
+}
+button.chip.on {
+  border-color: var(--color-navy);
+  background: #e8eef9;
+  color: var(--color-navy);
+  font-weight: 600;
+}
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: none;
+}
+
+/* ---------- nav ---------- */
+.nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem;
+  color: #374151;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  font-size: 0.93rem;
+}
+.nav a:hover {
+  background: #eef1f5;
+}
+.nav a.active {
+  background: #e8eef9;
+  color: var(--color-navy);
+  border-left-color: var(--color-navy);
+  font-weight: 600;
+}
+.nav svg {
+  flex: none;
+}
+
+}
+
+/* ---------- leaflet ---------- */
+.leaflet-container {
+  font-family: var(--font-sans);
+  background: #eef0f3;
+}
+.well-label {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid #c9d0da !important;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+  color: var(--color-ink) !important;
+  font-size: 12px !important;
+  font-weight: 600;
+  padding: 1px 5px !important;
+}
+.well-label::before {
   display: none;
 }
-.leaflet-tooltip.well-label.active-label {
-  color: #f59e0b;
-  font-size: 14px;
+.well-label.active-label {
+  border-color: var(--color-accent) !important;
+  color: #a84f0c !important;
+  font-size: 13px !important;
 }
-
-.leaflet-popup-content-wrapper {
-  background: #1e293b;
-  color: #e5e7eb;
-  border: 1px solid #334155;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+.nwis-popup .leaflet-popup-content-wrapper {
+  border-radius: 4px;
+  border: 1px solid var(--color-line);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18);
+  padding: 0;
 }
-.leaflet-popup-content {
+.nwis-popup .leaflet-popup-content {
   margin: 0;
-  width: auto !important;
+  width: 400px !important;
   font-size: 13px;
   line-height: 1.4;
 }
-.leaflet-popup-tip {
-  background: #1e293b;
-  border: 1px solid #334155;
-  box-shadow: none;
+.nwis-popup .leaflet-popup-close-button {
+  top: 6px !important;
+  right: 6px !important;
+  color: #fff !important;
 }
-.leaflet-container a.leaflet-popup-close-button {
-  color: #94a3b8;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-}
-.leaflet-container a.leaflet-popup-close-button:hover {
-  color: #e5e7eb;
+.leaflet-control-attribution {
+  font-size: 10px !important;
 }
 
-/* Popup placed beside the marker (screenshot mode) */
-.side-popup {
-  margin-bottom: 0;
+/* ---------- mock scanned document ---------- */
+.doc-page {
+  background: #fdfcf8;
+  border: 1px solid #cfd4db;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  font-family: 'Courier New', Courier, monospace;
+  color: #2b2b2b;
+  font-size: 12.5px;
+  line-height: 1.5;
 }
-.side-popup .leaflet-popup-tip-container {
-  display: none;
+.doc-page.scan {
+  background: #f7f5ee;
+  filter: contrast(0.96);
 }
-.side-popup .leaflet-popup-content-wrapper {
-  position: relative;
-}
-.side-popup .leaflet-popup-content-wrapper::after {
-  content: '';
-  position: absolute;
-  right: -7px;
-  top: 50%;
-  width: 12px;
-  height: 12px;
-  background: #1e293b;
-  border-top: 1px solid #334155;
-  border-right: 1px solid #334155;
-  transform: translateY(-50%) rotate(45deg);
+mark.hl {
+  background: #fde8c8;
+  outline: 1px solid #f0b36e;
+  color: inherit;
 }
 
-/* Active well marker */
-.active-well {
-  position: relative;
-  width: 28px;
-  height: 28px;
-}
-.active-well .core {
-  position: absolute;
-  inset: 7px;
-  border-radius: 50%;
-  background: #f59e0b;
-  border: 3px solid #0f172a;
-  box-shadow: 0 0 0 2px #f59e0b;
-}
-.active-well .ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 2px solid #f59e0b;
-  opacity: 0;
-  animation: pulse 2.4s ease-out infinite;
-}
-@keyframes pulse {
-  0% {
-    transform: scale(0.6);
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-
-.live-dot {
-  animation: blink 2s ease-in-out infinite;
-}
-@keyframes blink {
-  50% {
-    opacity: 0.35;
-  }
-}
-
-/* ---------- Screenshot mode ---------- */
+/* ---------- screenshot mode ---------- */
 html.shot *,
 html.shot *::before,
 html.shot *::after {
-  animation: none !important;
   transition: none !important;
-  cursor: none !important;
+  animation: none !important;
   caret-color: transparent !important;
-  scrollbar-width: none !important;
+  cursor: none !important;
 }
 html.shot ::-webkit-scrollbar {
   display: none;
 }
-html.shot .active-well .ring {
-  opacity: 0.35;
-  transform: scale(1.35);
-}
-html.shot .leaflet-control-zoom {
-  display: none;
+html.shot * {
+  scrollbar-width: none;
 }

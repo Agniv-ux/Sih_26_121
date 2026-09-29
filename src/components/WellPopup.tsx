@@ -1,86 +1,67 @@
 import type { OffsetWell } from '../types';
-import { fmtHrs, fmtKm, fmtM } from '../lib/format';
-import { IssueDot } from './IssueTag';
-import { ISSUE_COLORS, ISSUE_SHORT } from '../lib/constants';
+import { ISSUE_COLORS } from '../lib/constants';
+import { fmtM, sourceLabel } from '../lib/format';
+import { IssueTag } from './IssueTag';
 
 interface Props {
   well: OffsetWell;
-  onViewDepth: (name: string) => void;
+  onDepth: () => void;
+  onReports: () => void;
 }
 
-function Field({ label, value }: { label: string; value: string }) {
+export default function WellPopup({ well: w, onDepth, onReports }: Props) {
   return (
     <div>
-      <div className="text-[11px] uppercase tracking-wider text-muted">{label}</div>
-      <div className="text-[14px] font-semibold text-ink">{value}</div>
+      <div className="flex items-center gap-2 bg-navy px-3 py-2 text-white">
+        <span className="text-[15px] font-bold">{w.name}</span>
+        <span className="text-[12px] text-[#c9d6ee]">
+          {w.distanceKm.toFixed(1)} km from active well · drilled {w.year}
+        </span>
+      </div>
+      <div className="px-3 pt-2">
+        <table className="w-full text-[12.5px]">
+          <tbody>
+            <Row k="Total depth" v={`${fmtM(w.td)} m MD${w.type === 'deviated' ? ` (${fmtM(w.tdTvd)} m TVD)` : ''} · ${w.type}`} />
+            <Row k="Main issue" v={<IssueTag issue={w.mainIssue} />} />
+            <Row k="Formations" v={w.formationTops.map((t) => `${t.name} ${fmtM(t.top)}`).join(' · ')} />
+            <Row k="Casing" v={w.casing.map((c) => `${c.size} @ ${fmtM(c.shoe)} m`).join(' · ')} />
+            <Row k="Mud weight" v={`${w.mudWeight.min.toFixed(2)}–${w.mudWeight.max.toFixed(2)} SG`} />
+            <Row k="NPT" v={<b>{w.nptHours} h</b>} />
+          </tbody>
+        </table>
+        <div className="mt-2 text-[12px] font-semibold uppercase tracking-wide text-muted">Events ({w.events.length})</div>
+        {w.events.length === 0 ? (
+          <div className="py-1 text-[12.5px] text-muted">{w.note ?? 'No major drilling issue recorded.'}</div>
+        ) : (
+          <ul className="mt-1 max-h-[190px] space-y-1.5 overflow-auto">
+            {w.events.map((e, i) => (
+              <li key={i} className="border-l-[3px] pl-2 text-[12.5px]" style={{ borderColor: ISSUE_COLORS[e.type] }}>
+                <b>{e.type}</b> · {fmtM(e.md)} m · {e.formation} · {e.timeLost} h lost
+                <div className="text-[12px] text-muted">
+                  {e.action} <span className="whitespace-nowrap">[{sourceLabel(e.source)}]</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+      <div className="mt-2 flex gap-2 border-t border-line px-3 py-2">
+        <button className="btn btn-sm btn-primary" onClick={onDepth}>
+          View in Depth Correlation
+        </button>
+        <button className="btn btn-sm" onClick={onReports}>
+          Open source reports ({w.documents.length})
+        </button>
+      </div>
     </div>
   );
 }
 
-export default function WellPopup({ well, onViewDepth }: Props) {
+function Row({ k, v }: { k: string; v: React.ReactNode }) {
   return (
-    <div className="w-[356px] p-4">
-      <div className="flex items-center gap-2 pr-6">
-        <span className="text-[17px] font-bold text-ink">{well.name}</span>
-        <span
-          className="ml-1 inline-flex items-center gap-1.5 rounded border px-2 py-0.5 text-[12px] font-medium"
-          style={{ borderColor: ISSUE_COLORS[well.mainIssue] + '80', color: '#E5E7EB' }}
-        >
-          <IssueDot issue={well.mainIssue} size={8} />
-          {ISSUE_SHORT[well.mainIssue]}
-        </span>
-        <span className="text-[12px] capitalize text-muted">{well.type}</span>
-      </div>
-      <div className="mt-3 grid grid-cols-4 gap-2 border-y border-line py-2.5">
-        <Field label="Distance" value={`${fmtKm(well.distanceKm)} km`} />
-        <Field label="Drilled" value={String(well.year)} />
-        <Field label="TD" value={`${fmtM(well.td)} m`} />
-        <Field label="NPT" value={`${fmtHrs(well.nptHours)} h`} />
-      </div>
-
-      <div className="mt-2.5 space-y-1 text-[12.5px] leading-snug">
-        <div className="flex flex-wrap gap-x-2">
-          <span className="text-muted">Formations</span>
-          {well.formationTops.map((f) => (
-            <span key={f.name} className="whitespace-nowrap">
-              {f.name} <span className="text-muted">{fmtM(f.top)}</span>
-            </span>
-          ))}
-        </div>
-        <div className="flex flex-wrap gap-x-2.5">
-          <span className="text-muted">Casing</span>
-          {well.casing.map((c) => (
-            <span key={c.size} className="whitespace-nowrap">
-              {c.size} @ {fmtM(c.shoe)} m
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-3 text-[11px] uppercase tracking-wider text-muted">Events ({well.events.length})</div>
-      <ul className="mt-1.5 space-y-1.5">
-        {well.events.map((e) => (
-          <li key={e.depth + e.type} className="rounded-md bg-bg/60 border border-line px-2.5 py-1.5">
-            <div className="flex items-center gap-2 text-[12.5px]">
-              <IssueDot issue={e.type} size={8} />
-              <span className="font-semibold">{e.type}</span>
-              <span className="text-muted">
-                {fmtM(e.depth)} m · {e.formation}
-              </span>
-              <span className="ml-auto text-muted">{fmtHrs(e.timeLost)} h lost</span>
-            </div>
-            <div className="mt-0.5 text-[12px] text-ink/80 leading-snug">{e.action}</div>
-          </li>
-        ))}
-      </ul>
-
-      <button
-        type="button"
-        onClick={() => onViewDepth(well.name)}
-        className="mt-3 w-full rounded-md bg-accent px-3 py-2 text-[13px] font-semibold text-bg hover:bg-amber-400"
-      >
-        View depth comparison
-      </button>
-    </div>
+    <tr className="align-top">
+      <td className="w-[86px] py-[2px] pr-2 text-muted">{k}</td>
+      <td className="py-[2px]">{v}</td>
+    </tr>
   );
 }

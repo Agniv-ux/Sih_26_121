@@ -1,0 +1,62 @@
+[
+  {
+    "id": "R-001",
+    "docId": 26,
+    "well": "OW-09",
+    "event": "Torque Spike",
+    "depth": "3,215 m",
+    "formation": "Barail",
+    "confidence": 0.74,
+    "sentence": "Erratic torque 16–20 kft·lbf while reaming tight spot at 3,215 m; back-reamed one stand and increased flow 10%."
+  },
+  {
+    "id": "R-002",
+    "docId": 27,
+    "well": "OW-10",
+    "event": "Mud Loss",
+    "depth": "2,9O5 m",
+    "formation": "Tipam",
+    "confidence": 0.58,
+    "sentence": "Seepage losses 2–3 bbl/hr at 2,9O5 m in Tipam sand; added fine CaCO₃ to active system and continued drilling."
+  },
+  {
+    "id": "R-003",
+    "docId": 28,
+    "well": "OW-03",
+    "event": "Stuck Pipe",
+    "depth": "2,410 m",
+    "formation": "Girujan",
+    "confidence": 0.52,
+    "sentence": "Overpull 20 klbf at 2,410 m while pulling out; wiped through, hole free."
+  },
+  {
+    "id": "R-004",
+    "docId": 29,
+    "well": "OW-09",
+    "event": "Cementing Issue",
+    "depth": "3,380 m",
+    "formation": "Tipam",
+    "confidence": 0.61,
+    "sentence": "Top of cement on 9⅝\" casing 80 m below plan; accepted without remedial work."
+  },
+  {
+    "id": "R-005",
+    "docId": 30,
+    "well": "OW-08",
+    "event": "Torque Spike",
+    "depth": "3,480 m",
+    "formation": "Barail",
+    "confidence": 0.72,
+    "sentence": "Torque spikes to 22 kft·lbf at 3,480 m in Barail shale; reduced WOB and back-reamed."
+  },
+  {
+    "id": "R-006",
+    "docId": 31,
+    "well": "OW-10",
+    "event": "Kick",
+    "depth": "3,390 m",
+    "formation": "Tipam",
+    "confidence": 0.47,
+    "sentence": "Gas peak 11% at 3,390 m after trip (trip gas); no pit gain, MW unchanged."
+  }
+]

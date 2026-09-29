@@ -1,319 +1,203 @@
-import { Fragment, useEffect, useMemo, useRef, type RefObject } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
+import { Circle, CircleMarker, MapContainer, Marker, Polyline, Popup, TileLayer, Tooltip, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import { Circle, CircleMarker, MapContainer, Marker, Polyline, Popup, TileLayer, Tooltip, ZoomControl, useMap } from 'react-leaflet';
-import type { ActiveWell, FilterId, OffsetWell, ShotMode } from '../types';
-import { FILTERS, ISSUE_COLORS } from '../lib/constants';
+import { useNavigate } from 'react-router';
+import type { FilterId, OffsetWell } from '../types';
+import { ACTIVE } from '../data';
+import { C, ISSUE_COLORS, ISSUE_LABEL } from '../lib/constants';
+import { SHOT, shotParam } from '../lib/shot';
+import { useApp } from '../state/AppState';
 import WellPopup from './WellPopup';
-import { IssueDot } from './IssueTag';
 
-export interface FocusRequest {
-  name: string;
-  nonce: number;
-  fly: boolean;
-  /** Place the popup to the left of the marker instead of above it (screenshot mode). */
-  side?: boolean;
-}
+// Overlay sizes (px) – used to keep the fitted circle and popups clear of the slider card and legend.
+const PAD = 14;
+const SLIDER_H = 78;
+const LEGEND_H = 64;
 
-interface Props {
-  active: ActiveWell;
-  wellsInRadius: OffsetWell[];
-  visibleWells: OffsetWell[];
-  radiusKm: number;
-  onRadiusChange: (km: number) => void;
-  filter: FilterId;
-  onFilterChange: (f: FilterId) => void;
-  selectedWell: string | null;
-  onSelectWell: (name: string | null) => void;
-  focusRequest: FocusRequest | null;
-  onViewDepth: (name: string) => void;
-  shot: ShotMode;
-  onFitted: () => void;
-}
-
-type TileStatus = { loading: boolean; loadedOnce: boolean; errors: number; tilesLoaded: number };
-declare global {
-  interface Window {
-    __nwisTiles?: TileStatus;
-    __nwisReady?: boolean;
-  }
-}
-const tileStatus: TileStatus = { loading: true, loadedOnce: false, errors: 0, tilesLoaded: 0 };
-window.__nwisTiles = tileStatus;
+const TILE_URL = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+const TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
 const activeIcon = L.divIcon({
   className: '',
-  html: '<div class="active-well"><span class="ring"></span><span class="core"></span></div>',
-  iconSize: [28, 28],
-  iconAnchor: [14, 14],
+  html: `<div style="width:22px;height:22px;transform:translate(-11px,-11px) rotate(45deg);background:${C.accent};border:3px solid #fff;box-shadow:0 0 0 2px ${C.accent}"></div>`,
+  iconSize: [0, 0],
 });
 
-/** Fit the map so the whole radius circle is visible. */
-function FitToRadius({
-  center,
-  radiusKm,
-  instant,
-  topPad,
-  onFitted,
-}: {
-  center: L.LatLngExpression;
-  radiusKm: number;
-  instant: boolean;
-  topPad: number;
-  onFitted: () => void;
-}) {
+const matches = (w: OffsetWell, f: FilterId) => f === 'All' || w.mainIssue === f;
+
+function tileTracker(): L.LeafletEventHandlerFnMap {
+  window.__nwisTiles = { loading: true, loadedOnce: false, tilesLoaded: 0, errors: 0 };
+  const t = () => window.__nwisTiles!;
+  return {
+    loading: () => (t().loading = true),
+    load: () => {
+      t().loading = false;
+      t().loadedOnce = true;
+    },
+    tileload: () => t().tilesLoaded++,
+    tileerror: () => t().errors++,
+  };
+}
+
+/** Fits the radius circle (with padding for overlays) and handles focus / popup requests. */
+function MapController({ markers }: { markers: React.RefObject<Record<string, L.CircleMarker | null>> }) {
   const map = useMap();
+  const { radiusKm, focus, filter, setFilter, wellsInRadius } = useApp();
   const first = useRef(true);
+
   useEffect(() => {
-    const bounds = L.latLng(center).toBounds(radiusKm * 2000 * 1.04);
-    const run = () => {
-      map.fitBounds(bounds, { paddingTopLeft: [24, topPad], paddingBottomRight: [24, 24], animate: !instant && !first.current });
+    const bounds = L.latLng(ACTIVE.lat, ACTIVE.lon).toBounds(radiusKm * 2000);
+    map.fitBounds(bounds, { paddingTopLeft: [PAD, SLIDER_H + PAD * 2], paddingBottomRight: [PAD, LEGEND_H + PAD * 2], animate: false });
+    if (first.current) {
       first.current = false;
-      onFitted();
-    };
-    if (first.current || instant) {
-      run();
-      return;
+      const popup = shotParam('popup');
+      window.setTimeout(() => {
+        if (popup) markers.current?.[popup]?.openPopup();
+        window.setTimeout(() => (window.__nwisReady = true), 400);
+      }, 200);
     }
-    const t = setTimeout(run, 250);
-    return () => clearTimeout(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [radiusKm]);
-  return null;
-}
+  }, [radiusKm, map, markers]);
 
-function FocusController({ request, wells, markers }: { request: FocusRequest | null; wells: OffsetWell[]; markers: RefObject<Map<string, L.CircleMarker>> }) {
-  const map = useMap();
   useEffect(() => {
-    if (!request) return;
-    const well = wells.find((w) => w.name === request.name);
-    if (!well) return;
-    const open = () => {
-      const marker = markers.current.get(request.name);
-      if (!marker) return;
-      marker.openPopup();
-      const popup = marker.getPopup();
-      if (!request.side || !popup) return;
-      // React renders the popup content through a portal, so measure once it has laid out.
-      const place = (tries: number) => {
-        const el = popup.getElement();
-        const card = el?.querySelector('.leaflet-popup-content-wrapper') as HTMLElement | null;
-        if (!card || card.offsetHeight < 50) {
-          if (tries > 0) setTimeout(() => place(tries - 1), 50);
-          return;
-        }
-        // Leaflet anchors a popup by its bottom centre; shift it so its right edge sits just left of the marker, vertically centred.
-        popup.options.offset = L.point(-(card.offsetWidth / 2 + 50), card.offsetHeight / 2);
-        popup.update();
-      };
-      setTimeout(() => place(20), 50);
-    };
-    if (!request.fly) {
-      open();
-      return;
-    }
-    map.flyTo([well.lat, well.lon], Math.max(map.getZoom(), 12), { duration: 0.8 });
-    map.once('moveend', open);
+    if (!focus) return;
+    const w = wellsInRadius.find((x) => x.name === focus.name);
+    if (!w) return;
+    if (!matches(w, filter)) setFilter('All');
+    const open = () => markers.current?.[w.name]?.openPopup();
+    map.once('moveend', () => window.setTimeout(open, 50));
+    map.flyTo([w.lat, w.lon], Math.max(map.getZoom(), 11.5), { duration: 0.6 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [request?.nonce]);
+  }, [focus]);
   return null;
 }
 
-export default function MapView(props: Props) {
-  const { active, wellsInRadius, visibleWells, radiusKm, filter, selectedWell, shot } = props;
-  const center: [number, number] = [active.lat, active.lon];
-  const markers = useRef(new Map<string, L.CircleMarker>());
-  const fill = ((radiusKm - 1) / 19) * 100;
+export default function MapView() {
+  const nav = useNavigate();
+  const { radiusKm, setRadiusKm, filter, wellsInRadius } = useApp();
+  const markers = useRef<Record<string, L.CircleMarker | null>>({});
+  const tileEvents = useMemo(tileTracker, []);
 
-  const counts = useMemo(() => {
-    const c: Record<string, number> = {};
-    for (const f of FILTERS) c[f.id] = f.id === 'All' ? wellsInRadius.length : wellsInRadius.filter((w) => w.mainIssue === f.id).length;
-    return c;
-  }, [wellsInRadius]);
+  const shown = wellsInRadius.filter((w) => matches(w, filter));
 
   return (
     <div className="relative h-full w-full">
       <MapContainer
-        center={center}
+        center={[ACTIVE.lat, ACTIVE.lon]}
         zoom={11}
         zoomSnap={0.1}
         zoomDelta={0.5}
-        zoomControl={false}
         className="h-full w-full"
-        fadeAnimation={!shot}
-        zoomAnimation={!shot}
-        markerZoomAnimation={!shot}
+        zoomControl={false}
+        fadeAnimation={!SHOT}
+        zoomAnimation={!SHOT}
+        markerZoomAnimation={!SHOT}
+        inertia={!SHOT}
+        attributionControl
       >
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-          subdomains="abcd"
-          maxZoom={19}
-          eventHandlers={{
-            loading: () => {
-              tileStatus.loading = true;
-            },
-            load: () => {
-              tileStatus.loading = false;
-              tileStatus.loadedOnce = true;
-            },
-            tileload: () => {
-              tileStatus.tilesLoaded += 1;
-            },
-            tileerror: () => {
-              tileStatus.errors += 1;
-            },
-          }}
-        />
-        <ZoomControl position="bottomright" />
-        <FitToRadius center={center} radiusKm={radiusKm} instant={!!shot} topPad={24} onFitted={props.onFitted} />
-        <FocusController request={props.focusRequest} wells={visibleWells} markers={markers} />
+        <TileLayer url={TILE_URL} attribution={TILE_ATTR} subdomains="abcd" maxZoom={19} eventHandlers={tileEvents} />
+        <ZoomControl />
+        <MapController markers={markers} />
 
         <Circle
-          center={center}
+          center={[ACTIVE.lat, ACTIVE.lon]}
           radius={radiusKm * 1000}
-          pathOptions={{ color: '#F59E0B', weight: 1.5, opacity: 0.8, dashArray: '6 6', fillColor: '#F59E0B', fillOpacity: 0.04 }}
+          pathOptions={{ color: C.navy, weight: 1.5, dashArray: '6 5', fillColor: C.navy, fillOpacity: 0.04 }}
           interactive={false}
         />
 
-        {visibleWells.map((w) => {
-          const color = ISSUE_COLORS[w.mainIssue];
-          const selected = selectedWell === w.name;
-          return (
-            <Fragment key={w.name}>
-              {w.bhl && (
-                <>
-                  <Polyline
-                    positions={[
-                      [w.lat, w.lon],
-                      [w.bhl.lat, w.bhl.lon],
-                    ]}
-                    pathOptions={{ color, weight: 2.5, opacity: 0.9 }}
-                    interactive={false}
-                  />
-                  <CircleMarker
-                    center={[w.bhl.lat, w.bhl.lon]}
-                    radius={3}
-                    pathOptions={{ color, fillColor: color, fillOpacity: 1, weight: 1 }}
-                    interactive={false}
-                  />
-                </>
-              )}
-              <CircleMarker
-                ref={(m) => {
-                  if (m) markers.current.set(w.name, m);
-                  else markers.current.delete(w.name);
-                }}
-                center={[w.lat, w.lon]}
-                radius={selected ? 10 : 8}
-                pathOptions={{ color: selected ? '#E5E7EB' : '#0F172A', weight: 2, fillColor: color, fillOpacity: 1 }}
-                eventHandlers={{
-                  popupopen: () => props.onSelectWell(w.name),
-                  popupclose: () => props.onSelectWell(null),
-                }}
-              >
-                <Tooltip permanent direction="right" offset={[10, 0]} className="well-label">
-                  {w.name}
-                </Tooltip>
-                <Popup
-                  className={shot === 'popup' ? 'side-popup' : undefined}
-                  autoPan={shot !== 'popup'}
-                  minWidth={356}
-                  maxWidth={356}
-                  autoPanPaddingTopLeft={[24, 72]}
-                  autoPanPaddingBottomRight={[24, 24]}
-                  offset={[0, -6]}
-                >
-                  <WellPopup well={w} onViewDepth={props.onViewDepth} />
-                </Popup>
-              </CircleMarker>
-            </Fragment>
-          );
-        })}
+        {shown.map(
+          (w) =>
+            w.trajectory && (
+              <Polyline key={`${w.name}-traj`} positions={[[w.lat, w.lon], ...w.trajectory.points.slice(1)]} pathOptions={{ color: ISSUE_COLORS[w.mainIssue], weight: 2.5, dashArray: '4 4' }} />
+            ),
+        )}
+        {shown.map(
+          (w) =>
+            w.trajectory && (
+              <CircleMarker key={`${w.name}-bhl`} center={w.trajectory.points[w.trajectory.points.length - 1]} radius={3.5} interactive={false} pathOptions={{ color: ISSUE_COLORS[w.mainIssue], weight: 1.5, fillColor: '#fff', fillOpacity: 1 }} />
+            ),
+        )}
 
-        <Marker position={center} icon={activeIcon} zIndexOffset={1000} interactive={false}>
+        {shown.map((w) => (
+          <CircleMarker
+            key={w.name}
+            ref={(m) => {
+              markers.current[w.name] = m;
+            }}
+            center={[w.lat, w.lon]}
+            radius={8}
+            pathOptions={{ color: '#fff', weight: 2, fillColor: ISSUE_COLORS[w.mainIssue], fillOpacity: 1 }}
+          >
+            <Tooltip permanent direction="right" offset={[9, 0]} className="well-label">
+              {w.name}
+            </Tooltip>
+            <Popup
+              className="nwis-popup"
+              minWidth={400}
+              maxWidth={400}
+              autoPanPaddingTopLeft={[PAD, SLIDER_H + PAD * 2]}
+              autoPanPaddingBottomRight={[PAD, LEGEND_H + PAD * 2]}
+            >
+              <WellPopup well={w} onDepth={() => nav(`/depth?wells=${w.name}`)} onReports={() => nav(`/documents?well=${w.name}`)} />
+            </Popup>
+          </CircleMarker>
+        ))}
+
+        <Marker position={[ACTIVE.lat, ACTIVE.lon]} icon={activeIcon} zIndexOffset={1000}>
           <Tooltip permanent direction="right" offset={[14, 0]} className="well-label active-label">
-            {active.name}
+            {ACTIVE.name} (active)
           </Tooltip>
         </Marker>
       </MapContainer>
 
-      {/* Radius card */}
-      <div className="absolute left-4 top-4 z-[1000] w-60 rounded-lg border border-line bg-panel/95 p-3.5">
-        <div className="flex items-baseline justify-between">
-          <span className="text-[0.75rem] uppercase tracking-wider text-muted">Search radius</span>
-          <span className="text-[1.15rem] font-semibold text-ink">
-            {radiusKm} <span className="text-[0.85rem] font-normal text-muted">km</span>
-          </span>
+      {/* Radius slider card (top-left) */}
+      <div className="card absolute left-[14px] top-[14px] z-[1000] w-[270px] px-3 py-2" style={{ height: SLIDER_H }}>
+        <div className="flex items-baseline justify-between text-[0.88rem]">
+          <span className="font-semibold">Search radius</span>
+          <span className="text-[1.05rem] font-bold text-navy">{radiusKm} km</span>
         </div>
-        <input
-          aria-label="Search radius in kilometres"
-          type="range"
-          min={1}
-          max={20}
-          step={1}
-          value={radiusKm}
-          onChange={(e) => props.onRadiusChange(Number(e.target.value))}
-          className="radius mt-3 w-full"
-          style={{ ['--fill' as string]: `${fill}%` }}
-        />
-        <div className="mt-1 flex justify-between text-[0.7rem] text-muted">
-          <span>1 km</span>
-          <span>20 km</span>
-        </div>
-        <div className="mt-2 border-t border-line pt-2 text-[0.85rem] text-ink">
-          <span className="font-semibold">{wellsInRadius.length}</span> <span className="text-muted">offset wells in radius</span>
+        <input type="range" min={1} max={20} step={1} value={radiusKm} onChange={(e) => setRadiusKm(Number(e.target.value))} className="mt-1 w-full accent-[#0B3D91]" aria-label="Search radius in km" />
+        <div className="text-[0.82rem] text-muted">
+          <b className="text-ink">{wellsInRadius.length}</b> offset wells inside radius
         </div>
       </div>
 
-      {/* Filter chips */}
-      <div className="pointer-events-none absolute left-[272px] right-4 top-4 z-[1000] flex justify-end">
-        <div className="pointer-events-auto flex flex-wrap justify-end gap-1.5 rounded-lg border border-line bg-panel/95 p-1.5">
-          {FILTERS.map((f) => {
-            const on = filter === f.id;
-            return (
-              <button
-                key={f.id}
-                type="button"
-                onClick={() => props.onFilterChange(f.id)}
-                className={`flex items-center gap-2 rounded-md px-3 py-1.5 text-[0.85rem] font-medium border ${
-                  on ? 'border-accent bg-accent/15 text-ink' : 'border-transparent text-muted hover:text-ink'
-                }`}
-              >
-                {f.id !== 'All' && <IssueDot issue={f.id} size={8} />}
-                {f.label}
-                <span className={on ? 'text-accent' : 'text-muted/80'}>{counts[f.id]}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
+      <Legend />
+    </div>
+  );
+}
 
-      {/* Legend */}
-      <div className="absolute bottom-4 left-4 z-[1000] rounded-lg border border-line bg-panel/95 px-3.5 py-3 text-[0.8rem]">
-        <div className="mb-2 text-[0.7rem] uppercase tracking-wider text-muted">Main past problem</div>
-        <div className="grid grid-cols-2 gap-x-5 gap-y-1.5">
-          {(['Mud Loss', 'Stuck Pipe', 'Kick', 'Cementing Issue', 'No major issue'] as const).map((k) => (
-            <div key={k} className="flex items-center gap-2">
-              <span
-                className="h-2.5 w-2.5 rounded-full border-2 border-bg"
-                style={{ background: ISSUE_COLORS[k], boxShadow: `0 0 0 1px ${ISSUE_COLORS[k]}` }}
-              />
-              {k === 'Cementing Issue' ? 'Cementing' : k}
-            </div>
-          ))}
-          <div className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-accent border-2 border-bg" style={{ boxShadow: '0 0 0 1.5px #F59E0B' }} />
-            Active well
-          </div>
-        </div>
-        <div className="mt-2 flex gap-5 border-t border-line pt-2 text-muted">
-          <span className="flex items-center gap-2">
-            <span className="inline-block h-0.5 w-5 bg-muted" /> Trajectory (deviated)
+function ZoomControl() {
+  const map = useMap();
+  useEffect(() => {
+    const z = L.control.zoom({ position: 'topright' }).addTo(map);
+    return () => {
+      z.remove();
+    };
+  }, [map]);
+  return null;
+}
+
+function Legend() {
+  const items: { label: string; node: React.ReactNode }[] = [
+    { label: 'Active well', node: <span style={{ width: 11, height: 11, background: C.accent, transform: 'rotate(45deg)', display: 'inline-block' }} /> },
+    ...(['Mud Loss', 'Stuck Pipe', 'Kick', 'Cementing Issue', 'No Issue'] as const).map((k) => ({
+      label: ISSUE_LABEL[k],
+      node: <span className="dot" style={{ background: ISSUE_COLORS[k], width: 12, height: 12 }} />,
+    })),
+    { label: 'Deviated well path', node: <svg width="22" height="8"><path d="M0 4h22" stroke="#555" strokeWidth="2" strokeDasharray="4 3" /></svg> },
+    { label: 'Search radius', node: <svg width="22" height="12"><circle cx="11" cy="6" r="5" fill="none" stroke={C.navy} strokeWidth="1.5" strokeDasharray="3 2" /></svg> },
+  ];
+  return (
+    <div className="card absolute bottom-[14px] left-[14px] z-[1000] px-3 py-1.5" style={{ height: LEGEND_H }}>
+      <div className="text-[0.75rem] font-semibold uppercase tracking-wide text-muted">Legend – main past problem</div>
+      <div className="mt-1 grid grid-cols-4 gap-x-4 gap-y-0.5 text-[0.8rem]">
+        {items.map((i) => (
+          <span key={i.label} className="flex items-center gap-1.5 whitespace-nowrap">
+            <span className="flex w-[22px] justify-center">{i.node}</span>
+            {i.label}
           </span>
-          <span className="flex items-center gap-2">
-            <span className="inline-block w-5 border-t-2 border-dashed border-accent" /> Radius
-          </span>
-        </div>
+        ))}
       </div>
     </div>
   );

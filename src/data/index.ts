@@ -1,34 +1,22 @@
 import wellsJson from './wells.json';
-import alertsJson from './alerts.json';
+import documentsJson from './documents.json';
+import reviewJson from './review.json';
 import qaJson from './qa.json';
-import type { ActiveWell, AlertDef, MainIssue, OffsetWell, OffsetWellRaw, QaEntry } from '../types';
-import { haversineKm } from '../lib/geo';
+import alertsJson from './alerts.json';
+import liveJson from './live.json';
+import type { ActiveWell, AlertDef, LiveData, OffsetWell, QaEntry, ReportDoc, ReviewItem } from '../types';
 
-export const activeWell = wellsJson.active as ActiveWell;
+export const ACTIVE = wellsJson.active as ActiveWell;
+export const OFFSETS = wellsJson.offsets as unknown as OffsetWell[];
+export const DOCUMENTS = documentsJson as unknown as ReportDoc[];
+export const REVIEW_QUEUE = reviewJson as ReviewItem[];
+export const QA = qaJson as unknown as QaEntry[];
+export const ALERT_DEFS = alertsJson as unknown as AlertDef[];
+export const LIVE = liveJson as LiveData;
 
-function mainIssueOf(w: OffsetWellRaw): MainIssue {
-  const major = w.events.filter((e) => e.type !== 'Torque Spike');
-  if (major.length === 0) return 'No major issue';
-  // The main past problem is the major event type with the most time lost.
-  const byType = new Map<string, number>();
-  for (const e of major) byType.set(e.type, (byType.get(e.type) ?? 0) + e.timeLost);
-  return [...byType.entries()].sort((a, b) => b[1] - a[1])[0][0] as MainIssue;
-}
+export const docById = (id: number) => DOCUMENTS.find((d) => d.id === id);
+export const wellByName = (name: string) => OFFSETS.find((w) => w.name === name);
 
-export const offsetWells: OffsetWell[] = (wellsJson.offsets as OffsetWellRaw[])
-  .map((w) => ({
-    ...w,
-    distanceKm: haversineKm(activeWell.lat, activeWell.lon, w.lat, w.lon),
-    mainIssue: mainIssueOf(w),
-    nptHours: w.events.reduce((s, e) => s + e.timeLost, 0),
-  }))
-  .sort((a, b) => a.distanceKm - b.distanceKm);
-
-export const wellByName = new Map(offsetWells.map((w) => [w.name, w]));
-
-export const alertDefs = alertsJson as AlertDef[];
-
-export const qaEntries = qaJson.entries as QaEntry[];
-export const qaById = new Map(qaEntries.map((q) => [q.id, q]));
-export const suggestedQaIds = qaJson.suggested;
-export const qaFallback = qaJson.fallback;
+/** All events from every offset well, flattened (used by Knowledge Search). */
+export const ALL_EVENTS = OFFSETS.flatMap((w) => w.events.map((e, i) => ({ ...e, well: w.name, key: `${w.name}-${i}` })));
+export type FlatEvent = (typeof ALL_EVENTS)[number];

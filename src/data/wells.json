@@ -3,432 +3,1192 @@
     "name": "NWIS-ACTIVE-01",
     "lat": 27.45,
     "lon": 95.15,
-    "year": 2026,
-    "plannedTd": 4000,
+    "plannedTd": 4100,
     "type": "vertical",
     "startBitDepth": 2765,
     "holeSection": "12¼\" hole",
     "formationTops": [
-      { "name": "Alluvium", "top": 0 },
-      { "name": "Namsang", "top": 430 },
-      { "name": "Girujan", "top": 1190 },
-      { "name": "Tipam", "top": 2850 },
-      { "name": "Barail", "top": 3420 },
-      { "name": "Kopili", "top": 4060 }
+      {
+        "name": "Alluvium",
+        "top": 0
+      },
+      {
+        "name": "Namsang",
+        "top": 430
+      },
+      {
+        "name": "Girujan",
+        "top": 1190
+      },
+      {
+        "name": "Tipam",
+        "top": 2850
+      },
+      {
+        "name": "Barail",
+        "top": 3420
+      },
+      {
+        "name": "Kopili",
+        "top": 4060
+      }
     ],
     "casing": [
-      { "size": "13⅜\"", "shoe": 1140, "status": "set" },
-      { "size": "9⅝\"", "shoe": 3390, "status": "planned" },
-      { "size": "7\"", "shoe": 4000, "status": "planned" }
-    ]
+      {
+        "size": "13⅜\"",
+        "shoe": 1140,
+        "status": "set"
+      },
+      {
+        "size": "9⅝\"",
+        "shoe": 3390,
+        "status": "planned"
+      },
+      {
+        "size": "7\"",
+        "shoe": 4100,
+        "status": "planned"
+      }
+    ],
+    "plannedMw": {
+      "Alluvium": 1.06,
+      "Namsang": 1.1,
+      "Girujan": 1.2,
+      "Tipam": 1.24,
+      "Barail": 1.3,
+      "Kopili": 1.36
+    }
   },
   "offsets": [
     {
       "name": "OW-01",
-      "lat": 27.4721,
-      "lon": 95.1709,
+      "lat": 27.4666,
+      "lon": 95.1657,
+      "distanceKm": 2.4,
       "year": 2011,
       "td": 3620,
+      "tdTvd": 3620,
       "type": "vertical",
+      "mainIssue": "Stuck Pipe",
       "formationTops": [
-        { "name": "Alluvium", "top": 0 },
-        { "name": "Namsang", "top": 415 },
-        { "name": "Girujan", "top": 1170 },
-        { "name": "Tipam", "top": 2835 },
-        { "name": "Barail", "top": 3400 }
+        {
+          "name": "Alluvium",
+          "top": 0
+        },
+        {
+          "name": "Namsang",
+          "top": 415
+        },
+        {
+          "name": "Girujan",
+          "top": 1170
+        },
+        {
+          "name": "Tipam",
+          "top": 2835
+        },
+        {
+          "name": "Barail",
+          "top": 3400
+        }
       ],
       "casing": [
-        { "size": "13⅜\"", "shoe": 1120 },
-        { "size": "9⅝\"", "shoe": 3375 },
-        { "size": "7\"", "shoe": 3620 }
+        {
+          "size": "13⅜\"",
+          "shoe": 1120
+        },
+        {
+          "size": "9⅝\"",
+          "shoe": 3375
+        },
+        {
+          "size": "7\"",
+          "shoe": 3620
+        }
       ],
+      "mudWeight": {
+        "min": 1.05,
+        "max": 1.3,
+        "byFormation": {
+          "Alluvium": [
+            1.05,
+            1.08
+          ],
+          "Namsang": [
+            1.08,
+            1.12
+          ],
+          "Girujan": [
+            1.14,
+            1.18
+          ],
+          "Tipam": [
+            1.18,
+            1.22
+          ],
+          "Barail": [
+            1.26,
+            1.3
+          ]
+        }
+      },
+      "nptHours": 18.5,
       "events": [
         {
           "type": "Stuck Pipe",
-          "depth": 3478,
+          "md": 3478,
+          "tvd": 3478,
           "formation": "Barail",
-          "description": "Differential sticking on a connection after 25 min static across Barail sand/shale.",
+          "description": "Differential sticking on a connection after 25 min static across Barail sand/shale interbeds.",
           "action": "Jarred down, spotted 30 bbl freeing pill; resumed with controlled ROP (≤12 m/hr) and wiper trips every 200 m.",
-          "result": "Freed after 14 h; no further sticking to TD.",
+          "result": "Pipe freed after 14 h; no further sticking to TD.",
           "timeLost": 16,
-          "effective": true,
-          "source": "DDR, 22-Aug-2011, p. 2"
+          "source": {
+            "docId": 7,
+            "file": "DDR – OW-01 – 22-Aug-2011.pdf",
+            "report": "DDR",
+            "date": "22-Aug-2011",
+            "page": 2
+          }
         },
         {
           "type": "Torque Spike",
-          "depth": 3530,
+          "md": 3530,
+          "tvd": 3530,
           "formation": "Barail",
-          "description": "Erratic torque 18–24 kft·lbf in interbedded shale.",
+          "description": "Erratic torque 18–24 kft·lbf in interbedded Barail shale.",
           "action": "Reduced WOB, increased flow rate, back-reamed one stand.",
-          "result": "Torque normalised.",
+          "result": "Torque normalised; drilled ahead.",
           "timeLost": 2.5,
-          "effective": true,
-          "source": "DDR, 23-Aug-2011, p. 1"
+          "source": {
+            "docId": 8,
+            "file": "DDR – OW-01 – 23-Aug-2011.pdf",
+            "report": "DDR",
+            "date": "23-Aug-2011",
+            "page": 1
+          }
         }
+      ],
+      "documents": [
+        "DDR – OW-01 – 22-Aug-2011.pdf",
+        "DDR – OW-01 – 23-Aug-2011.pdf",
+        "WCR – OW-01.pdf"
       ]
     },
     {
       "name": "OW-02",
-      "lat": 27.4626,
-      "lon": 95.1109,
+      "lat": 27.4561,
+      "lon": 95.111,
+      "distanceKm": 3.9,
       "year": 2019,
       "td": 3710,
+      "tdTvd": 3549,
       "type": "deviated",
-      "bhl": { "lat": 27.4598, "lon": 95.1024 },
+      "mainIssue": "Mud Loss",
+      "trajectory": {
+        "kop": 1500,
+        "inc": 22,
+        "az": 255,
+        "points": [
+          [
+            27.4561,
+            95.111
+          ],
+          [
+            27.4557,
+            95.1094
+          ],
+          [
+            27.4553,
+            95.1078
+          ],
+          [
+            27.4549,
+            95.1061
+          ],
+          [
+            27.4546,
+            95.1045
+          ],
+          [
+            27.4542,
+            95.1029
+          ]
+        ]
+      },
       "formationTops": [
-        { "name": "Alluvium", "top": 0 },
-        { "name": "Namsang", "top": 440 },
-        { "name": "Girujan", "top": 1205 },
-        { "name": "Tipam", "top": 2855 },
-        { "name": "Barail", "top": 3435 }
+        {
+          "name": "Alluvium",
+          "top": 0
+        },
+        {
+          "name": "Namsang",
+          "top": 440
+        },
+        {
+          "name": "Girujan",
+          "top": 1205
+        },
+        {
+          "name": "Tipam",
+          "top": 2860
+        },
+        {
+          "name": "Barail",
+          "top": 3440
+        }
       ],
       "casing": [
-        { "size": "13⅜\"", "shoe": 1150 },
-        { "size": "9⅝\"", "shoe": 3400 },
-        { "size": "7\"", "shoe": 3710 }
+        {
+          "size": "13⅜\"",
+          "shoe": 1150
+        },
+        {
+          "size": "9⅝\"",
+          "shoe": 3405
+        },
+        {
+          "size": "7\"",
+          "shoe": 3710
+        }
       ],
+      "mudWeight": {
+        "min": 1.05,
+        "max": 1.31,
+        "byFormation": {
+          "Alluvium": [
+            1.05,
+            1.08
+          ],
+          "Namsang": [
+            1.08,
+            1.12
+          ],
+          "Girujan": [
+            1.15,
+            1.2
+          ],
+          "Tipam": [
+            1.18,
+            1.24
+          ],
+          "Barail": [
+            1.27,
+            1.31
+          ]
+        }
+      },
+      "nptHours": 7.5,
       "events": [
         {
           "type": "Mud Loss",
-          "depth": 2872,
+          "md": 2872,
+          "tvd": 2772,
           "formation": "Tipam",
-          "description": "Partial losses of 12–15 bbl/hr on entering Tipam sand at 1.24 SG.",
+          "description": "Partial losses of 12–15 bbl/hr on entering Tipam sand while drilling with 1.24 SG mud.",
           "action": "Pumped 50 bbl LCM pill (40 ppb CaCO₃ + fibre) and reduced mud weight to 1.18 SG.",
           "result": "Losses cured within 6 h; no further losses to 9⅝\" shoe.",
           "timeLost": 6,
-          "effective": true,
-          "source": "DDR, 14-Mar-2019, p. 3"
+          "workedMw": 1.18,
+          "source": {
+            "docId": 1,
+            "file": "DDR – OW-02 – 14-Mar-2019.pdf",
+            "report": "DDR",
+            "date": "14-Mar-2019",
+            "page": 3
+          }
         },
         {
           "type": "Torque Spike",
-          "depth": 3510,
+          "md": 3515,
+          "tvd": 3368,
           "formation": "Barail",
-          "description": "Torque fluctuations while rotating through shale stringers.",
+          "description": "Torque fluctuations 17–21 kft·lbf while rotating through Barail shale stringers.",
           "action": "Adjusted RPM and WOB; added lubricant 2% v/v.",
           "result": "Drilled ahead normally.",
           "timeLost": 1.5,
-          "effective": true,
-          "source": "DDR, 02-Apr-2019, p. 2"
+          "source": {
+            "docId": 2,
+            "file": "DDR – OW-02 – 02-Apr-2019.pdf",
+            "report": "DDR",
+            "date": "02-Apr-2019",
+            "page": 2
+          }
         }
+      ],
+      "documents": [
+        "DDR – OW-02 – 14-Mar-2019.pdf",
+        "DDR – OW-02 – 02-Apr-2019.pdf",
+        "WCR – OW-02.pdf",
+        "Mud log – OW-02 – Girujan–Tipam.pdf"
       ]
     },
     {
       "name": "OW-03",
       "lat": 27.4026,
       "lon": 95.1694,
+      "distanceKm": 5.6,
       "year": 2008,
-      "td": 3350,
+      "td": 2600,
+      "tdTvd": 2600,
       "type": "vertical",
+      "mainIssue": "No Issue",
       "formationTops": [
-        { "name": "Alluvium", "top": 0 },
-        { "name": "Namsang", "top": 425 },
-        { "name": "Girujan", "top": 1185 },
-        { "name": "Tipam", "top": 2870 }
-      ],
-      "casing": [
-        { "size": "13⅜\"", "shoe": 1130 },
-        { "size": "9⅝\"", "shoe": 3350 }
-      ],
-      "events": [
         {
-          "type": "Mud Loss",
-          "depth": 2905,
-          "formation": "Tipam",
-          "description": "Losses escalated from partial (20 bbl/hr) to total at 1.26 SG.",
-          "action": "Two hi-vis pills ineffective; set LCM pill, then cement plug across loss zone; reduced MW to 1.20 SG.",
-          "result": "Circulation regained after 38 h.",
-          "timeLost": 38,
-          "effective": false,
-          "source": "WCR, p. 27"
+          "name": "Alluvium",
+          "top": 0
         },
         {
-          "type": "Mud Loss",
-          "depth": 2990,
-          "formation": "Tipam",
-          "description": "Seepage losses of 4–6 bbl/hr while drilling ahead.",
-          "action": "Background LCM at 15 ppb in active system.",
-          "result": "Seepage controlled.",
-          "timeLost": 4,
-          "effective": true,
-          "source": "DDR, 11-Nov-2008, p. 2"
+          "name": "Namsang",
+          "top": 420
+        },
+        {
+          "name": "Girujan",
+          "top": 1180
         }
-      ]
+      ],
+      "casing": [
+        {
+          "size": "13⅜\"",
+          "shoe": 1130
+        },
+        {
+          "size": "9⅝\"",
+          "shoe": 2590
+        }
+      ],
+      "mudWeight": {
+        "min": 1.05,
+        "max": 1.18,
+        "byFormation": {
+          "Alluvium": [
+            1.05,
+            1.08
+          ],
+          "Namsang": [
+            1.08,
+            1.12
+          ],
+          "Girujan": [
+            1.14,
+            1.18
+          ]
+        }
+      },
+      "nptHours": 0,
+      "events": [],
+      "documents": [
+        "WCR – OW-03.pdf",
+        "DDR – OW-03 – 07-Jul-2008.pdf"
+      ],
+      "note": "Shallow Girujan appraisal well; did not reach Tipam."
     },
     {
       "name": "OW-04",
-      "lat": 27.4659,
-      "lon": 95.2167,
-      "year": 2014,
-      "td": 4120,
+      "lat": 27.4784,
+      "lon": 95.2054,
+      "distanceKm": 6.3,
+      "year": 2016,
+      "td": 3780,
+      "tdTvd": 3548,
       "type": "deviated",
-      "bhl": { "lat": 27.4745, "lon": 95.2223 },
+      "mainIssue": "Stuck Pipe",
+      "trajectory": {
+        "kop": 1800,
+        "inc": 28,
+        "az": 40,
+        "points": [
+          [
+            27.4784,
+            95.2054
+          ],
+          [
+            27.4797,
+            95.2066
+          ],
+          [
+            27.481,
+            95.2078
+          ],
+          [
+            27.4822,
+            95.209
+          ],
+          [
+            27.4835,
+            95.2103
+          ],
+          [
+            27.4848,
+            95.2115
+          ]
+        ]
+      },
       "formationTops": [
-        { "name": "Alluvium", "top": 0 },
-        { "name": "Namsang", "top": 455 },
-        { "name": "Girujan", "top": 1220 },
-        { "name": "Tipam", "top": 2880 },
-        { "name": "Barail", "top": 3450 },
-        { "name": "Kopili", "top": 4085 }
+        {
+          "name": "Alluvium",
+          "top": 0
+        },
+        {
+          "name": "Namsang",
+          "top": 425
+        },
+        {
+          "name": "Girujan",
+          "top": 1185
+        },
+        {
+          "name": "Tipam",
+          "top": 2845
+        },
+        {
+          "name": "Barail",
+          "top": 3415
+        }
       ],
       "casing": [
-        { "size": "13⅜\"", "shoe": 1160 },
-        { "size": "9⅝\"", "shoe": 3420 },
-        { "size": "7\"", "shoe": 4120 }
+        {
+          "size": "13⅜\"",
+          "shoe": 1135
+        },
+        {
+          "size": "9⅝\"",
+          "shoe": 3390
+        },
+        {
+          "size": "7\"",
+          "shoe": 3780
+        }
       ],
+      "mudWeight": {
+        "min": 1.05,
+        "max": 1.32,
+        "byFormation": {
+          "Alluvium": [
+            1.05,
+            1.08
+          ],
+          "Namsang": [
+            1.08,
+            1.12
+          ],
+          "Girujan": [
+            1.15,
+            1.19
+          ],
+          "Tipam": [
+            1.18,
+            1.23
+          ],
+          "Barail": [
+            1.27,
+            1.32
+          ]
+        }
+      },
+      "nptHours": 23,
       "events": [
         {
-          "type": "Stuck Pipe",
-          "depth": 3585,
-          "formation": "Barail",
-          "description": "Pack-off while tripping out; poor hole cleaning in the deviated section.",
-          "action": "Circulated and back-reamed at reduced pulling speed; pumped hi-vis sweeps; added frequent wiper trips.",
-          "result": "Freed after 11 h.",
-          "timeLost": 11,
-          "effective": true,
-          "source": "DDR, 06-Jun-2014, p. 4"
-        },
-        {
-          "type": "Kick",
-          "depth": 3905,
-          "formation": "Barail",
-          "description": "Gas influx, 8 bbl pit gain in lower Barail sand at 1.32 SG.",
-          "action": "Shut in (SIDPP 180 psi); weighted up to 1.40 SG and circulated out by driller's method.",
-          "result": "Well killed without losses; drilled ahead at 1.40 SG.",
-          "timeLost": 21,
-          "effective": true,
-          "source": "DDR, 19-Jun-2014, p. 2"
-        },
-        {
           "type": "Torque Spike",
-          "depth": 3960,
+          "md": 3495,
+          "tvd": 3297,
           "formation": "Barail",
-          "description": "Torque spike after kick circulation.",
-          "action": "Reamed and circulated bottoms-up.",
-          "result": "Resolved.",
+          "description": "Torque rose from 15 to 21 kft·lbf while ROP fell from 14 to 6 m/hr over about 40 min.",
+          "action": "Picked up off bottom and circulated 30 min; resumed drilling.",
+          "result": "Torque stayed high; string packed off at 3,520 m (see next report).",
           "timeLost": 1,
-          "effective": true,
-          "source": "DDR, 20-Jun-2014, p. 1"
+          "source": {
+            "docId": 9,
+            "file": "DDR – OW-04 – 07-Nov-2016.pdf",
+            "report": "DDR",
+            "date": "07-Nov-2016",
+            "page": 2
+          }
+        },
+        {
+          "type": "Stuck Pipe",
+          "md": 3520,
+          "tvd": 3319,
+          "formation": "Barail",
+          "description": "String packed off and became stuck while drilling after the rising-torque / falling-ROP trend.",
+          "action": "Worked pipe and jarred up, back-reamed; then held ROP at 10–12 m/hr with hi-vis sweeps and wiper trips every 150 m.",
+          "result": "Pipe freed after 20 h; no repeat to TD.",
+          "timeLost": 22,
+          "source": {
+            "docId": 10,
+            "file": "DDR – OW-04 – 08-Nov-2016.pdf",
+            "report": "DDR",
+            "date": "08-Nov-2016",
+            "page": 3
+          }
         }
+      ],
+      "documents": [
+        "DDR – OW-04 – 07-Nov-2016.pdf",
+        "DDR – OW-04 – 08-Nov-2016.pdf",
+        "WCR – OW-04.pdf"
       ]
     },
     {
       "name": "OW-05",
-      "lat": 27.3955,
-      "lon": 95.0984,
+      "lat": 27.401,
+      "lon": 95.1037,
+      "distanceKm": 7.1,
       "year": 2021,
-      "td": 3780,
+      "td": 3690,
+      "tdTvd": 3690,
       "type": "vertical",
+      "mainIssue": "Mud Loss",
       "formationTops": [
-        { "name": "Alluvium", "top": 0 },
-        { "name": "Namsang", "top": 410 },
-        { "name": "Girujan", "top": 1160 },
-        { "name": "Tipam", "top": 2830 },
-        { "name": "Barail", "top": 3395 }
+        {
+          "name": "Alluvium",
+          "top": 0
+        },
+        {
+          "name": "Namsang",
+          "top": 435
+        },
+        {
+          "name": "Girujan",
+          "top": 1195
+        },
+        {
+          "name": "Tipam",
+          "top": 2870
+        },
+        {
+          "name": "Barail",
+          "top": 3445
+        }
       ],
       "casing": [
-        { "size": "13⅜\"", "shoe": 1110 },
-        { "size": "9⅝\"", "shoe": 3370 },
-        { "size": "7\"", "shoe": 3780 }
+        {
+          "size": "13⅜\"",
+          "shoe": 1145
+        },
+        {
+          "size": "9⅝\"",
+          "shoe": 3410
+        },
+        {
+          "size": "7\"",
+          "shoe": 3690
+        }
       ],
+      "mudWeight": {
+        "min": 1.05,
+        "max": 1.3,
+        "byFormation": {
+          "Alluvium": [
+            1.05,
+            1.08
+          ],
+          "Namsang": [
+            1.08,
+            1.12
+          ],
+          "Girujan": [
+            1.16,
+            1.2
+          ],
+          "Tipam": [
+            1.18,
+            1.23
+          ],
+          "Barail": [
+            1.26,
+            1.3
+          ]
+        }
+      },
+      "nptHours": 8,
       "events": [
         {
           "type": "Mud Loss",
-          "depth": 2860,
+          "md": 2890,
+          "tvd": 2890,
           "formation": "Tipam",
-          "description": "Partial losses of 8–10 bbl/hr at the top of Tipam sand.",
-          "action": "Spotted 40 ppb LCM pill; lowered MW from 1.23 to 1.18 SG; reduced flow rate by 10%.",
-          "result": "Losses stopped in 4.5 h; Tipam drilled without further losses.",
-          "timeLost": 4.5,
-          "effective": true,
-          "source": "WCR, p. 41"
+          "description": "Partial losses of about 20 bbl/hr in Tipam sand at 1.23 SG.",
+          "action": "Pumped 40 bbl LCM pill, reduced mud weight to 1.18 SG and lowered flow rate by 10%.",
+          "result": "Losses cured in about 5 h; drilled to 9⅝\" shoe without further losses.",
+          "timeLost": 7,
+          "workedMw": 1.18,
+          "source": {
+            "docId": 3,
+            "file": "DDR – OW-05 – 19-Jan-2021.pdf",
+            "report": "DDR",
+            "date": "19-Jan-2021",
+            "page": 2
+          }
         },
         {
           "type": "Torque Spike",
-          "depth": 3450,
+          "md": 3510,
+          "tvd": 3510,
           "formation": "Barail",
-          "description": "Short torque spike at Barail top.",
-          "action": "Reduced WOB and picked up off bottom.",
-          "result": "Resolved.",
+          "description": "Short torque spikes up to 20 kft·lbf in Barail shale.",
+          "action": "Reduced WOB and RPM; back-reamed one single.",
+          "result": "Torque back to normal.",
           "timeLost": 1,
-          "effective": true,
-          "source": "DDR, 09-Feb-2021, p. 3"
+          "source": {
+            "docId": 4,
+            "file": "DDR – OW-05 – 26-Jan-2021.pdf",
+            "report": "DDR",
+            "date": "26-Jan-2021",
+            "page": 2
+          }
         }
+      ],
+      "documents": [
+        "DDR – OW-05 – 19-Jan-2021.pdf",
+        "DDR – OW-05 – 26-Jan-2021.pdf",
+        "WCR – OW-05.pdf",
+        "Mud log – OW-05 – Girujan–Tipam.pdf"
       ]
     },
     {
       "name": "OW-06",
-      "lat": 27.521,
-      "lon": 95.1127,
-      "year": 2006,
-      "td": 3590,
-      "type": "vertical",
+      "lat": 27.5066,
+      "lon": 95.0965,
+      "distanceKm": 8.2,
+      "year": 2014,
+      "td": 4120,
+      "tdTvd": 4016,
+      "type": "deviated",
+      "mainIssue": "Kick",
+      "trajectory": {
+        "kop": 2000,
+        "inc": 18,
+        "az": 300,
+        "points": [
+          [
+            27.5066,
+            95.0965
+          ],
+          [
+            27.5072,
+            95.0953
+          ],
+          [
+            27.5078,
+            95.0942
+          ],
+          [
+            27.5084,
+            95.093
+          ],
+          [
+            27.509,
+            95.0919
+          ],
+          [
+            27.5096,
+            95.0907
+          ]
+        ]
+      },
       "formationTops": [
-        { "name": "Alluvium", "top": 0 },
-        { "name": "Namsang", "top": 445 },
-        { "name": "Girujan", "top": 1210 },
-        { "name": "Tipam", "top": 2865 },
-        { "name": "Barail", "top": 3440 }
-      ],
-      "casing": [
-        { "size": "13⅜\"", "shoe": 1150 },
-        { "size": "9⅝\"", "shoe": 3405 },
-        { "size": "7\"", "shoe": 3590 }
-      ],
-      "events": [
         {
-          "type": "Cementing Issue",
-          "depth": 3405,
-          "formation": "Tipam",
-          "description": "Losses during 9⅝\" primary cement job; top of cement ~350 m below plan, poor bond on CBL.",
-          "action": "Remedial squeeze through perforations above the shoe; repeated LOT.",
-          "result": "Zonal isolation achieved after squeeze.",
-          "timeLost": 26,
-          "effective": true,
-          "source": "Cementing report, 03-Oct-2006, p. 5"
+          "name": "Alluvium",
+          "top": 0
         },
         {
-          "type": "Torque Spike",
-          "depth": 3520,
-          "formation": "Barail",
-          "description": "High torque drilling out shoe track and new formation.",
-          "action": "Adjusted parameters; circulated clean.",
-          "result": "Resolved.",
-          "timeLost": 2,
-          "effective": true,
-          "source": "DDR, 06-Oct-2006, p. 2"
+          "name": "Namsang",
+          "top": 430
+        },
+        {
+          "name": "Girujan",
+          "top": 1190
+        },
+        {
+          "name": "Tipam",
+          "top": 2855
+        },
+        {
+          "name": "Barail",
+          "top": 3425
+        },
+        {
+          "name": "Kopili",
+          "top": 4065
         }
+      ],
+      "casing": [
+        {
+          "size": "13⅜\"",
+          "shoe": 1140
+        },
+        {
+          "size": "9⅝\"",
+          "shoe": 3395
+        },
+        {
+          "size": "7\"",
+          "shoe": 4120
+        }
+      ],
+      "mudWeight": {
+        "min": 1.05,
+        "max": 1.38,
+        "byFormation": {
+          "Alluvium": [
+            1.05,
+            1.08
+          ],
+          "Namsang": [
+            1.08,
+            1.12
+          ],
+          "Girujan": [
+            1.15,
+            1.2
+          ],
+          "Tipam": [
+            1.18,
+            1.22
+          ],
+          "Barail": [
+            1.28,
+            1.38
+          ],
+          "Kopili": [
+            1.36,
+            1.38
+          ]
+        }
+      },
+      "nptHours": 19,
+      "events": [
+        {
+          "type": "Kick",
+          "md": 3890,
+          "tvd": 3797,
+          "formation": "Barail",
+          "description": "12 bbl pit gain from an overpressured deep Barail sand while drilling with 1.32 SG mud.",
+          "action": "Shut in, killed with the driller's method, raised mud weight to 1.38 SG.",
+          "result": "Well killed and drilled ahead to TD.",
+          "timeLost": 19,
+          "workedMw": 1.38,
+          "source": {
+            "docId": 11,
+            "file": "DDR – OW-06 – 11-Jun-2014.pdf",
+            "report": "DDR",
+            "date": "11-Jun-2014",
+            "page": 4
+          }
+        }
+      ],
+      "documents": [
+        "DDR – OW-06 – 11-Jun-2014.pdf",
+        "WCR – OW-06.pdf"
       ]
     },
     {
       "name": "OW-07",
-      "lat": 27.4077,
-      "lon": 95.2327,
-      "year": 1996,
-      "td": 2610,
+      "lat": 27.4142,
+      "lon": 95.2365,
+      "distanceKm": 9.4,
+      "year": 2017,
+      "td": 3650,
+      "tdTvd": 3650,
       "type": "vertical",
+      "mainIssue": "Cementing Issue",
       "formationTops": [
-        { "name": "Alluvium", "top": 0 },
-        { "name": "Namsang", "top": 400 },
-        { "name": "Girujan", "top": 1150 }
+        {
+          "name": "Alluvium",
+          "top": 0
+        },
+        {
+          "name": "Namsang",
+          "top": 420
+        },
+        {
+          "name": "Girujan",
+          "top": 1180
+        },
+        {
+          "name": "Tipam",
+          "top": 2842
+        },
+        {
+          "name": "Barail",
+          "top": 3410
+        }
       ],
       "casing": [
-        { "size": "13⅜\"", "shoe": 1100 },
-        { "size": "9⅝\"", "shoe": 2610 }
+        {
+          "size": "13⅜\"",
+          "shoe": 1130
+        },
+        {
+          "size": "9⅝\"",
+          "shoe": 3385
+        },
+        {
+          "size": "7\"",
+          "shoe": 3650
+        }
       ],
+      "mudWeight": {
+        "min": 1.05,
+        "max": 1.31,
+        "byFormation": {
+          "Alluvium": [
+            1.05,
+            1.08
+          ],
+          "Namsang": [
+            1.08,
+            1.12
+          ],
+          "Girujan": [
+            1.15,
+            1.19
+          ],
+          "Tipam": [
+            1.19,
+            1.24
+          ],
+          "Barail": [
+            1.26,
+            1.31
+          ]
+        }
+      },
+      "nptHours": 30,
       "events": [
         {
-          "type": "Torque Spike",
-          "depth": 2410,
-          "formation": "Girujan",
-          "description": "Minor torque increase in sticky Girujan clay.",
-          "action": "Increased flow rate; short wiper trip.",
-          "result": "Resolved; no NPT beyond 1.5 h.",
-          "timeLost": 1.5,
-          "effective": true,
-          "source": "DDR, 17-Jul-1996, p. 1"
+          "type": "Mud Loss",
+          "md": 2868,
+          "tvd": 2868,
+          "formation": "Tipam",
+          "description": "Partial losses of 8–10 bbl/hr in Tipam sand at 1.24 SG.",
+          "action": "Pumped LCM pill; losses returned, then cut mud weight from 1.24 to 1.19 SG and pumped a second pill.",
+          "result": "Losses controlled after the second pill.",
+          "timeLost": 4,
+          "workedMw": 1.19,
+          "source": {
+            "docId": 5,
+            "file": "DDR – OW-07 – 03-Sep-2017.pdf",
+            "report": "DDR",
+            "date": "03-Sep-2017",
+            "page": 2
+          }
+        },
+        {
+          "type": "Cementing Issue",
+          "md": 3385,
+          "tvd": 3385,
+          "formation": "Tipam",
+          "description": "Losses into Tipam during 9⅝\" cement displacement; top of cement ~350 m low, poor bond on CBL.",
+          "action": "Remedial squeeze through perforations at 2,950 m; lighter lead slurry (1.50 SG) recommended for future wells.",
+          "result": "Bond acceptable after squeeze.",
+          "timeLost": 26,
+          "source": {
+            "docId": 6,
+            "file": "DDR – OW-07 – 21-Sep-2017.pdf",
+            "report": "DDR",
+            "date": "21-Sep-2017",
+            "page": 3
+          }
         }
+      ],
+      "documents": [
+        "DDR – OW-07 – 03-Sep-2017.pdf",
+        "DDR – OW-07 – 21-Sep-2017.pdf",
+        "Casing record – OW-07 – 9⅝in.pdf",
+        "WCR – OW-07.pdf"
       ]
     },
     {
       "name": "OW-08",
-      "lat": 27.423,
-      "lon": 95.0362,
-      "year": 2012,
-      "td": 3650,
-      "type": "deviated",
-      "bhl": { "lat": 27.4163, "lon": 95.0334 },
+      "lat": 27.4155,
+      "lon": 95.0432,
+      "distanceKm": 11.2,
+      "year": 2013,
+      "td": 3600,
+      "tdTvd": 3600,
+      "type": "vertical",
+      "mainIssue": "Mud Loss",
       "formationTops": [
-        { "name": "Alluvium", "top": 0 },
-        { "name": "Namsang", "top": 460 },
-        { "name": "Girujan", "top": 1230 },
-        { "name": "Tipam", "top": 2890 },
-        { "name": "Barail", "top": 3470 }
+        {
+          "name": "Alluvium",
+          "top": 0
+        },
+        {
+          "name": "Namsang",
+          "top": 445
+        },
+        {
+          "name": "Girujan",
+          "top": 1210
+        },
+        {
+          "name": "Tipam",
+          "top": 2865
+        },
+        {
+          "name": "Barail",
+          "top": 3450
+        }
       ],
       "casing": [
-        { "size": "13⅜\"", "shoe": 1170 },
-        { "size": "9⅝\"", "shoe": 3440 },
-        { "size": "7\"", "shoe": 3650 }
+        {
+          "size": "13⅜\"",
+          "shoe": 1155
+        },
+        {
+          "size": "9⅝\"",
+          "shoe": 3420
+        },
+        {
+          "size": "7\"",
+          "shoe": 3600
+        }
       ],
+      "mudWeight": {
+        "min": 1.05,
+        "max": 1.3,
+        "byFormation": {
+          "Alluvium": [
+            1.05,
+            1.08
+          ],
+          "Namsang": [
+            1.08,
+            1.12
+          ],
+          "Girujan": [
+            1.16,
+            1.2
+          ],
+          "Tipam": [
+            1.19,
+            1.25
+          ],
+          "Barail": [
+            1.26,
+            1.3
+          ]
+        }
+      },
+      "nptHours": 30,
       "events": [
         {
           "type": "Mud Loss",
-          "depth": 2912,
+          "md": 2880,
+          "tvd": 2880,
           "formation": "Tipam",
-          "description": "Partial losses of ~15 bbl/hr in upper Tipam sand at 1.25 SG.",
-          "action": "LCM pill and MW reduction to 1.19 SG.",
-          "result": "Losses cured in 9 h.",
-          "timeLost": 9,
-          "effective": true,
-          "source": "DDR, 17-Jan-2012, p. 3"
+          "description": "Severe losses of about 40 bbl/hr in Tipam sand at 1.25 SG.",
+          "action": "LCM pills ineffective; set a cement plug, then drilled on with mud weight reduced to 1.19 SG.",
+          "result": "Losses cured after 30 h.",
+          "timeLost": 30,
+          "workedMw": 1.19,
+          "source": {
+            "docId": 12,
+            "file": "DDR – OW-08 – 27-Feb-2013.pdf",
+            "report": "DDR",
+            "date": "27-Feb-2013",
+            "page": 3
+          }
         }
+      ],
+      "documents": [
+        "DDR – OW-08 – 27-Feb-2013.pdf",
+        "WCR – OW-08.pdf",
+        "DDR – OW-08 – 02-Mar-2013.pdf"
       ]
     },
     {
       "name": "OW-09",
-      "lat": 27.564,
-      "lon": 95.1844,
-      "year": 2017,
-      "td": 4180,
+      "lat": 27.5584,
+      "lon": 95.1944,
+      "distanceKm": 12.8,
+      "year": 2020,
+      "td": 3580,
+      "tdTvd": 3580,
       "type": "vertical",
+      "mainIssue": "No Issue",
       "formationTops": [
-        { "name": "Alluvium", "top": 0 },
-        { "name": "Namsang", "top": 470 },
-        { "name": "Girujan", "top": 1240 },
-        { "name": "Tipam", "top": 2905 },
-        { "name": "Barail", "top": 3480 },
-        { "name": "Kopili", "top": 4110 }
+        {
+          "name": "Alluvium",
+          "top": 0
+        },
+        {
+          "name": "Namsang",
+          "top": 410
+        },
+        {
+          "name": "Girujan",
+          "top": 1175
+        },
+        {
+          "name": "Tipam",
+          "top": 2840
+        },
+        {
+          "name": "Barail",
+          "top": 3405
+        }
       ],
       "casing": [
-        { "size": "13⅜\"", "shoe": 1180 },
-        { "size": "9⅝\"", "shoe": 3455 },
-        { "size": "7\"", "shoe": 4180 }
-      ],
-      "events": [
         {
-          "type": "Torque Spike",
-          "depth": 3920,
-          "formation": "Barail",
-          "description": "Torque spike in lower Barail shale.",
-          "action": "Reduced WOB and RPM; back-reamed.",
-          "result": "Resolved.",
-          "timeLost": 2,
-          "effective": true,
-          "source": "DDR, 30-Apr-2017, p. 2"
+          "size": "13⅜\"",
+          "shoe": 1125
+        },
+        {
+          "size": "9⅝\"",
+          "shoe": 3380
+        },
+        {
+          "size": "7\"",
+          "shoe": 3580
         }
+      ],
+      "mudWeight": {
+        "min": 1.05,
+        "max": 1.3,
+        "byFormation": {
+          "Alluvium": [
+            1.05,
+            1.08
+          ],
+          "Namsang": [
+            1.08,
+            1.12
+          ],
+          "Girujan": [
+            1.15,
+            1.19
+          ],
+          "Tipam": [
+            1.17,
+            1.19
+          ],
+          "Barail": [
+            1.26,
+            1.3
+          ]
+        }
+      },
+      "nptHours": 0,
+      "events": [],
+      "documents": [
+        "WCR – OW-09.pdf",
+        "DDR – OW-09 – 12-Oct-2020.pdf",
+        "WCR – OW-09 – addendum.pdf"
       ]
     },
     {
       "name": "OW-10",
-      "lat": 27.4272,
-      "lon": 95.296,
-      "year": 2015,
-      "td": 3840,
+      "lat": 27.3589,
+      "lon": 95.2527,
+      "distanceKm": 14.3,
+      "year": 2010,
+      "td": 3640,
+      "tdTvd": 3523,
       "type": "deviated",
-      "bhl": { "lat": 27.4355, "lon": 95.289 },
+      "mainIssue": "No Issue",
+      "trajectory": {
+        "kop": 1700,
+        "inc": 20,
+        "az": 170,
+        "points": [
+          [
+            27.3589,
+            95.2527
+          ],
+          [
+            27.3577,
+            95.2529
+          ],
+          [
+            27.3565,
+            95.2532
+          ],
+          [
+            27.3554,
+            95.2534
+          ],
+          [
+            27.3542,
+            95.2536
+          ],
+          [
+            27.353,
+            95.2539
+          ]
+        ]
+      },
       "formationTops": [
-        { "name": "Alluvium", "top": 0 },
-        { "name": "Namsang", "top": 480 },
-        { "name": "Girujan", "top": 1250 },
-        { "name": "Tipam", "top": 2915 },
-        { "name": "Barail", "top": 3495 }
+        {
+          "name": "Alluvium",
+          "top": 0
+        },
+        {
+          "name": "Namsang",
+          "top": 430
+        },
+        {
+          "name": "Girujan",
+          "top": 1195
+        },
+        {
+          "name": "Tipam",
+          "top": 2860
+        },
+        {
+          "name": "Barail",
+          "top": 3440
+        }
       ],
       "casing": [
-        { "size": "13⅜\"", "shoe": 1190 },
-        { "size": "9⅝\"", "shoe": 3465 },
-        { "size": "7\"", "shoe": 3840 }
-      ],
-      "events": [
         {
-          "type": "Stuck Pipe",
-          "depth": 3640,
-          "formation": "Barail",
-          "description": "Differential sticking at 1.30 SG across depleted Barail sand.",
-          "action": "Jarred and spotted freeing pill; reduced MW to 1.27 SG and kept pipe moving on connections.",
-          "result": "Freed after 19 h.",
-          "timeLost": 19,
-          "effective": true,
-          "source": "DDR, 28-Sep-2015, p. 2"
+          "size": "13⅜\"",
+          "shoe": 1140
+        },
+        {
+          "size": "9⅝\"",
+          "shoe": 3410
+        },
+        {
+          "size": "7\"",
+          "shoe": 3640
         }
+      ],
+      "mudWeight": {
+        "min": 1.05,
+        "max": 1.3,
+        "byFormation": {
+          "Alluvium": [
+            1.05,
+            1.08
+          ],
+          "Namsang": [
+            1.08,
+            1.12
+          ],
+          "Girujan": [
+            1.15,
+            1.2
+          ],
+          "Tipam": [
+            1.17,
+            1.2
+          ],
+          "Barail": [
+            1.26,
+            1.3
+          ]
+        }
+      },
+      "nptHours": 0,
+      "events": [],
+      "documents": [
+        "WCR – OW-10.pdf",
+        "DDR – OW-10 – 18-Apr-2010.pdf",
+        "Mud log – OW-10 – 22-Apr-2010.pdf",
+        "DDR – OW-10 – 05-May-2010.pdf"
       ]
     }
   ]

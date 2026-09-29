@@ -1,10 +1,10 @@
 export type EventType = 'Mud Loss' | 'Stuck Pipe' | 'Kick' | 'Cementing Issue' | 'Torque Spike';
-export type MainIssue = Exclude<EventType, 'Torque Spike'> | 'No major issue';
+export type MainIssue = 'Mud Loss' | 'Stuck Pipe' | 'Kick' | 'Cementing Issue' | 'No Issue';
+export type FilterId = 'All' | MainIssue;
 export type Severity = 'HIGH' | 'MEDIUM' | 'LOW';
 export type RiskLevel = 'low' | 'medium' | 'high';
-export type TabId = 'alerts' | 'wells' | 'ask';
-export type FilterId = 'All' | MainIssue;
-export type ShotMode = 'dashboard' | 'popup' | 'depth' | 'ask' | null;
+export type Role = 'field' | 'office';
+export type RiskType = 'Mud Loss' | 'Stuck Pipe' | 'Kick' | 'Torque Spike' | 'Cementing Issue';
 
 export interface FormationTop {
   name: string;
@@ -17,89 +17,149 @@ export interface Casing {
   status?: 'set' | 'planned';
 }
 
+export interface SourceRef {
+  docId: number;
+  file: string;
+  report: string;
+  date: string;
+  page: number;
+}
+
 export interface WellEvent {
   type: EventType;
-  depth: number;
+  md: number;
+  tvd: number;
   formation: string;
   description: string;
   action: string;
   result: string;
   timeLost: number;
-  effective: boolean;
-  source: string;
+  workedMw?: number;
+  source: SourceRef;
 }
 
-export interface OffsetWellRaw {
+export interface Trajectory {
+  kop: number;
+  inc: number;
+  az: number;
+  points: [number, number][];
+}
+
+export interface OffsetWell {
   name: string;
   lat: number;
   lon: number;
+  distanceKm: number;
   year: number;
   td: number;
+  tdTvd: number;
   type: 'vertical' | 'deviated';
-  bhl?: { lat: number; lon: number };
+  mainIssue: MainIssue;
+  trajectory?: Trajectory;
   formationTops: FormationTop[];
   casing: Casing[];
-  events: WellEvent[];
-}
-
-export interface OffsetWell extends OffsetWellRaw {
-  distanceKm: number;
-  mainIssue: MainIssue;
+  mudWeight: { min: number; max: number; byFormation: Record<string, [number, number]> };
   nptHours: number;
+  events: WellEvent[];
+  documents: string[];
+  note?: string;
 }
 
 export interface ActiveWell {
   name: string;
   lat: number;
   lon: number;
-  year: number;
   plannedTd: number;
-  type: 'vertical' | 'deviated';
+  type: 'vertical';
   startBitDepth: number;
   holeSection: string;
   formationTops: FormationTop[];
   casing: Casing[];
+  plannedMw: Record<string, number>;
 }
 
-export interface AlertDef {
+export interface ExcerptRow {
+  time: string;
+  hrs: string;
+  text: string;
+  hl?: boolean;
+}
+
+export interface ExtractedField {
+  field: string;
+  value: string;
+  confidence: number;
+}
+
+export type DocType = 'WCR' | 'DDR' | 'Mud log' | 'Casing record';
+export type DocStatus = 'Processed' | 'In review' | 'Failed' | 'Processing';
+
+export interface ReportDoc {
+  id: number;
+  file: string;
+  well: string;
+  type: DocType;
+  date: string;
+  pages: number;
+  method: 'Digital text' | 'OCR';
+  status: DocStatus;
+  eventsExtracted: number;
+  page: number;
+  failReason?: string;
+  excerpt: { title: string; meta: [string, string][]; rows: ExcerptRow[] } | null;
+  extracted: ExtractedField[];
+}
+
+export interface ReviewItem {
   id: string;
-  severity: Severity;
+  docId: number;
+  well: string;
+  event: string;
+  depth: string;
   formation: string;
-  eventType: EventType;
-  targetDepth: number;
-  targetLabel: string;
-  headline: string;
-  finding: string;
-  whatWorked: string;
-  whatWorkedWells: string[];
-  whyQaId: string;
-}
-
-export interface ComputedAlert extends AlertDef {
-  distanceAhead: number;
-  involvedWells: string[];
-  findingText: string;
+  confidence: number;
+  sentence: string;
 }
 
 export interface QaEntry {
   id: string;
   question: string;
+  suggested: boolean;
+  formation: string;
+  depthRange: [number, number];
   keywords: string[];
   answer: string;
-  sources: string[];
+  sources: { docId: number; match: string }[];
 }
 
-export interface ChatMessage {
-  id: number;
-  role: 'user' | 'assistant';
-  text: string;
-  sources?: string[];
-}
-
-export interface RiskInterval {
-  from: number;
-  to: number;
-  level: RiskLevel;
+export interface AlertDef {
+  id: string;
+  kind: 'Look-ahead' | 'Pattern match';
+  severity: Severity;
+  eventType: EventType;
   formation: string;
-  wells: string[];
+  targetDepth?: number;
+  patternWell?: string;
+  title: string;
+  message: string;
+  whatWorked: string;
+  whatWorkedWells: string[];
+  question: string;
+}
+
+export interface ComputedAlert extends AlertDef {
+  distanceAhead: number;
+  involvedWells: string[];
+  text: string;
+  workedWells: string[];
+}
+
+export interface LiveData {
+  minutes: number[];
+  rop: number[];
+  torque: number[];
+  spp: number[];
+  pitVolume: number[];
+  mudWeight: number[];
+  bitDepth: number[];
 }

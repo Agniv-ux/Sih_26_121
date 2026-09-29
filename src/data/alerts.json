@@ -1,41 +1,67 @@
 [
   {
-    "id": "tipam-losses",
+    "id": "tipam-loss",
+    "kind": "Look-ahead",
     "severity": "HIGH",
-    "formation": "Tipam",
     "eventType": "Mud Loss",
+    "formation": "Tipam",
     "targetDepth": 2850,
-    "targetLabel": "Tipam top",
-    "headline": "Approaching Tipam sand in ~{d} m.",
-    "finding": "Partial mud losses in {n} of {m} offset wells at this formation.",
+    "title": "Mud losses expected in Tipam sand",
+    "message": "Approaching Tipam sand in ~{d} m. Partial mud losses in {n} of {m} offset wells at this formation.",
     "whatWorked": "LCM pill + reducing mud weight to 1.18 SG",
     "whatWorkedWells": ["OW-02", "OW-05"],
-    "whyQaId": "why-tipam"
+    "question": "tipam"
+  },
+  {
+    "id": "torque-pattern",
+    "kind": "Pattern match",
+    "severity": "MEDIUM",
+    "eventType": "Stuck Pipe",
+    "formation": "Girujan",
+    "patternWell": "OW-04",
+    "title": "Torque rising, ROP falling",
+    "message": "Torque rising and ROP falling over the last 30 min – similar to readings before stuck pipe in OW-04.",
+    "whatWorked": "Circulate bottoms up, back-ream, hold ROP at 10–12 m/hr with hi-vis sweeps",
+    "whatWorkedWells": ["OW-04"],
+    "question": "torque"
   },
   {
     "id": "barail-stuck",
+    "kind": "Look-ahead",
     "severity": "MEDIUM",
-    "formation": "Barail",
     "eventType": "Stuck Pipe",
+    "formation": "Barail",
     "targetDepth": 3420,
-    "targetLabel": "Barail top",
-    "headline": "Stuck pipe risk in Barail, top ~{d} m ahead.",
-    "finding": "Stuck pipe in {n} of {m} offset wells that reached Barail.",
-    "whatWorked": "Controlled ROP (≤12 m/hr), wiper trips every 150–200 m, keep pipe moving on connections",
+    "title": "Stuck pipe risk in Barail",
+    "message": "Barail top in ~{d} m. Stuck pipe in {n} of {m} offset wells at this formation.",
+    "whatWorked": "Controlled ROP (≤12 m/hr) + wiper trips every 150–200 m",
     "whatWorkedWells": ["OW-01", "OW-04"],
-    "whyQaId": "why-barail"
+    "question": "barail"
   },
   {
-    "id": "cement-9625",
+    "id": "cement-9",
+    "kind": "Look-ahead",
     "severity": "LOW",
-    "formation": "Tipam",
     "eventType": "Cementing Issue",
+    "formation": "Tipam",
     "targetDepth": 3390,
-    "targetLabel": "9⅝\" shoe (planned)",
-    "headline": "9⅝\" casing point in ~{d} m — cement job note.",
-    "finding": "Losses during the 9⅝\" cement job in {n} offset well; top of cement below plan.",
-    "whatWorked": "Cure losses before cementing, lightweight lead slurry, displace at ≤5 bbl/min",
+    "title": "9⅝\" cement job across Tipam",
+    "message": "Planned 9⅝\" shoe in ~{d} m. Cementing problems on 9⅝\" casing in {n} of {m} offset wells (losses during displacement).",
+    "whatWorked": "Cure losses before the job; lighter lead slurry (1.50 SG)",
+    "whatWorkedWells": ["OW-07"],
+    "question": "cement"
+  },
+  {
+    "id": "barail-kick",
+    "kind": "Look-ahead",
+    "severity": "LOW",
+    "eventType": "Kick",
+    "formation": "Barail",
+    "targetDepth": 3885,
+    "title": "Possible overpressure in deep Barail",
+    "message": "Deep Barail sand in ~{d} m. Kick in {n} of {m} offset wells at this formation.",
+    "whatWorked": "Watch background/connection gas; kill mud weight was 1.38 SG",
     "whatWorkedWells": ["OW-06"],
-    "whyQaId": "why-cement"
+    "question": "kick"
   }
 ]
