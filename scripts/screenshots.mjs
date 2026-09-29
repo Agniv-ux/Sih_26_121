@@ -70,6 +70,6 @@ for (const shot of SHOTS) {
 }
 await browser.close();
 if (failures.length) {
-  console.error(`\nNot saved (map tiles unavailable): ${failures.join(', ')}. Check internet access to basemaps.cartocdn.com.`);
+  console.error(`\nNot saved (map tiles unavailable): ${failures.join(', ')}. Check internet access to tile.openstreetmap.org.`);
   process.exit(1);
 }

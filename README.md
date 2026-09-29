@@ -75,7 +75,7 @@ The script waits for network idle, fonts, the Leaflet tile `load` event and a fu
 | Prediction | XGBoost + SHAP | Transparent scoring from offset-well events (`src/lib/risk.ts`) |
 | RAG | bge-m3, pgvector, Llama / Qwen via Ollama (on-premise) | Pre-written answers matched by keywords |
 | Live data | WITSML, Kafka, FastAPI, WebSockets | Timer-based simulation |
-| Frontend | React, Leaflet, ECharts | React 19 + Vite + TypeScript, Tailwind CSS v4, React Router, React-Leaflet (CARTO Positron tiles), Apache ECharts (`echarts-for-react`), Noto Sans |
+| Frontend | React, Leaflet, ECharts | React 19 + Vite + TypeScript, Tailwind CSS v4, React Router, React-Leaflet (OpenStreetMap tiles), Apache ECharts (`echarts-for-react`), Noto Sans |
 | Security | Keycloak, Docker, on-premise | – |
 
 Planned validation: Equinor's public Volve dataset, with recorded real-time data replayed as eRTMAC.
@@ -122,4 +122,4 @@ Or deploy from the command line: `npx vercel --prod`.
 
 ---
 
-Team ALTITUDE · Smart India Hackathon 2026 · SIH26121 · Prototype – sample data for demonstration only. Map data © OpenStreetMap contributors, © CARTO.
+Team ALTITUDE · Smart India Hackathon 2026 · SIH26121 · Prototype – sample data for demonstration only. Map data © OpenStreetMap contributors.
