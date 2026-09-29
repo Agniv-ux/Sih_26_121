@@ -5,6 +5,7 @@ import { ACTIVE } from '../data';
 import { C, FORMATION_COLORS, FORMATION_EDGE, ISSUE_COLORS } from '../lib/constants';
 import { fmtM, sourceLabel } from '../lib/format';
 import { SHOT } from '../lib/shot';
+import { registerChart } from '../lib/charts';
 import { tvd } from '../lib/wells';
 import type { OffsetWell, WellEvent } from '../types';
 
@@ -253,7 +254,7 @@ export default function DepthView({ columns, bitDepth, mode, height, fromDepth }
     ],
   };
 
-  return <ReactECharts option={option} style={{ height, width: '100%' }} notMerge />;
+  return <ReactECharts option={option} style={{ height, width: '100%' }} notMerge onChartReady={(c) => registerChart('depth', c)} />;
 }
 
 

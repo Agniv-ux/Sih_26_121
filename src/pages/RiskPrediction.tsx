@@ -8,6 +8,7 @@ import { C, RISK_COLORS, RISK_STEP_M, RISK_TYPES, RISK_TYPE_LABEL } from '../lib
 import { fmtM } from '../lib/format';
 import { gridStart, riskProfile, type RiskInterval } from '../lib/risk';
 import { SHOT } from '../lib/shot';
+import { registerChart } from '../lib/charts';
 import { useShotReady } from '../lib/useShotReady';
 import { useApp } from '../state/AppState';
 import type { RiskType } from '../types';
@@ -148,7 +149,7 @@ export default function RiskPrediction() {
                 </span>
               </span>
             </div>
-            <ReactECharts option={option} style={{ height: 420, width: '100%' }} onEvents={{ click: onClick }} notMerge />
+            <ReactECharts option={option} style={{ height: 420, width: '100%' }} onEvents={{ click: onClick }} notMerge onChartReady={(c) => registerChart('risk', c)} />
             <div className="border-t border-line px-4 py-2 text-[0.85rem] text-muted">
               Summary: <b className="text-risk-red">{counts.high} high</b> · <b className="text-[#9a6207]">{counts.medium} medium</b> · <b className="text-risk-green">{counts.low} low</b> intervals (highest of the five problem types). Click any cell to see why.
             </div>

@@ -65,6 +65,20 @@ npm run screenshots      # terminal 2 – uses the pre-installed Chromium (no "p
 
 The script waits for network idle, fonts, the Leaflet tile `load` event and a further 1.5 s. If map tiles fail to load, it refuses to save the map screenshots and exits with an error.
 
+## Demo video
+
+`video/nwis_demo.mp4` is a ~2.5 min walkthrough (H.264, 1920×1080, 30 fps, no audio, ready for a voiceover). `video/scene_timings.txt` lists each scene's start and end time.
+
+To re-record it, you need internet access for the map tiles and an ffmpeg build with libx264 (`pip install imageio-ffmpeg` provides one):
+
+```bash
+npm run build
+npm run preview          # terminal 1
+npm run demo-video       # terminal 2 – records the live site (simulation on) and exports video/
+```
+
+The script renders the title, problem and closing cards, records the site with a visible cursor, and burns in the lower-third captions. It stops rather than record a blank map; `--allow-blank-tiles` makes a draft for checking timing. `node scripts/demo-video.mjs --step=build` re-exports from the last recording.
+
 ## Tech stack
 
 | Layer | Planned full system | This prototype |
